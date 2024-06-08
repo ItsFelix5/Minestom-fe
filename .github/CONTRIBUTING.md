@@ -10,7 +10,7 @@
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 
 #### **Do you intend to add a new feature or change an existing one?**
-* Do not open a pull-request on GitHub until you have collected positive feedback about the change from a maintainer.
+* Do not open a pull-request on GitHub until you have collected positive feedback about the change from me (i.am.felix on discord).
 
 #### **Do you have questions about the source code?**
 * Ask any question about how to use Minestom in the GitHub issues section or the community portals.

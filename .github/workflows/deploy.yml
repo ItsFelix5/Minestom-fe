@@ -1,14 +1,16 @@
-name: Build and deploy Javadoc
+name: Build and deploy Minestom-fe and Javadocs
 
 on:
   push:
     branches: [ master ]
+    paths:
+      - src/**
+      - "**.kts"
+      - gradle/**
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 21
@@ -28,3 +30,9 @@ jobs:
           FOLDER: build/docs/javadoc
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLEAR_GLOBS_FILE: ".github/javadoc-publish-clear"
+
+  jitpack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Jitpack Build
+        run: curl "https://jitpack.io/com/github/ItsFelix5/Minestom-fe/${GITHUB_SHA:0:10}/build.log"

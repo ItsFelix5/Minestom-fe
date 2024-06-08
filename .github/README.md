@@ -1,11 +1,9 @@
-![banner](banner_dark.png#gh-dark-mode-only)
-![banner](banner_light.png#gh-light-mode-only)
+![banner](banner.png)
 
 # Minestom
 
-[![license](https://img.shields.io/github/license/Minestom/Minestom?style=for-the-badge&color=b2204c)](../LICENSE)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=for-the-badge)](https://github.com/RichardLitt/standard-readme)  
-[![javadocs](https://img.shields.io/badge/documentation-javadocs-4d7a97?style=for-the-badge)](https://javadoc.minestom.net)
+[![license](https://img.shields.io/github/license/ItsFelix5/Minestom-fe?style=for-the-badge&color=b2204c)](../LICENSE)  
+[![javadocs](https://img.shields.io/badge/documentation-javadocs-4d7a97?style=for-the-badge)](https://itsfelix5.github.io/Minestom-fe)
 [![wiki](https://img.shields.io/badge/documentation-wiki-74aad6?style=for-the-badge)](https://wiki.minestom.net/)
 [![discord-banner](https://img.shields.io/discord/706185253441634317?label=discord&style=for-the-badge&color=7289da)](https://discord.gg/pkFRvqB)
 
@@ -16,9 +14,14 @@ However, we have a complete API which is designed to allow you to make anything 
 
 This is a developer API not meant to be used by end-users. Replacing Bukkit/Forge/Sponge with this **will not work** since we do not implement any of their APIs.
 
+An example of how to use the Minestom-fe library is available [here](https://github.com/ItsFelix5/Minestom-fe-template).
+
+> [!WARNING]
+> `Minestom-fe` is a fork with breaking changes from [`Minestom/Minestom`](https://github.com/Minestom/Minestom). The list of changes can be found [here](./CHANGELOG.md).
+
 # Table of contents
 - [Install](#install)
-- [Usage](#usage)
+- [What is Minestom fe?](#What-is-Minestom-fe)
 - [Why Minestom?](#why-minestom)
 - [Advantages & Disadvantages](#advantages-and-disadvantages)
 - [API](#api)
@@ -31,23 +34,25 @@ Minestom is not installed like Bukkit/Forge/Sponge.
 As Minestom is a Java library, it must be loaded the same way any other Java library may be loaded.
 This means you need to add Minestom as a dependency, add your code and compile by yourself.
 
-Minestom is available on [Maven Central](https://mvnrepository.com/artifact/net.minestom/minestom-snapshots),
-and can be installed like the following (Gradle/Groovy):
+Minestom-fe is available on [Jitpack](https://jitpack.io/#ItsFelix5/Minestom-fe),
+and can be installed like the following (Gradle/Kotlin):
 
-```groovy
+```kotlin
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    maven(url = "https://jitpack.io")
 }
 
 dependencies {
-    implementation 'net.minestom:minestom-snapshots:<???>'
+    implementation("com.github.ItsFelix5:Minestom-fe:<first 10 chars of commit hash>")
 }
 ```
 
-# Usage
-An example of how to use the Minestom library is available [here](/demo).
-Alternatively you can check the official [wiki](https://wiki.minestom.net/) or the [javadocs](https://minestom.github.io/Minestom/).
+
+# What is `Minestom-fe`?
+`Minestom-fe` is a fork of `Minestom/Minestom` with some controversial/breaking changes to suit my own projects better.
+This project was created for improved API simplicity while offering more vanilla features most minigames would use. 
+You are free to use and modify this if you want to.
 
 # Why Minestom?
 Minecraft has evolved a lot since its release, most of the servers today do not take advantage of vanilla features and even have to struggle because of them.
@@ -84,7 +89,7 @@ Being able to create instances directly on the go is a must-have, we believe it 
 Instances also come with performance benefits, unlike some others which will be fully single-threaded or maybe using one thread per world we are using a set number of threads (pool) to manage all chunks independently from instances, meaning using more CPU power.
 
 ## Blocks
-Minestom by default does not know what is a chest, you will have to tell him that it opens an inventory. 
+Minestom by default does not know what is a chest, you will have to tell him that it opens an inventory.
 Every "special blocks" (which aren't only visual) need a specialized handler. After applying this handler, you have a block that can be placed anywhere simply.
 However, all blocks are visually there, they just won't have interaction by default.
 
@@ -98,15 +103,13 @@ It is a field where Minecraft evolved a lot, inventories are now used a lot as c
 Commands are the simplest way of communication between clients and server. Since 1.13 Minecraft has incorporated a new library denominated "Brigadier", we then integrated an API designed to use the full potential of args types.
 
 # Credits
-* The [contributors](https://github.com/Minestom/Minestom/graphs/contributors) of the project
-* [The Minecraft Coalition](https://wiki.vg/) and [`#mcdevs`](https://github.com/mcdevs) -
-   protocol and file formats research.
+* The [contributors](https://github.com/ItsFelix5/Minestom-fe/graphs/contributors) of the project
+* [The Minecraft Coalition](https://wiki.vg/) and [`#mcdevs`](https://github.com/mcdevs) - protocol and file formats research.
 * [The Minecraft Wiki](https://minecraft.wiki) for all their useful info
 * [JProfiler](https://www.ej-technologies.com/products/jprofiler/overview.html) for their amazing Java profiler
 
 # Contributing
 See [the contributing file](CONTRIBUTING.md)!
-All WIP features are previewed as Draft PRs
 
 # License
 This project is licensed under the [Apache License Version 2.0](../LICENSE).

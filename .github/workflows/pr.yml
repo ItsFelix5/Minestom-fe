@@ -2,9 +2,29 @@ name: Build and test Minestom
 
 on:
   pull_request:
-    branches: [ master ]
 
 jobs:
+  # Thanks paper: https://github.com/papermc/paper/blob/master/.github/workflows/close_invalid_prs.yml
+  validate:
+    if: |
+      github.repository != github.event.pull_request.head.repo.full_name &&
+      (
+        github.head_ref == 'master' ||
+        github.event.pull_request.head.repo.owner.type != 'User'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: superbrothers/close-pull-request@v3
+        id: "master_branch"
+        if: github.head_ref == 'master'
+        with:
+          comment: "Please do not open pull requests from the `master` branch, create a new branch instead."
+
+      - uses: superbrothers/close-pull-request@v3
+        id: "org_account"
+        if: github.event.pull_request.head.repo.owner.type != 'User' && steps.master_branch.outcome == 'skipped'
+        with:
+          comment: "Please do not open pull requests from non-user accounts like organisations. Create a fork on a user account instead."
   tests:
     runs-on: ubuntu-latest
     steps:
@@ -30,30 +50,3 @@ jobs:
       run: ./gradlew classes testClasses
     - name: Run Minestom tests
       run: ./gradlew test
-  publish:
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    env:
-      SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      GPG_PASSPHRASE: ${{ secrets.GPG_PASSWORD }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up JDK 21
-        uses: actions/setup-java@v2
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-      - name: Set outputs
-        id: vars
-        run: |
-          export ACTUAL=${{ github.event.pull_request.head.sha }}
-          echo "short_commit_hash=${ACTUAL::10}" >> $GITHUB_OUTPUT
-      - name: Publish to Sonatype
-        env:
-          MINESTOM_VERSION: ${{ github.head_ref }}-${{ steps.vars.outputs.short_commit_hash }}
-          MINESTOM_CHANNEL: snapshot
-        run: |
-          ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
-          echo "Version: ${SHORT_COMMIT_HASH}" >> $GITHUB_STEP_SUMMARY
