@@ -28,7 +28,7 @@ public @interface EnvTest {
         @Override
         public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
             invocation.proceed();
-            EnvImpl env = (EnvImpl) invocationContext.getArguments().get(0);
+            EnvImpl env = (EnvImpl) invocationContext.getArguments().getFirst();
             env.cleanup();
         }
     }
@@ -37,7 +37,8 @@ public @interface EnvTest {
         @Override
         public Env resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
                 throws ParameterResolutionException {
-            return new EnvImpl(MinecraftServer.updateProcess());
+            MinecraftServer.init();
+            return new EnvImpl(MinecraftServer.process());
         }
     }
 }

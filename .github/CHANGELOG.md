@@ -1,4 +1,5 @@
 ## Changelog
-Not a "proper" versioned changelog, just a list of the changes from Minestom master.
+Not a "proper" versioned changelog, just a list of the changes from upstream Minestom.
 
-* nothing yet 
+* Made MinecraftServer static
+* Removed Snapshots

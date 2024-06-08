@@ -1,7 +1,10 @@
 package net.minestom.server.command;
 
 import net.minestom.server.command.Graph.Node;
-import net.minestom.server.command.builder.*;
+import net.minestom.server.command.builder.ArgumentCallback;
+import net.minestom.server.command.builder.CommandContext;
+import net.minestom.server.command.builder.CommandData;
+import net.minestom.server.command.builder.CommandExecutor;
 import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.command.builder.condition.CommandCondition;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;

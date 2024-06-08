@@ -73,10 +73,6 @@ import net.minestom.server.recipe.RecipeManager;
 import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.scoreboard.BelowNameTag;
 import net.minestom.server.scoreboard.Team;
-import net.minestom.server.snapshot.EntitySnapshot;
-import net.minestom.server.snapshot.PlayerSnapshot;
-import net.minestom.server.snapshot.SnapshotImpl;
-import net.minestom.server.snapshot.SnapshotUpdater;
 import net.minestom.server.statistic.PlayerStatistic;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.MathUtils;
@@ -98,8 +94,6 @@ import org.jctools.queues.MpscUnboundedXaddArrayQueue;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -117,8 +111,6 @@ import java.util.function.UnaryOperator;
  * You can easily create your own implementation of this and use it with {@link ConnectionManager#setPlayerProvider(PlayerProvider)}.
  */
 public class Player extends LivingEntity implements CommandSender, Localizable, HoverEventSource<ShowEntity>, Identified, NamedAndIdentified {
-    private static final Logger logger = LoggerFactory.getLogger(Player.class);
-
     private static final DynamicRegistry<DimensionType> DIMENSION_TYPE_REGISTRY = MinecraftServer.getDimensionTypeRegistry();
 
     private static final Component REMOVE_MESSAGE = Component.text("You have been removed from the server without reason.", NamedTextColor.RED);
@@ -2333,12 +2325,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         final String locale = settings.locale;
         if (locale == null) return null;
         return Locale.forLanguageTag(locale.replace("_", "-"));
-    }
-
-    @Override
-    public @NotNull PlayerSnapshot updateSnapshot(@NotNull SnapshotUpdater updater) {
-        final EntitySnapshot snapshot = super.updateSnapshot(updater);
-        return new SnapshotImpl.Player(snapshot, username, gameMode);
     }
 
     /**

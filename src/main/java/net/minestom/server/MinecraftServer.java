@@ -46,8 +46,7 @@ import java.net.SocketAddress;
  * The server needs to be initialized with {@link #init()} and started with {@link #start(String, int)}.
  * You should register all of your dimensions, biomes, commands, events, etc... in-between.
  */
-public final class MinecraftServer {
-
+public class MinecraftServer {
     public static final ComponentLogger LOGGER = ComponentLogger.logger(MinecraftServer.class);
 
     public static final String VERSION_NAME = "1.20.6";
@@ -73,21 +72,12 @@ public final class MinecraftServer {
     private static String brandName = "Minestom";
     private static Difficulty difficulty = Difficulty.NORMAL;
 
-    public static MinecraftServer init() {
-        updateProcess();
-        return new MinecraftServer();
-    }
-
-    @ApiStatus.Internal
-    public static ServerProcess updateProcess() {
-        ServerProcess process;
+    public static void init() {
         try {
-            process = new ServerProcessImpl();
-            serverProcess = process;
+            serverProcess = new ServerProcess();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return process;
     }
 
     /**
@@ -299,13 +289,17 @@ public final class MinecraftServer {
      * @param address the server address
      * @throws IllegalStateException if called before {@link #init()} or if the server is already running
      */
-    public void start(@NotNull SocketAddress address) {
+    public static void start(@NotNull SocketAddress address) {
         serverProcess.start(address);
         new TickSchedulerThread(serverProcess).start();
     }
 
-    public void start(@NotNull String address, int port) {
+    public static void start(@NotNull String address, int port) {
         start(new InetSocketAddress(address, port));
+    }
+
+    public static void start() {
+        start("0.0.0.0", 25565);
     }
 
     /**

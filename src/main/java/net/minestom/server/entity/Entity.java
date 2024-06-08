@@ -34,17 +34,12 @@ import net.minestom.server.permission.PermissionHandler;
 import net.minestom.server.potion.Potion;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.potion.TimedPotion;
-import net.minestom.server.snapshot.EntitySnapshot;
-import net.minestom.server.snapshot.SnapshotImpl;
-import net.minestom.server.snapshot.SnapshotUpdater;
-import net.minestom.server.snapshot.Snapshotable;
 import net.minestom.server.tag.TagHandler;
 import net.minestom.server.tag.Taggable;
 import net.minestom.server.thread.Acquirable;
 import net.minestom.server.timer.Schedulable;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.timer.TaskSchedule;
-import net.minestom.server.utils.ArrayUtils;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.block.BlockIterator;
@@ -77,7 +72,7 @@ import java.util.function.UnaryOperator;
  * <p>
  * To create your own entity you probably want to extend {@link LivingEntity} or {@link EntityCreature} instead.
  */
-public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, EventHandler<EntityEvent>, Taggable,
+public class Entity implements Viewable, Tickable, Schedulable, EventHandler<EntityEvent>, Taggable,
         PermissionHandler, HoverEventSource<ShowEntity>, Sound.Emitter, Shape {
     private static final AtomicInteger LAST_ENTITY_ID = new AtomicInteger();
 
@@ -450,7 +445,7 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
             if (entity.isViewer(player)) {
                 player.sendPacket(entity.getAttachEntityPacket());
             }
-        };
+        }
         // Head position
         player.sendPacket(new EntityHeadLookPacket(getEntityId(), position.yaw()));
     }
@@ -1578,18 +1573,6 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
     }
 
     @Override
-    public @NotNull EntitySnapshot updateSnapshot(@NotNull SnapshotUpdater updater) {
-        final Chunk chunk = currentChunk;
-        final int[] viewersId = this.viewEngine.viewableOption.bitSet.toIntArray();
-        final int[] passengersId = ArrayUtils.mapToIntArray(passengers, Entity::getEntityId);
-        final Entity vehicle = this.vehicle;
-        return new SnapshotImpl.Entity(entityType, uuid, id, position, velocity,
-                updater.reference(instance), chunk.getChunkX(), chunk.getChunkZ(),
-                viewersId, passengersId, vehicle == null ? -1 : vehicle.getEntityId(),
-                tagHandler.readableCopy());
-    }
-
-    @Override
     @ApiStatus.Experimental
     public @NotNull EventNode<EntityEvent> eventNode() {
         return eventNode;
@@ -1744,6 +1727,6 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
         DIGGING,
         SLIDING,
         SHOOTING,
-        INHALING;
+        INHALING
     }
 }
