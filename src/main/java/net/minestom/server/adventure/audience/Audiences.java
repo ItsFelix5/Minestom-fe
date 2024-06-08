@@ -7,41 +7,25 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
+import java.util.stream.StreamSupport;
 
 /**
  * Utility class to access Adventure audiences.
  */
 public class Audiences {
-    private static final SingleAudienceProvider audience = new SingleAudienceProvider();
+    private static final Audience players = PacketGroupingAudience.of(MinecraftServer.getConnectionManager().getOnlinePlayers());
+    private static final AudienceRegistry registry = new AudienceRegistry(new ConcurrentHashMap<>(), CopyOnWriteArrayList::new);
 
     /**
-     * Gets the {@link AudienceProvider} that provides forwarding audiences.
-     *
-     * @return the instance
-     */
-    public static @NotNull AudienceProvider<Audience> single() {
-        return audience;
-    }
-
-    /**
-     * Gets the {@link AudienceProvider} that provides iterables of audience members.
-     *
-     * @return the instance
-     */
-    public static @NotNull AudienceProvider<Iterable<? extends Audience>> iterable() {
-        return audience.collection;
-    }
-
-    /**
-     * Gets all audience members. This returns {@link #players()} combined with
-     * {@link #customs()} and {@link #console()}. This can be a costly operation, so it
-     * is often preferable to use {@link #server()} instead.
+     * Gets all audience members. This returns {@link #players()} combined with {@link #customs()}.
      *
      * @return all audience members
      */
     public static @NotNull Audience all() {
-        return Audience.audience(audience.server, audience.customs());
+        return Audience.audience(players, Audience.audience(registry.all()));
     }
 
     /**
@@ -50,7 +34,7 @@ public class Audiences {
      * @return all players
      */
     public static @NotNull Audience players() {
-        return audience.players;
+        return players;
     }
 
     /**
@@ -64,30 +48,12 @@ public class Audiences {
     }
 
     /**
-     * Gets the console as an audience.
-     *
-     * @return the console
-     */
-    public static @NotNull Audience console() {
-        return MinecraftServer.getCommandManager().getConsoleSender();
-    }
-
-    /**
-     * Gets the combination of {@link #players()} and {@link #console()}.
-     *
-     * @return the audience of all players and the console
-     */
-    public static @NotNull Audience server() {
-        return audience.server;
-    }
-
-    /**
      * Gets all custom audience members.
      *
      * @return all custom audience members
      */
     public static @NotNull Audience customs() {
-        return Audience.audience(audience.iterable().customs());
+        return Audience.audience(registry.all());
     }
 
     /**
@@ -107,7 +73,7 @@ public class Audiences {
      * @return all custom audience members stored using the key
      */
     public static @NotNull Audience custom(@NotNull Key key) {
-        return Audience.audience(audience.iterable().custom(key));
+        return Audience.audience(registry.of(key));
     }
 
     /**
@@ -131,7 +97,7 @@ public class Audiences {
      * @return all custom audience members stored using the key
      */
     public static @NotNull Audience custom(@NotNull Key key, Predicate<Audience> filter) {
-        return Audience.audience(audience.iterable().custom(key, filter));
+        return Audience.audience(StreamSupport.stream(registry.of(key).spliterator(), false).filter(filter).toList());
     }
 
     /**
@@ -141,7 +107,7 @@ public class Audiences {
      * @return all matching custom audience members
      */
     public static @NotNull Audience customs(@NotNull Predicate<Audience> filter) {
-        return Audience.audience(audience.iterable().customs(filter));
+        return Audience.audience(registry().of(filter));
     }
 
     /**
@@ -151,7 +117,7 @@ public class Audiences {
      * @return all matching audience members
      */
     public static @NotNull Audience all(@NotNull Predicate<Audience> filter) {
-        return Audience.audience(audience.iterable().all(filter));
+        return Audience.audience(players, Audience.audience(registry().of(filter)));
     }
 
     /**
@@ -160,6 +126,6 @@ public class Audiences {
      * @return the registry
      */
     public static @NotNull AudienceRegistry registry() {
-        return audience.iterable().registry();
+        return registry;
     }
 }

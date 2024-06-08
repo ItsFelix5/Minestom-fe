@@ -166,19 +166,4 @@ public final class PacketListenerManager {
     public <T extends ClientPacket> void setConfigurationListener(@NotNull Class<T> packetClass, @NotNull PacketPlayListenerConsumer<T> consumer) {
         setListener(ConnectionState.CONFIGURATION, packetClass, (packet, playerConnection) -> consumer.accept(packet, playerConnection.getPlayer()));
     }
-
-    /**
-     * Sets the listener of a packet.
-     * <p>
-     * WARNING: this will overwrite the default minestom listener, this is not reversible.
-     *
-     * @param packetClass the class of the packet
-     * @param consumer    the new packet's listener
-     * @param <T>         the type of the packet
-     */
-    @Deprecated
-    public <T extends ClientPacket> void setListener(@NotNull Class<T> packetClass, @NotNull PacketPlayListenerConsumer<T> consumer) {
-        setPlayListener(packetClass, consumer);
-    }
-
 }

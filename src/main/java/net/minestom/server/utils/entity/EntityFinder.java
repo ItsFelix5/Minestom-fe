@@ -326,11 +326,8 @@ public class EntityFinder {
                 return List.copyOf(instance.getEntities());
             }
             // Get entities from every instance
-            var instances = MinecraftServer.getInstanceManager().getInstances();
             List<Entity> entities = new ArrayList<>();
-            for (Instance inst : instances) {
-                entities.addAll(inst.getEntities());
-            }
+            for (Instance inst : Instance.getInstances()) entities.addAll(inst.getEntities());
             return entities;
         } else if (targetSelector == TargetSelector.SELF) {
             return self != null ? List.of(self) : List.of();

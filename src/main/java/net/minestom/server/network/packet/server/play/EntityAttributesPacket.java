@@ -54,9 +54,9 @@ public record EntityAttributesPacket(int entityId, List<AttributeInstance> prope
                 writer.write(VAR_INT, modifiers.size());
 
                 for (var modifier : modifiers) {
-                    writer.write(UUID, modifier.getId());
-                    writer.write(DOUBLE, modifier.getAmount());
-                    writer.write(BYTE, (byte) modifier.getOperation().getId());
+                    writer.write(UUID, modifier.id());
+                    writer.write(DOUBLE, modifier.amount());
+                    writer.write(BYTE, (byte) modifier.operation().getId());
                 }
             }
         }

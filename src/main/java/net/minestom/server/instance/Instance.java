@@ -11,14 +11,14 @@ import net.minestom.server.Tickable;
 import net.minestom.server.adventure.audience.PacketGroupingAudience;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.entity.Entity;
-import net.minestom.server.entity.EntityCreature;
-import net.minestom.server.entity.ExperienceOrb;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventHandler;
 import net.minestom.server.event.EventNode;
+import net.minestom.server.event.instance.InstanceRegisterEvent;
 import net.minestom.server.event.instance.InstanceTickEvent;
+import net.minestom.server.event.instance.InstanceUnregisterEvent;
 import net.minestom.server.event.trait.InstanceEvent;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
@@ -34,7 +34,6 @@ import net.minestom.server.tag.Taggable;
 import net.minestom.server.thread.ThreadDispatcher;
 import net.minestom.server.timer.Schedulable;
 import net.minestom.server.timer.Scheduler;
-import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.chunk.ChunkCache;
 import net.minestom.server.utils.chunk.ChunkSupplier;
@@ -47,8 +46,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * Instances are what are called "worlds" in Minecraft, you can add an entity in it using {@link Entity#setInstance(Instance)}.
@@ -56,14 +55,37 @@ import java.util.stream.Collectors;
  * An instance has entities and chunks, each instance contains its own entity list but the
  * chunk implementation has to be defined, see {@link InstanceContainer}.
  * <p>
- * WARNING: when making your own implementation registering the instance manually is required
- * with {@link InstanceManager#registerInstance(Instance)}, and
- * you need to be sure to signal the {@link ThreadDispatcher} of every partition/element changes.
+ * WARNING: when making your own implementation you need to be sure to signal
+ * the {@link ThreadDispatcher} of every partition/element changes.
  */
 public abstract class Instance implements Block.Getter, Block.Setter,
         Tickable, Schedulable, EventHandler<InstanceEvent>, Taggable, PacketGroupingAudience {
+    private static final Set<Instance> instances = new CopyOnWriteArraySet<>();
 
-    private boolean registered;
+    /**
+     * Gets all the registered instances.
+     *
+     * @return an unmodifiable {@link Set} containing all the registered instances
+     */
+    public static @NotNull Set<@NotNull Instance> getInstances() {
+        return Collections.unmodifiableSet(instances);
+    }
+
+    /**
+     * Gets an instance by the given UUID.
+     *
+     * @param uuid UUID of the instance
+     * @return the instance with the given UUID, null if not found
+     */
+    public static @Nullable Instance getInstance(@NotNull UUID uuid) {
+        Optional<Instance> instance = getInstances()
+                .stream()
+                .filter(someInstance -> someInstance.getUniqueId().equals(uuid))
+                .findFirst();
+        return instance.orElse(null);
+    }
+
+    private boolean registered = true;
 
     private final DynamicRegistry.Key<DimensionType> dimensionType;
     private final DimensionType cachedDimensionType; // Cached to prevent self-destruction if the registry is changed, and to avoid the lookups.
@@ -112,35 +134,14 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     /**
      * Creates a new instance.
      *
-     * @param uniqueId      the {@link UUID} of the instance
      * @param dimensionType the {@link DimensionType} of the instance
      */
-    public Instance(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType) {
-        this(uniqueId, dimensionType, dimensionType.namespace());
-    }
-
-    /**
-     * Creates a new instance.
-     *
-     * @param uniqueId      the {@link UUID} of the instance
-     * @param dimensionType the {@link DimensionType} of the instance
-     */
-    public Instance(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType, @NotNull NamespaceID dimensionName) {
-        this(MinecraftServer.getDimensionTypeRegistry(), uniqueId, dimensionType, dimensionName);
-    }
-
-    /**
-     * Creates a new instance.
-     *
-     * @param uniqueId      the {@link UUID} of the instance
-     * @param dimensionType the {@link DimensionType} of the instance
-     */
-    public Instance(@NotNull DynamicRegistry<DimensionType> dimensionTypeRegistry, @NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType, @NotNull NamespaceID dimensionName) {
-        this.uniqueId = uniqueId;
+    public Instance(@NotNull DynamicRegistry.Key<DimensionType> dimensionType) {
+        this.uniqueId = UUID.randomUUID();
         this.dimensionType = dimensionType;
-        this.cachedDimensionType = dimensionTypeRegistry.get(dimensionType);
+        this.cachedDimensionType = MinecraftServer.getDimensionTypeRegistry().get(dimensionType);
         Check.argCondition(cachedDimensionType == null, "The dimension " + dimensionType + " is not registered! Please add it to the registry (`MinecraftServer.getDimensionTypeRegistry().registry(dimensionType)`).");
-        this.dimensionName = dimensionName.asString();
+        this.dimensionName = dimensionType.name();
 
         this.worldBorder = WorldBorder.DEFAULT_BORDER;
         targetBorderDiameter = this.worldBorder.diameter();
@@ -150,12 +151,25 @@ public abstract class Instance implements Block.Getter, Block.Setter,
                 .build();
 
         final ServerProcess process = MinecraftServer.process();
-        if (process != null) {
-            this.eventNode = process.eventHandler().map(this, EventFilter.INSTANCE);
-        } else {
-            // Local nodes require a server process
-            this.eventNode = null;
-        }
+        if (process != null) this.eventNode = process.eventHandler().map(this, EventFilter.INSTANCE);
+        else this.eventNode = null; // Local nodes require a server process
+        instances.add(this);
+        InstanceRegisterEvent event = new InstanceRegisterEvent(this);
+        EventDispatcher.call(event);
+    }
+
+    /**
+     * Unregisters the {@link Instance} internally.
+     */
+    public void unregisterInstance() {
+        Check.stateCondition(!registered, "This instance has already been unregistered.");
+        long onlinePlayers = getPlayers().stream().filter(Player::isOnline).count();
+        Check.stateCondition(onlinePlayers > 0, "You cannot unregister an instance with players inside.");
+        InstanceUnregisterEvent event = new InstanceUnregisterEvent(this);
+        EventDispatcher.call(event);
+        // Unregister
+        registered = false;
+        instances.remove(this);
     }
 
     /**
@@ -307,7 +321,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
      *
      * @return the future called once the instance data has been saved
      */
-    @ApiStatus.Experimental
     public abstract @NotNull CompletableFuture<Void> saveInstance();
 
     /**
@@ -378,23 +391,12 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     public abstract boolean isInVoid(@NotNull Point point);
 
     /**
-     * Gets if the instance has been registered in {@link InstanceManager}.
+     * Gets if the instance has been registered.
      *
      * @return true if the instance has been registered
      */
     public boolean isRegistered() {
         return registered;
-    }
-
-    /**
-     * Changes the registered field.
-     * <p>
-     * WARNING: should only be used by {@link InstanceManager}.
-     *
-     * @param registered true to mark the instance as registered
-     */
-    protected void setRegistered(boolean registered) {
-        this.registered = registered;
     }
 
     /**
@@ -541,9 +543,8 @@ public abstract class Instance implements Block.Getter, Block.Setter,
         sendNewWorldBorderPackets(worldBorder, transitionMilliseconds);
 
         this.targetBorderDiameter = worldBorder.diameter();
-        long transitionTicks = transitionMilliseconds / MinecraftServer.TICK_MS;
-        remainingWorldBorderTransitionTicks = transitionTicks;
-        if (transitionTicks == 0) this.worldBorder = worldBorder;
+        remainingWorldBorderTransitionTicks = transitionMilliseconds / ServerFlag.SERVER_TICKS_MS;
+        if (remainingWorldBorderTransitionTicks == 0) this.worldBorder = worldBorder;
         else this.worldBorder = worldBorder.withDiameter(this.worldBorder.diameter());
     }
 
@@ -559,7 +560,7 @@ public abstract class Instance implements Block.Getter, Block.Setter,
      * Creates the {@link InitializeWorldBorderPacket} sent to players who join this instance.
      */
     public @NotNull InitializeWorldBorderPacket createInitializeWorldBorderPacket() {
-        return worldBorder.createInitializePacket(targetBorderDiameter, remainingWorldBorderTransitionTicks * MinecraftServer.TICK_MS);
+        return worldBorder.createInitializePacket(targetBorderDiameter, remainingWorldBorderTransitionTicks * ServerFlag.SERVER_TICKS_MS);
     }
 
     private void sendNewWorldBorderPackets(@NotNull WorldBorder newBorder, long transitionMilliseconds) {
@@ -617,32 +618,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     @Override
     public @NotNull Set<@NotNull Player> getPlayers() {
         return entityTracker.entities(EntityTracker.Target.PLAYERS);
-    }
-
-    /**
-     * Gets the creatures in the instance;
-     *
-     * @return an unmodifiable {@link Set} containing all the creatures in the instance
-     */
-    @Deprecated
-    public @NotNull Set<@NotNull EntityCreature> getCreatures() {
-        return entityTracker.entities().stream()
-                .filter(EntityCreature.class::isInstance)
-                .map(entity -> (EntityCreature) entity)
-                .collect(Collectors.toUnmodifiableSet());
-    }
-
-    /**
-     * Gets the experience orbs in the instance.
-     *
-     * @return an unmodifiable {@link Set} containing all the experience orbs in the instance
-     */
-    @Deprecated
-    public @NotNull Set<@NotNull ExperienceOrb> getExperienceOrbs() {
-        return entityTracker.entities().stream()
-                .filter(ExperienceOrb.class::isInstance)
-                .map(entity -> (ExperienceOrb) entity)
-                .collect(Collectors.toUnmodifiableSet());
     }
 
     /**
@@ -713,7 +688,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
         return getChunk(point.chunkX(), point.chunkZ());
     }
 
-    @ApiStatus.Experimental
     public EntityTracker getEntityTracker() {
         return entityTracker;
     }
@@ -832,7 +806,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     }
 
     @Override
-    @ApiStatus.Experimental
     public @NotNull EventNode<InstanceEvent> eventNode() {
         return eventNode;
     }

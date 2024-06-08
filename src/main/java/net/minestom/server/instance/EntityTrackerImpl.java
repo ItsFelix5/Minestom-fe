@@ -205,9 +205,9 @@ final class EntityTrackerImpl implements EntityTracker {
     }
 
     @Override
-    public @NotNull Viewable viewable(@NotNull List<@NotNull SharedInstance> sharedInstances, int chunkX, int chunkZ) {
+    public @NotNull Viewable viewable(int chunkX, int chunkZ) {
         var entry = targetEntries[Target.PLAYERS.ordinal()];
-        return entry.viewers.computeIfAbsent(new ChunkViewKey(sharedInstances, chunkX, chunkZ), ChunkView::new);
+        return entry.viewers.computeIfAbsent(new ChunkViewKey(chunkX, chunkZ), ChunkView::new);
     }
 
     private static class EntityTrackerEntry {
@@ -250,14 +250,12 @@ final class EntityTrackerImpl implements EntityTracker {
                 });
     }
 
-    record ChunkViewKey(List<SharedInstance> sharedInstances, int chunkX, int chunkZ) {
+    record ChunkViewKey(int chunkX, int chunkZ) {
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
             if (!(obj instanceof ChunkViewKey key)) return false;
-            return sharedInstances == key.sharedInstances &&
-                    chunkX == key.chunkX &&
-                    chunkZ == key.chunkZ;
+            return chunkX == key.chunkX && chunkZ == key.chunkZ;
         }
     }
 
@@ -321,11 +319,6 @@ final class EntityTrackerImpl implements EntityTracker {
         private Collection<Player> references() {
             Int2ObjectOpenHashMap<Player> entityMap = new Int2ObjectOpenHashMap<>(lastReferenceCount);
             collectPlayers(EntityTrackerImpl.this, entityMap);
-            if (!key.sharedInstances.isEmpty()) {
-                for (SharedInstance instance : key.sharedInstances) {
-                    collectPlayers(instance.getEntityTracker(), entityMap);
-                }
-            }
             this.lastReferenceCount = entityMap.size();
             return entityMap.values();
         }

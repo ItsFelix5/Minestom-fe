@@ -28,10 +28,9 @@ public final class TagManager {
 
     public @Nullable Tag getTag(Tag.BasicType type, String namespace) {
         final var tags = tagMap.get(type);
-        for (var tag : tags) {
-            if (tag.getName().asString().equals(namespace))
+        for (var tag : tags)
+            if (tag.name().equals(namespace))
                 return tag;
-        }
         return null;
     }
 

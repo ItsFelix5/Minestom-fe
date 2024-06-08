@@ -1,7 +1,6 @@
 package net.minestom.server.instance;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.instance.anvil.AnvilLoader;
 import net.minestom.server.utils.async.AsyncUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,8 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Interface implemented to change the way chunks are loaded/saved.
- * <p>
- * See {@link AnvilLoader} for the default implementation used in {@link InstanceContainer}.
  */
 public interface IChunkLoader {
 

@@ -13,6 +13,7 @@ public final class ServerFlag {
 
     // Server Behavior
     public static final int SERVER_TICKS_PER_SECOND = Integer.getInteger("minestom.tps", 20);
+    public static final int SERVER_TICKS_MS = 1000 / SERVER_TICKS_PER_SECOND;
     public static final int SERVER_MAX_TICK_CATCH_UP = Integer.getInteger("minestom.max-tick-catch-up", 5);
     public static final int CHUNK_VIEW_DISTANCE = Integer.getInteger("minestom.chunk-view-distance", 8);
     public static final int ENTITY_VIEW_DISTANCE = Integer.getInteger("minestom.entity-view-distance", 5);
@@ -33,6 +34,7 @@ public final class ServerFlag {
     public static final boolean GROUPED_PACKET = PropertyUtils.getBoolean("minestom.grouped-packet", true);
     public static final boolean CACHED_PACKET = PropertyUtils.getBoolean("minestom.cached-packet", true);
     public static final boolean VIEWABLE_PACKET = PropertyUtils.getBoolean("minestom.viewable-packet", true);
+    public static final int COMPRESSION_THRESHOLD = Integer.getInteger("minestom.compression-threshold", 256);
 
     // Tags
     public static final boolean TAG_HANDLER_CACHE_ENABLED = PropertyUtils.getBoolean("minestom.tag-handler-cache", true);

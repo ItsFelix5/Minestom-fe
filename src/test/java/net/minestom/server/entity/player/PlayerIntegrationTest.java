@@ -7,6 +7,7 @@ import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.*;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.event.player.PlayerGameModeChangeEvent;
+import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.message.ChatMessageType;
 import net.minestom.server.network.packet.client.common.ClientSettingsPacket;
 import net.minestom.server.network.packet.server.ServerPacket;
@@ -148,7 +149,7 @@ public class PlayerIntegrationTest {
         final var testDimension = env.process().dimensionType().register(DimensionType.builder(NamespaceID.from("minestom:test_dimension")).build());
 
         var instance = env.createFlatInstance();
-        var instance2 = env.process().instance().createInstanceContainer(testDimension);
+        var instance2 = new InstanceContainer(testDimension);
 
         var connection = env.createConnection();
         var player = connection.connect(instance, new Pos(0, 42, 0)).join();
@@ -182,7 +183,7 @@ public class PlayerIntegrationTest {
         String dimensionNamespace = "minestom:test_dimension";
         final var testDimension = env.process().dimensionType().register(DimensionType.builder(NamespaceID.from(dimensionNamespace)).build());
 
-        var instance = env.process().instance().createInstanceContainer(testDimension);
+        var instance = new InstanceContainer(testDimension);
         var connection = env.createConnection();
         var player = connection.connect(instance, new Pos(5, 42, 2)).join();
 

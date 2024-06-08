@@ -7,6 +7,7 @@ import net.minestom.server.event.Event;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.instance.IChunkLoader;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,16 +45,18 @@ public interface Env {
     }
 
     default @NotNull Instance createFlatInstance() {
-        return createFlatInstance(null);
+        var instance = new InstanceContainer();
+        instance.setGenerator(unit -> unit.modifier().fillHeight(0, 40, Block.STONE));
+        return instance;
     }
 
     default @NotNull Instance createFlatInstance(IChunkLoader chunkLoader) {
-        var instance = process().instance().createInstanceContainer(chunkLoader);
+        var instance = new InstanceContainer(chunkLoader);
         instance.setGenerator(unit -> unit.modifier().fillHeight(0, 40, Block.STONE));
         return instance;
     }
 
     default void destroyInstance(Instance instance) {
-        process().instance().unregisterInstance(instance);
+        instance.unregisterInstance();
     }
 }

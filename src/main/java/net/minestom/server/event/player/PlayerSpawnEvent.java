@@ -20,17 +20,6 @@ public class PlayerSpawnEvent implements PlayerInstanceEvent {
     }
 
     /**
-     * Gets the player's new instance.
-     *
-     * @return the instance
-     */
-    @NotNull
-    @Deprecated
-    public Instance getSpawnInstance() {
-        return spawnInstance;
-    }
-
-    /**
      * 'true' if the player is spawning for the first time. 'false' if this spawn event was triggered by a dimension teleport
      *
      * @return true if this is the first spawn, false otherwise

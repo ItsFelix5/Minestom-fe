@@ -64,14 +64,6 @@ public final class Tag implements ProtocolObject {
         return name;
     }
 
-    /**
-     * Returns the name of this tag
-     */
-    @Deprecated
-    public NamespaceID getName() {
-        return name;
-    }
-
     public enum BasicType {
         BLOCKS("minecraft:block", Registry.Resource.BLOCK_TAGS,
                 name -> Objects.requireNonNull(Block.fromNamespaceId(name)).id()),

@@ -37,7 +37,7 @@ public record TagsPacket(
             writer.write(STRING, type.getIdentifier());
             writer.write(VAR_INT, tags.size());
             for (var tag : tags) {
-                writer.write(STRING, tag.getName().asString());
+                writer.write(STRING, tag.name());
                 final var values = tag.getValues();
                 writer.write(VAR_INT, values.size());
                 for (var name : values) {

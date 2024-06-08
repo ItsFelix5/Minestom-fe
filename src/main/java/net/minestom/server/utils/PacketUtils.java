@@ -22,7 +22,6 @@ import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.server.CachedPacket;
 import net.minestom.server.network.packet.server.FramedPacket;
-import net.minestom.server.network.packet.server.SendablePacket;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.network.player.PlayerSocketConnection;
@@ -114,7 +113,6 @@ public final class PacketUtils {
      * Note: {@link ServerPacket.ComponentHolding}s are not translated inside a {@link CachedPacket}.
      *
      * @see CachedPacket#body(ConnectionState)
-     * @see PlayerSocketConnection#writePacketSync(SendablePacket, boolean)
      */
     static boolean shouldUseCachePacket(final @NotNull ServerPacket packet) {
         if (!MinestomAdventure.AUTOMATIC_COMPONENT_TRANSLATION) return ServerFlag.GROUPED_PACKET;
@@ -157,7 +155,6 @@ public final class PacketUtils {
         sendGroupedPacket(MinecraftServer.getConnectionManager().getOnlinePlayers(), packet);
     }
 
-    @ApiStatus.Experimental
     public static void prepareViewablePacket(@NotNull Viewable viewable, @NotNull ServerPacket serverPacket,
                                              @Nullable Entity entity) {
         if (entity != null && !entity.hasPredictableViewers()) {
@@ -174,7 +171,6 @@ public final class PacketUtils {
         storage.append(viewable, serverPacket, exception);
     }
 
-    @ApiStatus.Experimental
     public static void prepareViewablePacket(@NotNull Viewable viewable, @NotNull ServerPacket serverPacket) {
         prepareViewablePacket(viewable, serverPacket, null);
     }
@@ -249,7 +245,7 @@ public final class PacketUtils {
                                          @NotNull ServerPacket packet,
                                          boolean compression) {
         writeFramedPacket(buffer, packet.getId(state), packet,
-                compression ? MinecraftServer.getCompressionThreshold() : 0);
+                compression ? ServerFlag.COMPRESSION_THRESHOLD : 0);
     }
 
     public static void writeFramedPacket(@NotNull ByteBuffer buffer,
@@ -304,7 +300,7 @@ public final class PacketUtils {
 
     @ApiStatus.Internal
     public static ByteBuffer createFramedPacket(@NotNull ConnectionState state, @NotNull ByteBuffer buffer, @NotNull ServerPacket packet) {
-        return createFramedPacket(state, buffer, packet, MinecraftServer.getCompressionThreshold() > 0);
+        return createFramedPacket(state, buffer, packet, true);
     }
 
     @ApiStatus.Internal

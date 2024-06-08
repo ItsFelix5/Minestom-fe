@@ -12,7 +12,6 @@ import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.gamedata.tags.TagManager;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
-import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.banner.BannerPattern;
 import net.minestom.server.item.armor.TrimMaterial;
@@ -61,7 +60,6 @@ public final class ServerProcess implements Registries {
     private final ConnectionManager connection;
     private final PacketListenerManager packetListener;
     private final PacketProcessor packetProcessor;
-    private final InstanceManager instance;
     private final BlockManager block;
     private final CommandManager command;
     private final RecipeManager recipe;
@@ -96,7 +94,6 @@ public final class ServerProcess implements Registries {
         this.connection = new ConnectionManager();
         this.packetListener = new PacketListenerManager();
         this.packetProcessor = new PacketProcessor(packetListener);
-        this.instance = new InstanceManager(this);
         this.block = new BlockManager();
         this.command = new CommandManager();
         this.recipe = new RecipeManager();
@@ -140,10 +137,6 @@ public final class ServerProcess implements Registries {
 
     public @NotNull ConnectionManager connection() {
         return connection;
-    }
-
-    public @NotNull InstanceManager instance() {
-        return instance;
     }
 
     public @NotNull BlockManager block() {
@@ -290,7 +283,7 @@ public final class ServerProcess implements Registries {
 
         private void serverTick(long tickStart) {
             // Tick all instances
-            for (Instance instance : instance().getInstances()) {
+            for (Instance instance : Instance.getInstances()) {
                 try {
                     instance.tick(tickStart);
                 } catch (Exception e) {

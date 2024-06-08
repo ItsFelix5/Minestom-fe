@@ -110,7 +110,6 @@ public class Tag<T> {
                 path, null, listScope);
     }
 
-    @ApiStatus.Experimental
     @Contract(value = "-> new", pure = true)
     public Tag<List<T>> list() {
         var entry = this.entry;
@@ -145,7 +144,6 @@ public class Tag<T> {
                 null, path, co, listScope + 1);
     }
 
-    @ApiStatus.Experimental
     @Contract(value = "_ -> new", pure = true)
     public Tag<T> path(@NotNull String @Nullable ... path) {
         if (path == null || path.length == 0) {
@@ -307,12 +305,10 @@ public class Tag<T> {
         return Structure("", serializer);
     }
 
-    @ApiStatus.Experimental
     public static <T extends Record> @NotNull Tag<T> Structure(@NotNull String key, @NotNull Class<T> type) {
         return Structure(key, TagRecord.serializer(type));
     }
 
-    @ApiStatus.Experimental
     public static <T extends Record> @NotNull Tag<T> View(@NotNull Class<T> type) {
         return View(TagRecord.serializer(type));
     }

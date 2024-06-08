@@ -2,9 +2,7 @@ package net.minestom.server.adventure.audience;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.audience.ForwardingAudience;
-import net.kyori.adventure.audience.MessageType;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.sound.SoundStop;
 import net.kyori.adventure.text.Component;
@@ -13,8 +11,6 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.adventure.AdventurePacketConvertor;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.entity.Player;
-import net.minestom.server.message.ChatPosition;
-import net.minestom.server.message.Messenger;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.play.ActionBarPacket;
 import net.minestom.server.network.packet.server.play.ClearTitlesPacket;
@@ -55,12 +51,6 @@ public interface PacketGroupingAudience extends ForwardingAudience {
      */
     default void sendGroupedPacket(@NotNull ServerPacket packet) {
         PacketUtils.sendGroupedPacket(getPlayers(), packet);
-    }
-
-    @Deprecated
-    @Override
-    default void sendMessage(@NotNull Identity source, @NotNull Component message, @NotNull MessageType type) {
-        Messenger.sendMessage(this.getPlayers(), message, ChatPosition.fromMessageType(type), source.uuid());
     }
 
     @Override

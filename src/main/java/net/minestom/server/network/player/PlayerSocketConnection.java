@@ -1,6 +1,7 @@
 package net.minestom.server.network.player;
 
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.ServerFlag;
 import net.minestom.server.adventure.MinestomAdventure;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventDispatcher;
@@ -142,9 +143,8 @@ public class PlayerSocketConnection extends PlayerConnection {
      */
     public void startCompression() {
         Check.stateCondition(compressed, "Compression is already enabled!");
-        final int threshold = MinecraftServer.getCompressionThreshold();
-        Check.stateCondition(threshold == 0, "Compression cannot be enabled because the threshold is equal to 0");
-        sendPacket(new SetCompressionPacket(threshold));
+        if(ServerFlag.COMPRESSION_THRESHOLD == 0) return;
+        sendPacket(new SetCompressionPacket(ServerFlag.COMPRESSION_THRESHOLD));
         this.compressed = true;
     }
 

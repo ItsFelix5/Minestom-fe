@@ -28,10 +28,6 @@ public class ArgumentBlockState extends Argument<Block> {
         return "minecraft:block_state";
     }
 
-    /**
-     * @deprecated use {@link Argument#parse(CommandSender, Argument)}
-     */
-    @Deprecated
     public static Block staticParse(@NotNull String input) throws ArgumentSyntaxException {
         final int nbtIndex = input.indexOf("[");
         if (nbtIndex == 0)

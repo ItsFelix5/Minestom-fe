@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-@ApiStatus.Experimental
 public sealed interface Acquirable<T> permits AcquirableImpl {
 
     /**

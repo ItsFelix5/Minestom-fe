@@ -4,6 +4,7 @@ package net.minestom.server.registry;
 import net.kyori.adventure.key.Key;
 import net.minestom.server.fluid.Fluid;
 import net.minestom.server.utils.NamespaceID;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public final class FluidRegistries {
     /**
      * Should only be used for internal code, please use the get* methods.
      */
-    @Deprecated
+    @ApiStatus.Internal
     public static final HashMap<NamespaceID, Fluid> fluids = new HashMap<>();
 
     /**

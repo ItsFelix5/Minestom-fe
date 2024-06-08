@@ -22,7 +22,6 @@ import java.util.function.Consumer;
  * <p>
  * Implementations are expected to be thread-safe.
  */
-@ApiStatus.Experimental
 public sealed interface EntityTracker permits EntityTrackerImpl {
     static @NotNull EntityTracker newTracker() {
         return new EntityTrackerImpl();
@@ -92,11 +91,7 @@ public sealed interface EntityTracker permits EntityTrackerImpl {
         return entities(Target.ENTITIES);
     }
 
-    @NotNull Viewable viewable(@NotNull List<@NotNull SharedInstance> sharedInstances, int chunkX, int chunkZ);
-
-    default @NotNull Viewable viewable(int chunkX, int chunkZ) {
-        return viewable(List.of(), chunkX, chunkZ);
-    }
+    @NotNull Viewable viewable(int chunkX, int chunkZ);
 
     /**
      * Represents the type of entity you want to retrieve.

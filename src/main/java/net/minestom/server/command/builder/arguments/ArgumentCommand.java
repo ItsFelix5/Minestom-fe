@@ -6,7 +6,6 @@ import net.minestom.server.command.builder.CommandDispatcher;
 import net.minestom.server.command.builder.CommandResult;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
 import net.minestom.server.utils.StringUtils;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class ArgumentCommand extends Argument<CommandResult> {
@@ -54,7 +53,6 @@ public class ArgumentCommand extends Argument<CommandResult> {
         return shortcut;
     }
 
-    @ApiStatus.Experimental
     public ArgumentCommand setShortcut(@NotNull String shortcut) {
         this.shortcut = shortcut;
         return this;

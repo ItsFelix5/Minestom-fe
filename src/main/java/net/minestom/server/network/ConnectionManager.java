@@ -214,10 +214,7 @@ public final class ConnectionManager {
             final PlayerConnection playerConnection = player.getPlayerConnection();
 
             // Compression
-            if (playerConnection instanceof PlayerSocketConnection socketConnection) {
-                final int threshold = MinecraftServer.getCompressionThreshold();
-                if (threshold > 0) socketConnection.startCompression();
-            }
+            if (playerConnection instanceof PlayerSocketConnection socketConnection) socketConnection.startCompression();
 
             // Call pre login event
             LoginPluginMessageProcessor pluginMessageProcessor = playerConnection.loginPluginMessageProcessor();
@@ -226,13 +223,10 @@ public final class ConnectionManager {
             if (!player.isOnline())
                 return; // Player has been kicked
 
-            // Change UUID/Username based on the event
+            // Change Username based on the event
             {
                 final String eventUsername = asyncPlayerPreLoginEvent.getUsername();
-                final UUID eventUuid = asyncPlayerPreLoginEvent.getPlayerUuid();
-                if (!player.getUsername().equals(eventUsername)) {
-                    player.setUsernameField(eventUsername);
-                }
+                if (!player.getUsername().equals(eventUsername)) player.setUsernameField(eventUsername);
             }
 
             // Wait for pending login plugin messages

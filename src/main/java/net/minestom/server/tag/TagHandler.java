@@ -1,7 +1,6 @@
 package net.minestom.server.tag;
 
 import net.kyori.adventure.nbt.CompoundBinaryTag;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -48,19 +47,15 @@ public interface TagHandler extends TagReadable, TagWritable {
      */
     @NotNull CompoundBinaryTag asCompound();
 
-    @ApiStatus.Experimental
     <T> void updateTag(@NotNull Tag<T> tag,
                        @NotNull UnaryOperator<@UnknownNullability T> value);
 
-    @ApiStatus.Experimental
     <T> @UnknownNullability T updateAndGetTag(@NotNull Tag<T> tag,
                                               @NotNull UnaryOperator<@UnknownNullability T> value);
 
-    @ApiStatus.Experimental
     <T> @UnknownNullability T getAndUpdateTag(@NotNull Tag<T> tag,
                                               @NotNull UnaryOperator<@UnknownNullability T> value);
 
-    @ApiStatus.Experimental
     static @NotNull TagHandler newHandler() {
         return new TagHandlerImpl();
     }

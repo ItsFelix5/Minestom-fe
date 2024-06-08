@@ -14,21 +14,6 @@ import java.util.Collection;
  * This interface represents all scoreboard of Minecraft.
  */
 public interface Scoreboard extends Viewable, PacketGroupingAudience {
-
-    /**
-     * Creates a creation objective packet.
-     *
-     * @param value The value for the objective
-     * @param type  The type for the objective
-     * @return the creation objective packet
-     * @deprecated Use {@link #getCreationObjectivePacket(Component, ScoreboardObjectivePacket.Type)}
-     */
-    @Deprecated
-    @NotNull
-    default ScoreboardObjectivePacket getCreationObjectivePacket(String value, ScoreboardObjectivePacket.Type type) {
-        return this.getCreationObjectivePacket(Component.text(value), type);
-    }
-
     /**
      * Creates a creation objective packet.
      *

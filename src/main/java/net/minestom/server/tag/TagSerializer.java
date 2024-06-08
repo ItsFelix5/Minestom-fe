@@ -1,7 +1,6 @@
 package net.minestom.server.tag;
 
 import net.kyori.adventure.nbt.CompoundBinaryTag;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,10 +29,8 @@ public interface TagSerializer<T> {
      */
     void write(@NotNull TagWritable writer, @NotNull T value);
 
-    @ApiStatus.Experimental
     TagSerializer<CompoundBinaryTag> COMPOUND = TagSerializerImpl.COMPOUND;
 
-    @ApiStatus.Experimental
     static <T> TagSerializer<T> fromCompound(@NotNull Function<CompoundBinaryTag, T> reader,
                                              @NotNull Function<T, CompoundBinaryTag> writer) {
         return TagSerializerImpl.fromCompound(reader, writer);

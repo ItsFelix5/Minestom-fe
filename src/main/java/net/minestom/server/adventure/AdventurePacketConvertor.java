@@ -142,19 +142,6 @@ public class AdventurePacketConvertor {
     }
 
     /**
-     * Creates an entity sound packet from an Adventure sound.
-     *
-     * @param sound  the sound
-     * @param entity the entity the sound is coming from
-     * @return the packet
-     * @deprecated Use {@link #createSoundPacket(Sound, Sound.Emitter)}
-     */
-    @Deprecated(forRemoval = true)
-    public static ServerPacket createEntitySoundPacket(@NotNull Sound sound, @NotNull Entity entity) {
-        return createSoundPacket(sound, entity);
-    }
-
-    /**
      * Creates a sound stop packet from a sound stop.
      *
      * @param stop the sound stop

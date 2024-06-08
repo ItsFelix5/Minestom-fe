@@ -94,29 +94,4 @@ public class EntityTrackerIntegrationTest {
         player.teleport(spawnPos).join();
         assertEquals(1, viewable.getViewers().size());
     }
-
-    @Test
-    public void viewableShared(Env env) {
-        final InstanceContainer instance = (InstanceContainer) env.createFlatInstance();
-        var shared = env.process().instance().createSharedInstance(instance);
-        var sharedList = instance.getSharedInstances();
-
-        final Pos spawnPos = new Pos(0, 41, 0);
-        var viewable = instance.getEntityTracker().viewable(sharedList, spawnPos.chunkX(), spawnPos.chunkZ());
-        assertEquals(0, viewable.getViewers().size());
-
-        final Player player = env.createPlayer(instance, spawnPos);
-        assertEquals(1, viewable.getViewers().size());
-        assertSame(viewable, instance.getEntityTracker().viewable(sharedList, spawnPos.chunkX(), spawnPos.chunkZ()));
-
-        player.setInstance(shared).join();
-        assertEquals(1, viewable.getViewers().size());
-
-        player.teleport(new Pos(10_000, 41, 0)).join();
-        assertEquals(0, viewable.getViewers().size());
-
-        var shared2 = env.process().instance().createSharedInstance(instance);
-        player.setInstance(shared2, spawnPos).join();
-        assertEquals(1, viewable.getViewers().size());
-    }
 }

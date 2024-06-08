@@ -68,7 +68,7 @@ public class DynamicChunk extends Chunk {
                          @Nullable BlockHandler.Destroy destroy) {
         final DimensionType instanceDim = instance.getCachedDimensionType();
         if (y >= instanceDim.maxY() || y < instanceDim.minY()) {
-            LOGGER.warn("tried to set a block outside the world bounds, should be within [{}, {}): {}",
+            LOGGER.warn("tried to set a block outside the world bounds, should be within [{}, {}]: {}",
                     instanceDim.minY(), instanceDim.maxY(), y);
             return;
         }

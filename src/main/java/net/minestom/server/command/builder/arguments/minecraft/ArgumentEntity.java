@@ -90,10 +90,6 @@ public class ArgumentEntity extends Argument<EntityFinder> {
         });
     }
 
-    /**
-     * @deprecated use {@link Argument#parse(CommandSender, Argument)}
-     */
-    @Deprecated
     @NotNull
     public static EntityFinder staticParse(@NotNull CommandSender sender, @NotNull String input,
                                            boolean onlySingleEntity, boolean onlyPlayers) throws ArgumentSyntaxException {

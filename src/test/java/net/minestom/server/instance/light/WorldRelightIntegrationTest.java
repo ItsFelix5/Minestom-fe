@@ -1,8 +1,8 @@
 package net.minestom.server.instance.light;
 
-import net.minestom.server.ServerProcess;
 import net.minestom.server.coordinate.Vec;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.testing.Env;
@@ -17,8 +17,8 @@ import static net.minestom.server.instance.BlockLightMergeIntegrationTest.assert
 
 @EnvTest
 public class WorldRelightIntegrationTest {
-    private @NotNull Instance createLightingInstance(@NotNull ServerProcess process) {
-        var instance = process.instance().createInstanceContainer();
+    private @NotNull Instance createLightingInstance() {
+        var instance = new InstanceContainer();
         instance.setGenerator(unit -> {
             unit.modifier().fillHeight(39, 40, Block.STONE);
             unit.subdivide().forEach(u -> u.modifier().setBlock(0, 10, 0, Block.GLOWSTONE));
@@ -46,8 +46,8 @@ public class WorldRelightIntegrationTest {
     }
 
     @Test
-    public void testBlockRemoval(Env env) {
-        Instance instance = createLightingInstance(env.process());
+    public void testBlockRemoval() {
+        Instance instance = createLightingInstance();
         instance.setChunkSupplier(LightingChunk::new);
         for (int x = -3; x <= 3; x++) {
             for (int z = -3; z <= 3; z++) {

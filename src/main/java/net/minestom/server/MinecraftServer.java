@@ -9,7 +9,6 @@ import net.minestom.server.entity.metadata.animal.tameable.WolfMeta;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.gamedata.tags.TagManager;
-import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.banner.BannerPattern;
 import net.minestom.server.item.armor.TrimMaterial;
@@ -28,11 +27,9 @@ import net.minestom.server.scoreboard.TeamManager;
 import net.minestom.server.thread.TickSchedulerThread;
 import net.minestom.server.timer.SchedulerManager;
 import net.minestom.server.utils.PacketUtils;
-import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.Difficulty;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.biome.Biome;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -51,7 +48,6 @@ public class MinecraftServer {
 
     public static final String VERSION_NAME = "1.20.6";
     public static final int PROTOCOL_VERSION = 766;
-    public static final int DATA_VERSION = 3839;
 
     // Threads
     public static final String THREAD_NAME_BENCHMARK = "Ms-Benchmark";
@@ -59,16 +55,9 @@ public class MinecraftServer {
     public static final String THREAD_NAME_TICK_SCHEDULER = "Ms-TickScheduler";
     public static final String THREAD_NAME_TICK = "Ms-Tick";
 
-    // Config
-    // Can be modified at performance cost when increased
-    @Deprecated
-    public static final int TICK_PER_SECOND = ServerFlag.SERVER_TICKS_PER_SECOND;
-    public static final int TICK_MS = 1000 / TICK_PER_SECOND;
-
     // In-Game Manager
-    private static volatile ServerProcess serverProcess;
+    private static volatile ServerProcess  serverProcess;
 
-    private static int compressionThreshold = 256;
     private static String brandName = "Minestom";
     private static Difficulty difficulty = Difficulty.NORMAL;
 
@@ -121,7 +110,6 @@ public class MinecraftServer {
         PacketUtils.broadcastPlayPacket(new ServerDifficultyPacket(difficulty, true));
     }
 
-    @ApiStatus.Experimental
     public static @UnknownNullability ServerProcess process() {
         return serverProcess;
     }
@@ -132,10 +120,6 @@ public class MinecraftServer {
 
     public static @NotNull PacketListenerManager getPacketListenerManager() {
         return serverProcess.packetListener();
-    }
-
-    public static @NotNull InstanceManager getInstanceManager() {
-        return serverProcess.instance();
     }
 
     public static @NotNull BlockManager getBlockManager() {
@@ -185,56 +169,6 @@ public class MinecraftServer {
 
     public static boolean isStarted() {
         return serverProcess.isAlive();
-    }
-
-    public static boolean isStopping() {
-        return !isStarted();
-    }
-
-    /**
-     * Gets the chunk view distance of the server.
-     * <p>
-     * Deprecated in favor of {@link ServerFlag#CHUNK_VIEW_DISTANCE}
-     *
-     * @return the chunk view distance
-     */
-    @Deprecated
-    public static int getChunkViewDistance() {
-        return ServerFlag.CHUNK_VIEW_DISTANCE;
-    }
-
-    /**
-     * Gets the entity view distance of the server.
-     * <p>
-     * Deprecated in favor of {@link ServerFlag#ENTITY_VIEW_DISTANCE}
-     *
-     * @return the entity view distance
-     */
-    @Deprecated
-    public static int getEntityViewDistance() {
-        return ServerFlag.ENTITY_VIEW_DISTANCE;
-    }
-
-    /**
-     * Gets the compression threshold of the server.
-     *
-     * @return the compression threshold, 0 means that compression is disabled
-     */
-    public static int getCompressionThreshold() {
-        return compressionThreshold;
-    }
-
-    /**
-     * Changes the compression threshold of the server.
-     * <p>
-     * WARNING: this need to be called before {@link #start(SocketAddress)}.
-     *
-     * @param compressionThreshold the new compression threshold, 0 to disable compression
-     * @throws IllegalStateException if this is called after the server started
-     */
-    public static void setCompressionThreshold(int compressionThreshold) {
-        Check.stateCondition(serverProcess != null && serverProcess.isAlive(), "The compression threshold cannot be changed after the server has been started.");
-        MinecraftServer.compressionThreshold = compressionThreshold;
     }
 
     public static AdvancementManager getAdvancementManager() {

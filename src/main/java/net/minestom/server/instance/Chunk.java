@@ -69,9 +69,7 @@ public abstract class Chunk implements Block.Getter, Block.Setter, Biome.Getter,
         final DimensionType instanceDim = instance.getCachedDimensionType();
         this.minSection = instanceDim.minY() / CHUNK_SECTION_SIZE;
         this.maxSection = (instanceDim.minY() + instanceDim.height()) / CHUNK_SECTION_SIZE;
-        final List<SharedInstance> shared = instance instanceof InstanceContainer instanceContainer ?
-                instanceContainer.getSharedInstances() : List.of();
-        this.viewable = instance.getEntityTracker().viewable(shared, chunkX, chunkZ);
+        this.viewable = instance.getEntityTracker().viewable(chunkX, chunkZ);
     }
 
     /**

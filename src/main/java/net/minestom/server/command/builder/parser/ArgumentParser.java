@@ -14,7 +14,6 @@ import net.minestom.server.command.builder.arguments.relative.ArgumentRelativeVe
 import net.minestom.server.command.builder.arguments.relative.ArgumentRelativeVec3;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
 import net.minestom.server.utils.StringUtils;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,7 +64,6 @@ public class ArgumentParser {
         ARGUMENT_FUNCTION_MAP.put("relativevec2", ArgumentRelativeVec2::new);
     }
 
-    @ApiStatus.Experimental
     public static @NotNull Argument<?>[] generate(@NotNull String format) {
         List<Argument<?>> result = new ArrayList<>();
 

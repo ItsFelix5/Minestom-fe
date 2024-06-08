@@ -64,9 +64,7 @@ public final class AttributeInstance {
      * @param modifier the modifier to add
      */
     public void addModifier(@NotNull AttributeModifier modifier) {
-        if (modifiers.putIfAbsent(modifier.getId(), modifier) == null) {
-            refreshCachedValue();
-        }
+        if (modifiers.putIfAbsent(modifier.id(), modifier) == null) refreshCachedValue();
     }
 
     /**
@@ -75,7 +73,7 @@ public final class AttributeInstance {
      * @param modifier the modifier to remove
      */
     public void removeModifier(@NotNull AttributeModifier modifier) {
-        removeModifier(modifier.getId());
+        removeModifier(modifier.id());
     }
 
     /**
@@ -115,24 +113,19 @@ public final class AttributeInstance {
         final Collection<AttributeModifier> modifiers = getModifiers();
         double base = getBaseValue();
 
-        for (var modifier : modifiers.stream().filter(mod -> mod.getOperation() == AttributeOperation.ADD_VALUE).toArray(AttributeModifier[]::new)) {
-            base += modifier.getAmount();
-        }
+        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.ADD_VALUE).toArray(AttributeModifier[]::new))
+            base += modifier.amount();
 
         double result = base;
 
-        for (var modifier : modifiers.stream().filter(mod -> mod.getOperation() == AttributeOperation.MULTIPLY_BASE).toArray(AttributeModifier[]::new)) {
-            result += (base * modifier.getAmount());
-        }
-        for (var modifier : modifiers.stream().filter(mod -> mod.getOperation() == AttributeOperation.MULTIPLY_TOTAL).toArray(AttributeModifier[]::new)) {
-            result *= (1.0f + modifier.getAmount());
-        }
+        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_BASE).toArray(AttributeModifier[]::new))
+            result += (base * modifier.amount());
+        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_TOTAL).toArray(AttributeModifier[]::new))
+            result *= (1.0f + modifier.amount());
 
         this.cachedValue = Math.clamp(result, getAttribute().minValue(), getAttribute().maxValue());
 
         // Signal entity
-        if (propertyChangeListener != null) {
-            propertyChangeListener.accept(this);
-        }
+        if (propertyChangeListener != null) propertyChangeListener.accept(this);
     }
 }

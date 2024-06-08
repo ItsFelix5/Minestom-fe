@@ -4,7 +4,6 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.event.trait.CancellableEvent;
 import net.minestom.server.event.trait.PlayerEvent;
 import net.minestom.server.network.packet.server.ServerPacket;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * Currently, do not support viewable packets.
  */
-@ApiStatus.Experimental
 public class PlayerPacketOutEvent implements PlayerEvent, CancellableEvent {
     private final Player player;
     private final ServerPacket packet;

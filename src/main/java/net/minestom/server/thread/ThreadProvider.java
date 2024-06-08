@@ -1,12 +1,10 @@
 package net.minestom.server.thread;
 
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @FunctionalInterface
-@ApiStatus.Experimental
 public interface ThreadProvider<T> {
     static <T> @NotNull ThreadProvider<T> counter() {
         return new ThreadProvider<>() {

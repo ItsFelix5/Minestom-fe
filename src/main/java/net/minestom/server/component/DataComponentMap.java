@@ -3,7 +3,6 @@ package net.minestom.server.component;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
  * <p>This type is capable of storing a patch of added and removed components on top of a 'prototype', or existing
  * set of components. See {@link #diff(DataComponentMap, DataComponentMap)}.</p>
  */
-@ApiStatus.Experimental
 public sealed interface DataComponentMap extends DataComponent.Holder permits DataComponentMapImpl {
     @NotNull DataComponentMap EMPTY = new DataComponentMapImpl(new Int2ObjectArrayMap<>(0));
 

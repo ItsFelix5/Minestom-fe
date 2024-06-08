@@ -8,9 +8,8 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.extras.MojangAuth;
-import net.minestom.server.extras.bungee.BungeeCordProxy;
+import net.minestom.server.extras.VelocityProxy;
 import net.minestom.server.extras.mojangAuth.MojangCrypt;
-import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.network.ConnectionManager;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.login.ClientEncryptionResponsePacket;
@@ -76,14 +75,7 @@ public final class LoginListener {
             ThreadLocalRandom.current().nextBytes(nonce);
             socketConnection.setNonce(nonce);
             socketConnection.sendPacket(new EncryptionRequestPacket("", publicKey, nonce, true));
-        } else {
-            final boolean bungee = BungeeCordProxy.isEnabled();
-            // Offline
-            final UUID playerUuid = bungee && isSocketConnection ?
-                    ((PlayerSocketConnection) connection).gameProfile().uuid() :
-                    CONNECTION_MANAGER.getPlayerConnectionUuid(connection, packet.username());
-            CONNECTION_MANAGER.createPlayer(connection, playerUuid, packet.username());
-        }
+        } else CONNECTION_MANAGER.createPlayer(connection, CONNECTION_MANAGER.getPlayerConnectionUuid(connection, packet.username()), packet.username());
     }
 
     public static void loginEncryptionResponseListener(@NotNull ClientEncryptionResponsePacket packet, @NotNull PlayerConnection connection) {

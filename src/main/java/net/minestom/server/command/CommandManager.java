@@ -21,11 +21,7 @@ import java.util.*;
  * It is also possible to simulate a command using {@link #execute(CommandSender, String)}.
  */
 public final class CommandManager {
-
-    public static final String COMMAND_PREFIX = "/";
-
     private final ServerSender serverSender = new ServerSender();
-    private final ConsoleSender consoleSender = new ConsoleSender();
     private final CommandParser parser = CommandParser.parser();
     private final CommandDispatcher dispatcher = new CommandDispatcher(this);
     private final Map<String, Command> commandMap = new HashMap<>();
@@ -151,15 +147,6 @@ public final class CommandManager {
      */
     public void setUnknownCommandCallback(@Nullable CommandCallback unknownCommandCallback) {
         this.unknownCommandCallback = unknownCommandCallback;
-    }
-
-    /**
-     * Gets the {@link ConsoleSender} (which is used as a {@link CommandSender}).
-     *
-     * @return the {@link ConsoleSender}
-     */
-    public @NotNull ConsoleSender getConsoleSender() {
-        return consoleSender;
     }
 
     /**

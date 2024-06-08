@@ -1,6 +1,5 @@
 package net.minestom.server.command;
 
-import net.kyori.adventure.audience.MessageType;
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.nbt.CompoundBinaryTag;
 import net.kyori.adventure.text.Component;
@@ -70,7 +69,7 @@ public class CommandSenderTest {
         }
 
         @Override
-        public void sendMessage(@NotNull Identity source, @NotNull Component message, @NotNull MessageType type) {
+        public void sendMessage(@NotNull Component message) {
             mostRecentMessage = message;
         }
 

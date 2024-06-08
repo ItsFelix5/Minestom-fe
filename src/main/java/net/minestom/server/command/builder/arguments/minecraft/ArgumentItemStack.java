@@ -46,10 +46,6 @@ public class ArgumentItemStack extends Argument<ItemStack> {
         return "minecraft:item_stack";
     }
 
-    /**
-     * @deprecated use {@link Argument#parse(CommandSender, Argument)}
-     */
-    @Deprecated
     public static ItemStack staticParse(@NotNull String input) throws ArgumentSyntaxException {
         var reader = new StringReader(input);
 

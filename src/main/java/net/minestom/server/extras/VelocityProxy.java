@@ -1,6 +1,5 @@
-package net.minestom.server.extras.velocity;
+package net.minestom.server.extras;
 
-import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.NotNull;

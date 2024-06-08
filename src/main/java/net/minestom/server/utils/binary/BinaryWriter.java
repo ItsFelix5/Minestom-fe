@@ -7,7 +7,6 @@ import net.minestom.server.coordinate.Vec;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.utils.Either;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.OutputStream;
@@ -47,7 +46,6 @@ public class BinaryWriter extends OutputStream {
         this(255);
     }
 
-    @ApiStatus.Experimental
     public static BinaryWriter view(ByteBuffer buffer) {
         return new BinaryWriter(buffer, false);
     }

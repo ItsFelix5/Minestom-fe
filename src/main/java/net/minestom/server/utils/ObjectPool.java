@@ -17,7 +17,6 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 @ApiStatus.Internal
-@ApiStatus.Experimental
 public final class ObjectPool<T> {
     private static final int QUEUE_SIZE = 32_768;
 

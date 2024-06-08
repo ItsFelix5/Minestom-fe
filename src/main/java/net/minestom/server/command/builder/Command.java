@@ -9,7 +9,6 @@ import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.arguments.ArgumentWord;
 import net.minestom.server.command.builder.condition.CommandCondition;
 import net.minestom.server.utils.StringUtils;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -221,7 +220,6 @@ public class Command {
      * @param format   the syntax format
      * @return the newly created {@link CommandSyntax syntaxes}.
      */
-    @ApiStatus.Experimental
     public @NotNull Collection<CommandSyntax> addSyntax(@NotNull CommandExecutor executor, @NotNull String format) {
         return addSyntax(executor, ArgumentType.generate(format));
     }
@@ -302,7 +300,6 @@ public class Command {
     public void globalListener(@NotNull CommandSender sender, @NotNull CommandContext context, @NotNull String command) {
     }
 
-    @ApiStatus.Experimental
     public @NotNull Set<String> getSyntaxesStrings() {
         Set<String> syntaxes = new HashSet<>();
 
@@ -320,7 +317,6 @@ public class Command {
         return syntaxes;
     }
 
-    @ApiStatus.Experimental
     public @NotNull String getSyntaxesTree() {
         Node commandNode = new Node();
         commandNode.names.addAll(Arrays.asList(getNames()));

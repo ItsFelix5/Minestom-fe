@@ -23,7 +23,6 @@ import net.minestom.server.event.trait.EntityEvent;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.EntityTracker;
 import net.minestom.server.instance.Instance;
-import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.instance.block.BlockHandler;
@@ -362,12 +361,10 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
         this.viewEngine.viewableOption.updateAuto(autoViewable);
     }
 
-    @ApiStatus.Experimental
     public void updateViewableRule(@Nullable Predicate<Player> predicate) {
         this.viewEngine.viewableOption.updateRule(predicate);
     }
 
-    @ApiStatus.Experimental
     public void updateViewableRule() {
         this.viewEngine.viewableOption.updateRule();
     }
@@ -378,7 +375,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
      *
      * @return true if surrounding entities are visible by this
      */
-    @ApiStatus.Experimental
     public boolean autoViewEntities() {
         return viewEngine.viewerOption.isAuto();
     }
@@ -388,17 +384,14 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
      *
      * @param autoViewer true to add view surrounding entities, false to remove
      */
-    @ApiStatus.Experimental
     public void setAutoViewEntities(boolean autoViewer) {
         this.viewEngine.viewerOption.updateAuto(autoViewer);
     }
 
-    @ApiStatus.Experimental
     public void updateViewerRule(@Nullable Predicate<Entity> predicate) {
         this.viewEngine.viewerOption.updateRule(predicate);
     }
 
-    @ApiStatus.Experimental
     public void updateViewerRule() {
         this.viewEngine.viewerOption.updateRule();
     }
@@ -739,11 +732,11 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
      * @param spawnPosition the spawn position for the entity.
      * @return a {@link CompletableFuture} called once the entity's instance has been set,
      * this is due to chunks needing to load
-     * @throws IllegalStateException if {@code instance} has not been registered in {@link InstanceManager}
+     * @throws IllegalStateException if {@code instance} has been unregistered
      */
     public CompletableFuture<Void> setInstance(@NotNull Instance instance, @NotNull Pos spawnPosition) {
         Check.stateCondition(!instance.isRegistered(),
-                "Instances need to be registered, please use InstanceManager#registerInstance or InstanceManager#registerSharedInstance");
+                "Instance was unregistered");
         final Instance previousInstance = this.instance;
         if (Objects.equals(previousInstance, instance)) {
             return teleport(spawnPosition); // Already in the instance, teleport to spawn point
@@ -788,7 +781,7 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
      * @return a {@link CompletableFuture} called once the entity's instance has been set,
      * this is due to chunks needing to load
      * @throws NullPointerException  if {@code instance} is null
-     * @throws IllegalStateException if {@code instance} has not been registered in {@link InstanceManager}
+     * @throws IllegalStateException if {@code instance} has been unregistered
      */
     public CompletableFuture<Void> setInstance(@NotNull Instance instance) {
         return setInstance(instance, this.position);
@@ -1557,7 +1550,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
         return HoverEvent.showEntity(ShowEntity.showEntity(this.entityType, this.uuid));
     }
 
-    @ApiStatus.Experimental
     public <T extends Entity> @NotNull Acquirable<T> getAcquirable() {
         return (Acquirable<T>) acquirable;
     }
@@ -1573,7 +1565,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
     }
 
     @Override
-    @ApiStatus.Experimental
     public @NotNull EventNode<EntityEvent> eventNode() {
         return eventNode;
     }

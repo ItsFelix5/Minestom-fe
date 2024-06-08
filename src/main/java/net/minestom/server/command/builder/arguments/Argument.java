@@ -91,7 +91,6 @@ public abstract class Argument<T> {
      * @return the parsed result
      * @throws ArgumentSyntaxException if the argument cannot be parsed due to a fault input (argument id)
      */
-    @ApiStatus.Experimental
     public static <T> @NotNull T parse(@NotNull CommandSender sender, @NotNull Argument<T> argument) throws ArgumentSyntaxException {
         return argument.parse(sender, argument.getId());
     }
@@ -267,12 +266,10 @@ public abstract class Argument<T> {
      * @param <O>    The type of output expected.
      * @return A new ArgumentMap that can get this complex object type.
      */
-    @ApiStatus.Experimental
     public <O> @NotNull Argument<O> map(@NotNull Function<T, O> mapper) {
         return new ArgumentMap<>(this, (p, i) -> mapper.apply(i));
     }
 
-    @ApiStatus.Experimental
     public <O> @NotNull Argument<O> map(@NotNull BiFunction<CommandSender, T, O> mapper) {
         return new ArgumentMap<>(this, mapper);
     }
@@ -283,7 +280,6 @@ public abstract class Argument<T> {
      * @param predicate the argument predicate
      * @return A new ArgumentMap that filters using this filterer.
      */
-    @ApiStatus.Experimental
     public @NotNull Argument<T> filter(@NotNull Predicate<T> predicate) {
         return new ArgumentFilter<>(this, predicate);
     }

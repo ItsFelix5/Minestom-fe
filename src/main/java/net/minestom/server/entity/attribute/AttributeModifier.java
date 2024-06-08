@@ -38,44 +38,4 @@ public record AttributeModifier(
         writer.write(NetworkBuffer.DOUBLE, amount);
         writer.writeEnum(AttributeOperation.class, operation);
     }
-
-    /**
-     * Gets the id of this modifier.
-     *
-     * @return the id of this modifier
-     */
-    @Deprecated
-    public @NotNull UUID getId() {
-        return id;
-    }
-
-    /**
-     * Gets the name of this modifier.
-     *
-     * @return the name of this modifier
-     */
-    @Deprecated
-    public @NotNull String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the value of this modifier.
-     *
-     * @return the value of this modifier
-     */
-    @Deprecated
-    public double getAmount() {
-        return amount;
-    }
-
-    /**
-     * Gets the operation of this modifier.
-     *
-     * @return the operation of this modifier
-     */
-    @Deprecated
-    public @NotNull AttributeOperation getOperation() {
-        return operation;
-    }
 }

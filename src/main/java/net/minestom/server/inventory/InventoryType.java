@@ -45,12 +45,4 @@ public enum InventoryType {
         return size;
     }
 
-    /**
-     * @deprecated use {@link #getSize()}
-     */
-    @Deprecated
-    public int getAdditionalSlot() {
-        return size;
-    }
-
 }

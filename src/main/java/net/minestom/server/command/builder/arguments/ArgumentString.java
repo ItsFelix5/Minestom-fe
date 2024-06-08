@@ -42,10 +42,6 @@ public class ArgumentString extends Argument<String> {
         });
     }
 
-    /**
-     * @deprecated use {@link Argument#parse(CommandSender, Argument)}
-     */
-    @Deprecated
     public static String staticParse(@NotNull String input) throws ArgumentSyntaxException {
         // Return if not quoted
         if (!input.contains(String.valueOf(DOUBLE_QUOTE)) &&

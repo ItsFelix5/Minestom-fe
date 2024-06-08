@@ -1,7 +1,6 @@
 package net.minestom.server.command.builder.condition;
 
 import net.minestom.server.command.CommandSender;
-import net.minestom.server.command.ConsoleSender;
 import net.minestom.server.entity.Player;
 
 /**
@@ -43,12 +42,5 @@ public class Conditions {
      */
     public static boolean playerOnly(CommandSender sender, String commandString) {
         return sender instanceof Player;
-    }
-
-    /**
-     * Will succeed if the command sender is the server console.
-     */
-    public static boolean consoleOnly(CommandSender sender, String commandString) {
-        return sender instanceof ConsoleSender;
     }
 }

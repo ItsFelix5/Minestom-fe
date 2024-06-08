@@ -12,7 +12,6 @@ import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.instance.InstanceChunkLoadEvent;
 import net.minestom.server.event.instance.InstanceChunkUnloadEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
-import net.minestom.server.instance.anvil.AnvilLoader;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.instance.block.BlockHandler;
@@ -24,7 +23,6 @@ import net.minestom.server.network.packet.server.play.BlockEntityDataPacket;
 import net.minestom.server.network.packet.server.play.EffectPacket;
 import net.minestom.server.network.packet.server.play.UnloadChunkPacket;
 import net.minestom.server.registry.DynamicRegistry;
-import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.block.BlockUtils;
@@ -42,7 +40,6 @@ import space.vectrix.flare.fastutil.Long2ObjectSyncMap;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -51,19 +48,14 @@ import java.util.function.Supplier;
 import static net.minestom.server.utils.chunk.ChunkUtils.*;
 
 /**
- * InstanceContainer is an instance that contains chunks in contrary to SharedInstance.
+ * InstanceContainer is an instance that contains chunks
  */
 public class InstanceContainer extends Instance {
     private static final Logger LOGGER = LoggerFactory.getLogger(InstanceContainer.class);
 
-    private static final AnvilLoader DEFAULT_LOADER = new AnvilLoader("world");
-
     private static final BlockFace[] BLOCK_UPDATE_FACES = new BlockFace[]{
             BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.BOTTOM, BlockFace.TOP
     };
-
-    // the shared instances assigned to this instance
-    private final List<SharedInstance> sharedInstances = new CopyOnWriteArrayList<>();
 
     // the chunk generator used, can be null
     private volatile Generator generator;
@@ -82,39 +74,44 @@ public class InstanceContainer extends Instance {
     private boolean autoChunkLoad = true;
 
     // used to supply a new chunk object at a position when requested
-    private ChunkSupplier chunkSupplier;
+    private ChunkSupplier chunkSupplier = DynamicChunk::new;
 
-    // Fields for instance copy
-    protected InstanceContainer srcInstance; // only present if this instance has been created using a copy
     private long lastBlockChangeTime; // Time at which the last block change happened (#setBlock)
 
-    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType) {
-        this(uniqueId, dimensionType, null, dimensionType.namespace());
+    public InstanceContainer() {
+        this(DimensionType.OVERWORLD);
     }
 
-    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType, @NotNull NamespaceID dimensionName) {
-        this(uniqueId, dimensionType, null, dimensionName);
-    }
-
-    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType, @Nullable IChunkLoader loader) {
-        this(uniqueId, dimensionType, loader, dimensionType.namespace());
-    }
-
-    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DynamicRegistry.Key<DimensionType> dimensionType, @Nullable IChunkLoader loader, @NotNull NamespaceID dimensionName) {
-        this(MinecraftServer.getDimensionTypeRegistry(), uniqueId, dimensionType, loader, dimensionName);
+    public InstanceContainer(@NotNull DynamicRegistry.Key<DimensionType> dimensionType) {
+        super(dimensionType);
+        var dispatcher = MinecraftServer.process().dispatcher();
+        getChunks().forEach(dispatcher::createPartition);
     }
 
     public InstanceContainer(
-            @NotNull DynamicRegistry<DimensionType> dimensionTypeRegistry,
-            @NotNull UUID uniqueId,
-            @NotNull DynamicRegistry.Key<DimensionType> dimensionType,
-            @Nullable IChunkLoader loader,
-            @NotNull NamespaceID dimensionName
+            @NotNull IChunkLoader loader
     ) {
-        super(dimensionTypeRegistry, uniqueId, dimensionType, dimensionName);
-        setChunkSupplier(DynamicChunk::new);
-        setChunkLoader(Objects.requireNonNullElse(loader, DEFAULT_LOADER));
-        this.chunkLoader.loadInstance(this);
+        this(DimensionType.OVERWORLD, loader);
+    }
+
+    public InstanceContainer(
+            @NotNull DynamicRegistry.Key<DimensionType> dimensionType,
+            @NotNull IChunkLoader loader
+    ) {
+        this(dimensionType);
+        setChunkLoader(loader);
+        loader.loadInstance(this);
+    }
+
+    @Override
+    public void unregisterInstance() {
+        super.unregisterInstance();
+        // Unload chunks
+        var dispatcher = MinecraftServer.process().dispatcher();
+        getChunks().forEach(c->{
+            this.unloadChunk(c);
+            dispatcher.deletePartition(c);
+        });
     }
 
     @Override
@@ -145,7 +142,7 @@ public class InstanceContainer extends Instance {
         if (chunk.isReadOnly()) return;
         final DimensionType dim = getCachedDimensionType();
         if (y >= dim.maxY() || y < dim.minY()) {
-            LOGGER.warn("tried to set a block outside the world bounds, should be within [{}, {}): {}", dim.minY(), dim.maxY(), y);
+            LOGGER.warn("tried to set a block outside the world bounds, should be within [{}, {}]: {}", dim.minY(), dim.maxY(), y);
             return;
         }
 
@@ -269,9 +266,7 @@ public class InstanceContainer extends Instance {
         // Clear cache
         this.chunks.remove(getChunkIndex(chunkX, chunkZ));
         chunk.unload();
-        if (chunkLoader != null) {
-            chunkLoader.unloadChunk(chunk);
-        }
+        if (chunkLoader != null) chunkLoader.unloadChunk(chunk);
         var dispatcher = MinecraftServer.process().dispatcher();
         dispatcher.deletePartition(chunk);
     }
@@ -283,16 +278,19 @@ public class InstanceContainer extends Instance {
 
     @Override
     public @NotNull CompletableFuture<Void> saveInstance() {
+        if(chunkLoader == null) return AsyncUtils.VOID_FUTURE;
         return chunkLoader.saveInstance(this);
     }
 
     @Override
     public @NotNull CompletableFuture<Void> saveChunkToStorage(@NotNull Chunk chunk) {
+        if(chunkLoader == null) return AsyncUtils.VOID_FUTURE;
         return chunkLoader.saveChunk(chunk);
     }
 
     @Override
     public @NotNull CompletableFuture<Void> saveChunksToStorage() {
+        if(chunkLoader == null) return AsyncUtils.VOID_FUTURE;
         return chunkLoader.saveChunks(getChunks());
     }
 
@@ -301,16 +299,10 @@ public class InstanceContainer extends Instance {
         final long index = getChunkIndex(chunkX, chunkZ);
         final CompletableFuture<Chunk> prev = loadingChunks.putIfAbsent(index, completableFuture);
         if (prev != null) return prev;
-        final IChunkLoader loader = chunkLoader;
-        final Runnable retriever = () -> loader.loadChunk(this, chunkX, chunkZ)
+        final Runnable retriever = () -> (chunkLoader == null? AsyncUtils.<Chunk>empty() : chunkLoader.loadChunk(this, chunkX, chunkZ))
                 .thenCompose(chunk -> {
-                    if (chunk != null) {
-                        // Chunk has been loaded from storage
-                        return CompletableFuture.completedFuture(chunk);
-                    } else {
-                        // Loader couldn't load the chunk, generate it
-                        return createChunk(chunkX, chunkZ).whenComplete((c, a) -> c.onGenerate());
-                    }
+                    if (chunk != null) return CompletableFuture.completedFuture(chunk);// Chunk has been loaded from storage
+                    else return createChunk(chunkX, chunkZ).whenComplete((c, a) -> c.onGenerate());// Loader couldn't load the chunk, generate it
                 })
                 // cache the retrieved chunk
                 .thenAccept(chunk -> {
@@ -327,11 +319,9 @@ public class InstanceContainer extends Instance {
                     MinecraftServer.getExceptionManager().handleException(throwable);
                     return null;
                 });
-        if (loader.supportsParallelLoading()) {
-            CompletableFuture.runAsync(retriever);
-        } else {
-            retriever.run();
-        }
+
+        if (chunkLoader != null && chunkLoader.supportsParallelLoading()) CompletableFuture.runAsync(retriever);
+        else retriever.run();
         return completableFuture;
     }
 
@@ -393,20 +383,16 @@ public class InstanceContainer extends Instance {
                 }
             });
             return resultFuture;
-        } else {
-            // No chunk generator, execute the callback with the empty chunk
-            processFork(chunk);
-            return CompletableFuture.completedFuture(chunk);
         }
+        // No chunk generator, execute the callback with the empty chunk
+        processFork(chunk);
+        return CompletableFuture.completedFuture(chunk);
     }
 
     private void processFork(Chunk chunk) {
         this.generationForks.compute(ChunkUtils.getChunkIndex(chunk), (aLong, sectionModifiers) -> {
-            if (sectionModifiers != null) {
-                for (var sectionModifier : sectionModifiers) {
-                    applyFork(chunk, sectionModifier);
-                }
-            }
+            if (sectionModifiers != null)
+                for (var sectionModifier : sectionModifiers) applyFork(chunk, sectionModifier);
             return null;
         });
     }
@@ -482,46 +468,15 @@ public class InstanceContainer extends Instance {
     }
 
     /**
-     * Gets all the {@link SharedInstance} linked to this container.
-     *
-     * @return an unmodifiable {@link List} containing all the {@link SharedInstance} linked to this container
-     */
-    public List<SharedInstance> getSharedInstances() {
-        return Collections.unmodifiableList(sharedInstances);
-    }
-
-    /**
-     * Gets if this instance has {@link SharedInstance} linked to it.
-     *
-     * @return true if {@link #getSharedInstances()} is not empty
-     */
-    public boolean hasSharedInstances() {
-        return !sharedInstances.isEmpty();
-    }
-
-    /**
-     * Assigns a {@link SharedInstance} to this container.
-     * <p>
-     * Only used by {@link InstanceManager}, mostly unsafe.
-     *
-     * @param sharedInstance the shared instance to assign to this container
-     */
-    protected void addSharedInstance(SharedInstance sharedInstance) {
-        this.sharedInstances.add(sharedInstance);
-    }
-
-    /**
      * Copies all the chunks of this instance and create a new instance container with all of them.
      * <p>
      * Chunks are copied with {@link Chunk#copy(Instance, int, int)},
      * {@link UUID} is randomized and {@link DimensionType} is passed over.
      *
      * @return an {@link InstanceContainer} with the exact same chunks as 'this'
-     * @see #getSrcInstance() to retrieve the "creation source" of the copied instance
      */
     public synchronized InstanceContainer copy() {
-        InstanceContainer copiedInstance = new InstanceContainer(UUID.randomUUID(), getDimensionType());
-        copiedInstance.srcInstance = this;
+        InstanceContainer copiedInstance = new InstanceContainer(getDimensionType());
         copiedInstance.tagHandler = this.tagHandler.copy();
         copiedInstance.lastBlockChangeTime = this.lastBlockChangeTime;
         for (Chunk chunk : chunks.values()) {
@@ -531,18 +486,6 @@ public class InstanceContainer extends Instance {
             copiedInstance.cacheChunk(copiedChunk);
         }
         return copiedInstance;
-    }
-
-    /**
-     * Gets the instance from which this one has been copied.
-     * <p>
-     * Only present if this instance has been created with {@link InstanceContainer#copy()}.
-     *
-     * @return the instance source, null if not created by a copy
-     * @see #copy() to create a copy of this instance with 'this' as the source
-     */
-    public @Nullable InstanceContainer getSrcInstance() {
-        return srcInstance;
     }
 
     /**

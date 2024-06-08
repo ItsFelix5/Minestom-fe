@@ -3,7 +3,6 @@ package net.minestom.server.event;
 import net.minestom.server.event.trait.CancellableEvent;
 import net.minestom.server.tag.Tag;
 import net.minestom.server.tag.TagReadable;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -201,7 +200,6 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @param <E>        the event type
      * @return the handle linked to {@code handleType}
      */
-    @ApiStatus.Experimental
     <E extends T> @NotNull ListenerHandle<E> getHandle(@NotNull Class<E> handleType);
 
     /**
@@ -342,7 +340,6 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      * @param filter the filter to use
      * @return the node (which may have already been registered) directly linked to {@code value}
      */
-    @ApiStatus.Experimental
     <E extends T, H> @NotNull EventNode<E> map(@NotNull H value, @NotNull EventFilter<E, H> filter);
 
     /**
@@ -350,12 +347,9 @@ public sealed interface EventNode<T extends Event> permits EventNodeImpl {
      *
      * @param value the value to unmap
      */
-    @ApiStatus.Experimental
     void unmap(@NotNull Object value);
 
-    @ApiStatus.Experimental
     void register(@NotNull EventBinding<? extends T> binding);
 
-    @ApiStatus.Experimental
     void unregister(@NotNull EventBinding<? extends T> binding);
 }
