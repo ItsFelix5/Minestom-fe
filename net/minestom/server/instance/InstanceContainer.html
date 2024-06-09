@@ -30,7 +30,6 @@ loadScripts(document, 'script');</script>
 <li><a href="package-summary.html">Package</a></li>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
-<li><a href="../../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../../index-all.html">Index</a></li>
 <li><a href="../../../../help-doc.html#class">Help</a></li>
 </ul>
@@ -47,7 +46,7 @@ loadScripts(document, 'script');</script>
 <li>
 <p>Detail:</p>
 <ul>
-<li><a href="#field-detail">Field</a></li>
+<li>Field</li>
 <li><a href="#constructor-detail">Constr</a></li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -65,7 +64,7 @@ loadScripts(document, 'script');</script>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -98,7 +97,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">InstanceContainer</span>
 <span class="extends-implements">extends <a href="Instance.html" title="class in net.minestom.server.instance">Instance</a></span></div>
-<div class="block">InstanceContainer is an instance that contains chunks in contrary to SharedInstance.</div>
+<div class="block">InstanceContainer is an instance that contains chunks</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,15 +117,6 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
-<div class="caption"><span>Fields</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Field</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>protected <a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></code></div>
-<div class="col-second even-row-color"><code><a href="#srcInstance" class="member-name-link">srcInstance</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.minestom.server.instance.Instance">Fields inherited from class&nbsp;net.minestom.server.instance.<a href="Instance.html" title="class in net.minestom.server.instance">Instance</a></h3>
 <code><a href="Instance.html#tagHandler">tagHandler</a>, <a href="Instance.html#uniqueId">uniqueId</a></code></div>
@@ -140,28 +130,15 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">InstanceContainer</a>()</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</code></div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(net.minestom.server.instance.IChunkLoader)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader,net.minestom.server.utils.NamespaceID)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader,
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(net.minestom.server.registry.DynamicRegistry.Key)" class="member-name-link">InstanceContainer</a><wbr>(<a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.utils.NamespaceID)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</code></div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader)" class="member-name-link">InstanceContainer</a><wbr>(<a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
+ @NotNull <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(net.minestom.server.registry.DynamicRegistry,java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader,net.minestom.server.utils.NamespaceID)" class="member-name-link">InstanceContainer</a><wbr>(@NotNull <a href="../registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionTypeRegistry,
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader,
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -176,84 +153,64 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addSharedInstance(net.minestom.server.instance.SharedInstance)" class="member-name-link">addSharedInstance</a><wbr>(<a href="SharedInstance.html" title="class in net.minestom.server.instance">SharedInstance</a>&nbsp;sharedInstance)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Assigns a <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> to this container.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#breakBlock(net.minestom.server.entity.Player,net.minestom.server.coordinate.Point,net.minestom.server.instance.block.BlockFace,boolean)" class="member-name-link">breakBlock</a><wbr>(@NotNull <a href="../entity/Player.html" title="class in net.minestom.server.entity">Player</a>&nbsp;player,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#breakBlock(net.minestom.server.entity.Player,net.minestom.server.coordinate.Point,net.minestom.server.instance.block.BlockFace,boolean)" class="member-name-link">breakBlock</a><wbr>(@NotNull <a href="../entity/Player.html" title="class in net.minestom.server.entity">Player</a>&nbsp;player,
  @NotNull <a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;blockPosition,
  @NotNull <a href="block/BlockFace.html" title="enum class in net.minestom.server.instance.block">BlockFace</a>&nbsp;blockFace,
  boolean&nbsp;doBlockUpdates)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Does call <a href="../event/player/PlayerBlockBreakEvent.html" title="class in net.minestom.server.event.player"><code>PlayerBlockBreakEvent</code></a>
  and send particle packets</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#copy()" class="member-name-link">copy</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#copy()" class="member-name-link">copy</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Copies all the chunks of this instance and create a new instance container with all of them.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a><wbr>&lt;@NotNull <a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createChunk(int,int)" class="member-name-link">createChunk</a><wbr>(int&nbsp;chunkX,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CompletableFuture.html" title="class or interface in java.util.concurrent" class="external-link">CompletableFuture</a><wbr>&lt;@NotNull <a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createChunk(int,int)" class="member-name-link">createChunk</a><wbr>(int&nbsp;chunkX,
  int&nbsp;chunkZ)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#enableAutoChunkLoad(boolean)" class="member-name-link">enableAutoChunkLoad</a><wbr>(boolean&nbsp;enable)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#enableAutoChunkLoad(boolean)" class="member-name-link">enableAutoChunkLoad</a><wbr>(boolean&nbsp;enable)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">When set to true, chunks will load automatically when requested.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="generator/Generator.html" title="interface in net.minestom.server.instance.generator">Generator</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generator()" class="member-name-link">generator</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="generator/Generator.html" title="interface in net.minestom.server.instance.generator">Generator</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generator()" class="member-name-link">generator</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the generator associated with the instance</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunk(int,int)" class="member-name-link">getChunk</a><wbr>(int&nbsp;chunkX,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunk(int,int)" class="member-name-link">getChunk</a><wbr>(int&nbsp;chunkX,
  int&nbsp;chunkZ)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the loaded <a href="Chunk.html" title="class in net.minestom.server.instance"><code>Chunk</code></a> at a position.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunkLoader()" class="member-name-link">getChunkLoader</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunkLoader()" class="member-name-link">getChunkLoader</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the <a href="IChunkLoader.html" title="interface in net.minestom.server.instance"><code>IChunkLoader</code></a> of this instance.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a><wbr>&lt;@NotNull <a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunks()" class="member-name-link">getChunks</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a><wbr>&lt;@NotNull <a href="Chunk.html" title="class in net.minestom.server.instance">Chunk</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunks()" class="member-name-link">getChunks</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets all the instance chunks.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../utils/chunk/ChunkSupplier.html" title="interface in net.minestom.server.utils.chunk">ChunkSupplier</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunkSupplier()" class="member-name-link">getChunkSupplier</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../utils/chunk/ChunkSupplier.html" title="interface in net.minestom.server.utils.chunk">ChunkSupplier</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChunkSupplier()" class="member-name-link">getChunkSupplier</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the current <a href="../utils/chunk/ChunkSupplier.html" title="interface in net.minestom.server.utils.chunk"><code>ChunkSupplier</code></a>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLastBlockChangeTime()" class="member-name-link">getLastBlockChangeTime</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLastBlockChangeTime()" class="member-name-link">getLastBlockChangeTime</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the last time at which a block changed.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="SharedInstance.html" title="class in net.minestom.server.instance">SharedInstance</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSharedInstances()" class="member-name-link">getSharedInstances</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets all the <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> linked to this container.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSrcInstance()" class="member-name-link">getSrcInstance</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the instance from which this one has been copied.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasEnabledAutoChunkLoad()" class="member-name-link">hasEnabledAutoChunkLoad</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets if the instance should auto load chunks.</div>
-</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasSharedInstances()" class="member-name-link">hasSharedInstances</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasEnabledAutoChunkLoad()" class="member-name-link">hasEnabledAutoChunkLoad</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets if this instance has <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> linked to it.</div>
+<div class="block">Gets if the instance should auto load chunks.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isInVoid(net.minestom.server.coordinate.Point)" class="member-name-link">isInVoid</a><wbr>(@NotNull <a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;point)</code></div>
@@ -333,12 +290,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Schedules the removal of a <a href="Chunk.html" title="class in net.minestom.server.instance"><code>Chunk</code></a>, this method does not promise when it will be done.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#unregisterInstance()" class="member-name-link">unregisterInstance</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Unregisters the <a href="Instance.html" title="class in net.minestom.server.instance"><code>Instance</code></a> internally.</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minestom.server.instance.Instance">Methods inherited from class&nbsp;net.minestom.server.instance.<a href="Instance.html" title="class in net.minestom.server.instance">Instance</a></h3>
-<code><a href="Instance.html#breakBlock(net.minestom.server.entity.Player,net.minestom.server.coordinate.Point,net.minestom.server.instance.block.BlockFace)">breakBlock</a>, <a href="Instance.html#createInitializeWorldBorderPacket()">createInitializeWorldBorderPacket</a>, <a href="Instance.html#createTimePacket()">createTimePacket</a>, <a href="Instance.html#eventNode()">eventNode</a>, <a href="Instance.html#explode(float,float,float,float)">explode</a>, <a href="Instance.html#explode(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)">explode</a>, <a href="Instance.html#getBlock(int,int,int,net.minestom.server.instance.block.Block.Getter.Condition)">getBlock</a>, <a href="Instance.html#getBlockLight(int,int,int)">getBlockLight</a>, <a href="Instance.html#getCachedDimensionType()">getCachedDimensionType</a>, <a href="Instance.html#getChunkAt(double,double)">getChunkAt</a>, <a href="Instance.html#getChunkAt(net.minestom.server.coordinate.Point)">getChunkAt</a>, <a href="Instance.html#getChunkEntities(net.minestom.server.instance.Chunk)">getChunkEntities</a>, <a href="Instance.html#getCreatures()">getCreatures</a>, <a href="Instance.html#getDimensionName()">getDimensionName</a>, <a href="Instance.html#getDimensionType()">getDimensionType</a>, <a href="Instance.html#getEntities()">getEntities</a>, <a href="Instance.html#getEntityById(int)">getEntityById</a>, <a href="Instance.html#getEntityByUuid(java.util.UUID)">getEntityByUuid</a>, <a href="Instance.html#getEntityTracker()">getEntityTracker</a>, <a href="Instance.html#getExperienceOrbs()">getExperienceOrbs</a>, <a href="Instance.html#getExplosionSupplier()">getExplosionSupplier</a>, <a href="Instance.html#getNearbyEntities(net.minestom.server.coordinate.Point,double)">getNearbyEntities</a>, <a href="Instance.html#getPlayers()">getPlayers</a>, <a href="Instance.html#getSkyLight(int,int,int)">getSkyLight</a>, <a href="Instance.html#getTime()">getTime</a>, <a href="Instance.html#getTimeRate()">getTimeRate</a>, <a href="Instance.html#getTimeSynchronizationTicks()">getTimeSynchronizationTicks</a>, <a href="Instance.html#getUniqueId()">getUniqueId</a>, <a href="Instance.html#getWeather()">getWeather</a>, <a href="Instance.html#getWorldAge()">getWorldAge</a>, <a href="Instance.html#getWorldBorder()">getWorldBorder</a>, <a href="Instance.html#isChunkLoaded(int,int)">isChunkLoaded</a>, <a href="Instance.html#isChunkLoaded(net.minestom.server.coordinate.Point)">isChunkLoaded</a>, <a href="Instance.html#isRegistered()">isRegistered</a>, <a href="Instance.html#loadChunk(net.minestom.server.coordinate.Point)">loadChunk</a>, <a href="Instance.html#loadOptionalChunk(net.minestom.server.coordinate.Point)">loadOptionalChunk</a>, <a href="Instance.html#placeBlock(net.minestom.server.instance.block.BlockHandler.Placement)">placeBlock</a>, <a href="Instance.html#pointers()">pointers</a>, <a href="Instance.html#scheduleNextTick(java.util.function.Consumer)">scheduleNextTick</a>, <a href="Instance.html#scheduler()">scheduler</a>, <a href="Instance.html#sendBlockAction(net.minestom.server.coordinate.Point,byte,byte)">sendBlockAction</a>, <a href="Instance.html#setBlock(int,int,int,net.minestom.server.instance.block.Block)">setBlock</a>, <a href="Instance.html#setBlock(net.minestom.server.coordinate.Point,net.minestom.server.instance.block.Block,boolean)">setBlock</a>, <a href="Instance.html#setExplosionSupplier(net.minestom.server.instance.ExplosionSupplier)">setExplosionSupplier</a>, <a href="Instance.html#setRegistered(boolean)">setRegistered</a>, <a href="Instance.html#setTime(long)">setTime</a>, <a href="Instance.html#setTimeRate(int)">setTimeRate</a>, <a href="Instance.html#setTimeSynchronizationTicks(int)">setTimeSynchronizationTicks</a>, <a href="Instance.html#setWeather(net.minestom.server.instance.Weather)">setWeather</a>, <a href="Instance.html#setWeather(net.minestom.server.instance.Weather,int)">setWeather</a>, <a href="Instance.html#setWorldBorder(net.minestom.server.instance.WorldBorder)">setWorldBorder</a>, <a href="Instance.html#setWorldBorder(net.minestom.server.instance.WorldBorder,double)">setWorldBorder</a>, <a href="Instance.html#tagHandler()">tagHandler</a>, <a href="Instance.html#unloadChunk(int,int)">unloadChunk</a></code></div>
+<code><a href="Instance.html#breakBlock(net.minestom.server.entity.Player,net.minestom.server.coordinate.Point,net.minestom.server.instance.block.BlockFace)">breakBlock</a>, <a href="Instance.html#createInitializeWorldBorderPacket()">createInitializeWorldBorderPacket</a>, <a href="Instance.html#createTimePacket()">createTimePacket</a>, <a href="Instance.html#eventNode()">eventNode</a>, <a href="Instance.html#explode(float,float,float,float)">explode</a>, <a href="Instance.html#explode(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)">explode</a>, <a href="Instance.html#getBlock(int,int,int,net.minestom.server.instance.block.Block.Getter.Condition)">getBlock</a>, <a href="Instance.html#getBlockLight(int,int,int)">getBlockLight</a>, <a href="Instance.html#getCachedDimensionType()">getCachedDimensionType</a>, <a href="Instance.html#getChunkAt(double,double)">getChunkAt</a>, <a href="Instance.html#getChunkAt(net.minestom.server.coordinate.Point)">getChunkAt</a>, <a href="Instance.html#getChunkEntities(net.minestom.server.instance.Chunk)">getChunkEntities</a>, <a href="Instance.html#getDimensionName()">getDimensionName</a>, <a href="Instance.html#getDimensionType()">getDimensionType</a>, <a href="Instance.html#getEntities()">getEntities</a>, <a href="Instance.html#getEntityById(int)">getEntityById</a>, <a href="Instance.html#getEntityByUuid(java.util.UUID)">getEntityByUuid</a>, <a href="Instance.html#getEntityTracker()">getEntityTracker</a>, <a href="Instance.html#getExplosionSupplier()">getExplosionSupplier</a>, <a href="Instance.html#getInstance(java.util.UUID)">getInstance</a>, <a href="Instance.html#getInstances()">getInstances</a>, <a href="Instance.html#getNearbyEntities(net.minestom.server.coordinate.Point,double)">getNearbyEntities</a>, <a href="Instance.html#getPlayers()">getPlayers</a>, <a href="Instance.html#getSkyLight(int,int,int)">getSkyLight</a>, <a href="Instance.html#getTime()">getTime</a>, <a href="Instance.html#getTimeRate()">getTimeRate</a>, <a href="Instance.html#getTimeSynchronizationTicks()">getTimeSynchronizationTicks</a>, <a href="Instance.html#getUniqueId()">getUniqueId</a>, <a href="Instance.html#getWeather()">getWeather</a>, <a href="Instance.html#getWorldAge()">getWorldAge</a>, <a href="Instance.html#getWorldBorder()">getWorldBorder</a>, <a href="Instance.html#isChunkLoaded(int,int)">isChunkLoaded</a>, <a href="Instance.html#isChunkLoaded(net.minestom.server.coordinate.Point)">isChunkLoaded</a>, <a href="Instance.html#isRegistered()">isRegistered</a>, <a href="Instance.html#loadChunk(net.minestom.server.coordinate.Point)">loadChunk</a>, <a href="Instance.html#loadOptionalChunk(net.minestom.server.coordinate.Point)">loadOptionalChunk</a>, <a href="Instance.html#placeBlock(net.minestom.server.instance.block.BlockHandler.Placement)">placeBlock</a>, <a href="Instance.html#pointers()">pointers</a>, <a href="Instance.html#scheduleNextTick(java.util.function.Consumer)">scheduleNextTick</a>, <a href="Instance.html#scheduler()">scheduler</a>, <a href="Instance.html#sendBlockAction(net.minestom.server.coordinate.Point,byte,byte)">sendBlockAction</a>, <a href="Instance.html#setBlock(int,int,int,net.minestom.server.instance.block.Block)">setBlock</a>, <a href="Instance.html#setBlock(net.minestom.server.coordinate.Point,net.minestom.server.instance.block.Block,boolean)">setBlock</a>, <a href="Instance.html#setExplosionSupplier(net.minestom.server.instance.ExplosionSupplier)">setExplosionSupplier</a>, <a href="Instance.html#setTime(long)">setTime</a>, <a href="Instance.html#setTimeRate(int)">setTimeRate</a>, <a href="Instance.html#setTimeSynchronizationTicks(int)">setTimeSynchronizationTicks</a>, <a href="Instance.html#setWeather(net.minestom.server.instance.Weather)">setWeather</a>, <a href="Instance.html#setWeather(net.minestom.server.instance.Weather,int)">setWeather</a>, <a href="Instance.html#setWorldBorder(net.minestom.server.instance.WorldBorder)">setWorldBorder</a>, <a href="Instance.html#setWorldBorder(net.minestom.server.instance.WorldBorder,double)">setWorldBorder</a>, <a href="Instance.html#tagHandler()">tagHandler</a>, <a href="Instance.html#unloadChunk(int,int)">unloadChunk</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -353,10 +315,10 @@ loadScripts(document, 'script');</script>
 <code><a href="block/Block.Setter.html#setBlock(net.minestom.server.coordinate.Point,net.minestom.server.instance.block.Block)">setBlock</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.kyori.adventure.audience.ForwardingAudience">Methods inherited from interface&nbsp;net.kyori.adventure.audience.<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html" title="class or interface in net.kyori.adventure.audience" class="external-link">ForwardingAudience</a></h3>
-<code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#clearResourcePacks()" title="class or interface in net.kyori.adventure.audience" class="external-link">clearResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#deleteMessage(net.kyori.adventure.chat.SignedMessage.Signature)" title="class or interface in net.kyori.adventure.audience" class="external-link">deleteMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#filterAudience(java.util.function.Predicate)" title="class or interface in net.kyori.adventure.audience" class="external-link">filterAudience</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#forEachAudience(java.util.function.Consumer)" title="class or interface in net.kyori.adventure.audience" class="external-link">forEachAudience</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#openBook(net.kyori.adventure.inventory.Book)" title="class or interface in net.kyori.adventure.audience" class="external-link">openBook</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#playSound(net.kyori.adventure.sound.Sound)" title="class or interface in net.kyori.adventure.audience" class="external-link">playSound</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#removeResourcePacks(java.lang.Iterable)" title="class or interface in net.kyori.adventure.audience" class="external-link">removeResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#removeResourcePacks(java.util.UUID,java.util.UUID...)" title="class or interface in net.kyori.adventure.audience" class="external-link">removeResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.chat.SignedMessage,net.kyori.adventure.chat.ChatType.Bound)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.identity.Identified,net.kyori.adventure.text.Component,net.kyori.adventure.audience.MessageType)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.text.Component,net.kyori.adventure.chat.ChatType.Bound)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendPlayerListFooter(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendPlayerListFooter</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendPlayerListHeader(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendPlayerListHeader</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendResourcePacks(net.kyori.adventure.resource.ResourcePackRequest)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendResourcePacks</a></code></div>
+<code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#clearResourcePacks()" title="class or interface in net.kyori.adventure.audience" class="external-link">clearResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#deleteMessage(net.kyori.adventure.chat.SignedMessage.Signature)" title="class or interface in net.kyori.adventure.audience" class="external-link">deleteMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#filterAudience(java.util.function.Predicate)" title="class or interface in net.kyori.adventure.audience" class="external-link">filterAudience</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#forEachAudience(java.util.function.Consumer)" title="class or interface in net.kyori.adventure.audience" class="external-link">forEachAudience</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#openBook(net.kyori.adventure.inventory.Book)" title="class or interface in net.kyori.adventure.audience" class="external-link">openBook</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#playSound(net.kyori.adventure.sound.Sound)" title="class or interface in net.kyori.adventure.audience" class="external-link">playSound</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#removeResourcePacks(java.lang.Iterable)" title="class or interface in net.kyori.adventure.audience" class="external-link">removeResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#removeResourcePacks(java.util.UUID,java.util.UUID...)" title="class or interface in net.kyori.adventure.audience" class="external-link">removeResourcePacks</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.chat.SignedMessage,net.kyori.adventure.chat.ChatType.Bound)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.identity.Identified,net.kyori.adventure.text.Component,net.kyori.adventure.audience.MessageType)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.identity.Identity,net.kyori.adventure.text.Component,net.kyori.adventure.audience.MessageType)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendMessage(net.kyori.adventure.text.Component,net.kyori.adventure.chat.ChatType.Bound)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendMessage</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendPlayerListFooter(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendPlayerListFooter</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendPlayerListHeader(net.kyori.adventure.text.Component)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendPlayerListHeader</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/audience/ForwardingAudience.html#sendResourcePacks(net.kyori.adventure.resource.ResourcePackRequest)" title="class or interface in net.kyori.adventure.audience" class="external-link">sendResourcePacks</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minestom.server.adventure.audience.PacketGroupingAudience">Methods inherited from interface&nbsp;net.minestom.server.adventure.audience.<a href="../adventure/audience/PacketGroupingAudience.html" title="interface in net.minestom.server.adventure.audience">PacketGroupingAudience</a></h3>
-<code><a href="../adventure/audience/PacketGroupingAudience.html#audiences()">audiences</a>, <a href="../adventure/audience/PacketGroupingAudience.html#clearTitle()">clearTitle</a>, <a href="../adventure/audience/PacketGroupingAudience.html#hideBossBar(net.kyori.adventure.bossbar.BossBar)">hideBossBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,double,double,double)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,net.kyori.adventure.sound.Sound.Emitter)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,net.minestom.server.coordinate.Point)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#resetTitle()">resetTitle</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendActionBar(net.kyori.adventure.text.Component)">sendActionBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendGroupedPacket(net.minestom.server.network.packet.server.ServerPacket)">sendGroupedPacket</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendMessage(net.kyori.adventure.identity.Identity,net.kyori.adventure.text.Component,net.kyori.adventure.audience.MessageType)">sendMessage</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendPlayerListHeaderAndFooter(net.kyori.adventure.text.Component,net.kyori.adventure.text.Component)">sendPlayerListHeaderAndFooter</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendTitlePart(net.kyori.adventure.title.TitlePart,T)">sendTitlePart</a>, <a href="../adventure/audience/PacketGroupingAudience.html#showBossBar(net.kyori.adventure.bossbar.BossBar)">showBossBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#stopSound(net.kyori.adventure.sound.SoundStop)">stopSound</a></code></div>
+<code><a href="../adventure/audience/PacketGroupingAudience.html#audiences()">audiences</a>, <a href="../adventure/audience/PacketGroupingAudience.html#clearTitle()">clearTitle</a>, <a href="../adventure/audience/PacketGroupingAudience.html#hideBossBar(net.kyori.adventure.bossbar.BossBar)">hideBossBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,double,double,double)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,net.kyori.adventure.sound.Sound.Emitter)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#playSound(net.kyori.adventure.sound.Sound,net.minestom.server.coordinate.Point)">playSound</a>, <a href="../adventure/audience/PacketGroupingAudience.html#resetTitle()">resetTitle</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendActionBar(net.kyori.adventure.text.Component)">sendActionBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendGroupedPacket(net.minestom.server.network.packet.server.ServerPacket)">sendGroupedPacket</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendPlayerListHeaderAndFooter(net.kyori.adventure.text.Component,net.kyori.adventure.text.Component)">sendPlayerListHeaderAndFooter</a>, <a href="../adventure/audience/PacketGroupingAudience.html#sendTitlePart(net.kyori.adventure.title.TitlePart,T)">sendTitlePart</a>, <a href="../adventure/audience/PacketGroupingAudience.html#showBossBar(net.kyori.adventure.bossbar.BossBar)">showBossBar</a>, <a href="../adventure/audience/PacketGroupingAudience.html#stopSound(net.kyori.adventure.sound.SoundStop)">stopSound</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.kyori.adventure.pointer.Pointered">Methods inherited from interface&nbsp;net.kyori.adventure.pointer.<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointered.html" title="class or interface in net.kyori.adventure.pointer" class="external-link">Pointered</a></h3>
 <code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointered.html#get(net.kyori.adventure.pointer.Pointer)" title="class or interface in net.kyori.adventure.pointer" class="external-link">get</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointered.html#getOrDefault(net.kyori.adventure.pointer.Pointer,T)" title="class or interface in net.kyori.adventure.pointer" class="external-link">getOrDefault</a>, <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointered.html#getOrDefaultFrom(net.kyori.adventure.pointer.Pointer,java.util.function.Supplier)" title="class or interface in net.kyori.adventure.pointer" class="external-link">getOrDefaultFrom</a></code></div>
@@ -369,82 +331,38 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ============ FIELD DETAIL =========== -->
-<li>
-<section class="field-details" id="field-detail">
-<h2>Field Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="srcInstance">
-<h3>srcInstance</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></span>&nbsp;<span class="element-name">srcInstance</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key)">
+<section class="detail" id="&lt;init&gt;()">
+<h3>InstanceContainer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(net.minestom.server.registry.DynamicRegistry.Key)">
 <h3>InstanceContainer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- @NotNull
  <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.utils.NamespaceID)">
+<section class="detail" id="&lt;init&gt;(net.minestom.server.instance.IChunkLoader)">
 <h3>InstanceContainer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- @NotNull
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @NotNull
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</span></div>
+ @NotNull <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader)">
+<section class="detail" id="&lt;init&gt;(net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader)">
 <h3>InstanceContainer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- @NotNull
  <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="&lt;init&gt;(java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader,net.minestom.server.utils.NamespaceID)">
-<h3>InstanceContainer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
  @NotNull
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader,
- @NotNull
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="&lt;init&gt;(net.minestom.server.registry.DynamicRegistry,java.util.UUID,net.minestom.server.registry.DynamicRegistry.Key,net.minestom.server.instance.IChunkLoader,net.minestom.server.utils.NamespaceID)">
-<h3>InstanceContainer</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">InstanceContainer</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionTypeRegistry,
- @NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link">UUID</a>&nbsp;uniqueId,
- @NotNull
- <a href="../registry/DynamicRegistry.Key.html" title="interface in net.minestom.server.registry">DynamicRegistry.Key</a>&lt;<a href="../world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;&nbsp;dimensionType,
- @Nullable
- @Nullable <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader,
- @NotNull
- @NotNull <a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&nbsp;dimensionName)</span></div>
+ @NotNull <a href="IChunkLoader.html" title="interface in net.minestom.server.instance">IChunkLoader</a>&nbsp;loader)</span></div>
 </section>
 </li>
 </ul>
@@ -455,6 +373,18 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="unregisterInstance()">
+<h3>unregisterInstance</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">unregisterInstance</span>()</div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="Instance.html#unregisterInstance()">Instance</a></code></span></div>
+<div class="block">Unregisters the <a href="Instance.html" title="class in net.minestom.server.instance"><code>Instance</code></a> internally.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="Instance.html#unregisterInstance()">unregisterInstance</a></code>&nbsp;in class&nbsp;<code><a href="Instance.html" title="class in net.minestom.server.instance">Instance</a></code></dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="setBlock(int,int,int,net.minestom.server.instance.block.Block,boolean)">
 <h3>setBlock</h3>
@@ -734,41 +664,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getSharedInstances()">
-<h3>getSharedInstances</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="SharedInstance.html" title="class in net.minestom.server.instance">SharedInstance</a>&gt;</span>&nbsp;<span class="element-name">getSharedInstances</span>()</div>
-<div class="block">Gets all the <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> linked to this container.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>an unmodifiable <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link"><code>List</code></a> containing all the <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> linked to this container</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="hasSharedInstances()">
-<h3>hasSharedInstances</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasSharedInstances</span>()</div>
-<div class="block">Gets if this instance has <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> linked to it.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>true if <a href="#getSharedInstances()"><code>getSharedInstances()</code></a> is not empty</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="addSharedInstance(net.minestom.server.instance.SharedInstance)">
-<h3>addSharedInstance</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addSharedInstance</span><wbr><span class="parameters">(<a href="SharedInstance.html" title="class in net.minestom.server.instance">SharedInstance</a>&nbsp;sharedInstance)</span></div>
-<div class="block">Assigns a <a href="SharedInstance.html" title="class in net.minestom.server.instance"><code>SharedInstance</code></a> to this container.
- <p>
- Only used by <a href="InstanceManager.html" title="class in net.minestom.server.instance"><code>InstanceManager</code></a>, mostly unsafe.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sharedInstance</code> - the shared instance to assign to this container</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="copy()">
 <h3>copy</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></span>&nbsp;<span class="element-name">copy</span>()</div>
@@ -779,32 +674,6 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>an <a href="InstanceContainer.html" title="class in net.minestom.server.instance"><code>InstanceContainer</code></a> with the exact same chunks as 'this'</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#getSrcInstance()"><code>to retrieve the "creation source" of the copied instance</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getSrcInstance()">
-<h3>getSrcInstance</h3>
-<div class="member-signature"><span class="annotations">@Nullable
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@Nullable <a href="InstanceContainer.html" title="class in net.minestom.server.instance">InstanceContainer</a></span>&nbsp;<span class="element-name">getSrcInstance</span>()</div>
-<div class="block">Gets the instance from which this one has been copied.
- <p>
- Only present if this instance has been created with <a href="#copy()"><code>copy()</code></a>.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the instance source, null if not created by a copy</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#copy()"><code>to create a copy of this instance with 'this' as the source</code></a></li>
-</ul>
-</dd>
 </dl>
 </section>
 </li>
