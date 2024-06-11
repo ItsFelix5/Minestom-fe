@@ -75,7 +75,14 @@ public final class LoginListener {
             ThreadLocalRandom.current().nextBytes(nonce);
             socketConnection.setNonce(nonce);
             socketConnection.sendPacket(new EncryptionRequestPacket("", publicKey, nonce, true));
-        } else CONNECTION_MANAGER.createPlayer(connection, CONNECTION_MANAGER.getPlayerConnectionUuid(connection, packet.username()), packet.username());
+        } else AsyncUtils.runAsync(() -> {
+            try {
+                CONNECTION_MANAGER.createPlayer(connection, CONNECTION_MANAGER.getPlayerConnectionUuid(connection, packet.username()), packet.username());
+            } catch (Exception exception) {
+                connection.sendPacket(new LoginDisconnectPacket(Component.text(exception.getClass().getSimpleName() + ": " + exception.getMessage())));
+                connection.disconnect();
+            }
+        });
     }
 
     public static void loginEncryptionResponseListener(@NotNull ClientEncryptionResponsePacket packet, @NotNull PlayerConnection connection) {
