@@ -5,14 +5,14 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.translation.GlobalTranslator;
 import net.kyori.adventure.translation.TranslationRegistry;
 import net.minestom.server.adventure.MinestomAdventure;
+import net.minestom.server.coordinate.Pos;
 import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.network.packet.server.play.SetSlotPacket;
+import net.minestom.server.network.packet.server.play.SystemChatPacket;
 import net.minestom.testing.Env;
 import net.minestom.testing.EnvTest;
-import net.minestom.server.coordinate.Pos;
-import net.minestom.server.network.packet.server.play.SystemChatPacket;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

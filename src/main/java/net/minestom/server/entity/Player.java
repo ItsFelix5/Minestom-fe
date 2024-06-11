@@ -22,6 +22,7 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.kyori.adventure.title.TitlePart;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.ServerFlag;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.advancements.AdvancementTab;
 import net.minestom.server.adventure.AdventurePacketConvertor;
 import net.minestom.server.adventure.Localizable;
@@ -115,16 +116,11 @@ import java.util.function.UnaryOperator;
 public class Player extends LivingEntity implements CommandSender, Localizable, HoverEventSource<ShowEntity>, Identified, NamedAndIdentified {
     private static final DynamicRegistry<DimensionType> DIMENSION_TYPE_REGISTRY = MinecraftServer.getDimensionTypeRegistry();
 
-    private static final Component REMOVE_MESSAGE = Component.text("You have been removed from the server without reason.", NamedTextColor.RED);
+    private static final Component REMOVE_MESSAGE = Component.text("You have been kicked from the server.", NamedTextColor.RED);
 
     private static final float MIN_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.min-per-tick", 0.01f);
     private static final float MAX_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.max-per-tick", 64.0f);
     private static final float CHUNKS_PER_TICK_MULTIPLIER = PropertyUtils.getFloat("minestom.chunk-queue.multiplier", 1f);
-
-    // Magic values: https://wiki.vg/Entity_statuses#Player
-    private static final int STATUS_ENABLE_REDUCED_DEBUG_INFO = 22;
-    private static final int STATUS_DISABLE_REDUCED_DEBUG_INFO = 23;
-    private static final int STATUS_PERMISSION_LEVEL_OFFSET = 24;
 
     private long lastKeepAlive;
     private boolean answerKeepAlive;
@@ -202,9 +198,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     private int permissionLevel;
 
-    private boolean reducedDebugScreenInformation;
-    private boolean hardcore;
-
     // Abilities
     private boolean flying;
     private boolean allowFlying;
@@ -263,11 +256,10 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     @ApiStatus.Internal
-    public void setPendingOptions(@NotNull Instance pendingInstance, boolean hardcore) {
+    public void setPendingOptions(@NotNull Instance pendingInstance) {
         // I(mattw) am not a big fan of this function, but somehow we need to store
         // the instance and i didn't like a record in ConnectionManager either.
         this.pendingInstance = pendingInstance;
-        this.hardcore = hardcore;
     }
 
     /**
@@ -286,14 +278,14 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         this.dimensionTypeId = DIMENSION_TYPE_REGISTRY.getId(spawnInstance.getDimensionType().namespace());
 
         final JoinGamePacket joinGamePacket = new JoinGamePacket(
-                getEntityId(), this.hardcore, List.of(), 0,
+                getEntityId(), ServerSettings.isHardcore(), List.of(), 0,
                 ServerFlag.CHUNK_VIEW_DISTANCE, ServerFlag.CHUNK_VIEW_DISTANCE,
                 false, true, false, dimensionTypeId, spawnInstance.getDimensionName(),
                 0, gameMode, null, false, levelFlat, deathLocation, portalCooldown, true);
         sendPacket(joinGamePacket);
 
         // Difficulty
-        sendPacket(new ServerDifficultyPacket(MinecraftServer.getDifficulty(), true));
+        sendPacket(new ServerDifficultyPacket(ServerSettings.getDifficulty(), true));
 
         sendPacket(new SpawnPositionPacket(respawnPoint, 0));
 
@@ -363,7 +355,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
         // Some client updates
         sendPacket(getPropertiesPacket()); // Send default properties
-        triggerStatus((byte) (STATUS_PERMISSION_LEVEL_OFFSET + permissionLevel)); // Set permission level
+        triggerStatus((byte) (24 + permissionLevel)); // Set permission level
         refreshHealth(); // Heal and send health packet
         refreshAbilities(); // Send abilities packet
 
@@ -546,10 +538,10 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      */
     private void refreshClientStateAfterRespawn() {
         sendPacket(new ChangeGameStatePacket(ChangeGameStatePacket.Reason.LEVEL_CHUNKS_LOAD_START, 0));
-        sendPacket(new ServerDifficultyPacket(MinecraftServer.getDifficulty(), false));
+        sendPacket(new ServerDifficultyPacket(ServerSettings.getDifficulty(), false));
         sendPacket(new UpdateHealthPacket(this.getHealth(), food, foodSaturation));
         sendPacket(new SetExperiencePacket(exp, level, 0));
-        triggerStatus((byte) (STATUS_PERMISSION_LEVEL_OFFSET + permissionLevel)); // Set permission level
+        triggerStatus((byte) (24 + permissionLevel)); // Set permission level
         refreshAbilities();
     }
 
@@ -1894,32 +1886,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         this.permissionLevel = permissionLevel;
 
         // Condition to prevent sending the packets before spawning the player
-        if (isActive()) {
-
-            final byte permissionLevelStatus = (byte) (STATUS_PERMISSION_LEVEL_OFFSET + permissionLevel);
-            triggerStatus(permissionLevelStatus);
-        }
-    }
-
-    /**
-     * Sets or remove the reduced debug screen.
-     *
-     * @param reduced should the player has the reduced debug screen
-     */
-    public void setReducedDebugScreenInformation(boolean reduced) {
-        this.reducedDebugScreenInformation = reduced;
-
-        final byte debugScreenStatus = (byte) (reduced ? STATUS_ENABLE_REDUCED_DEBUG_INFO : STATUS_DISABLE_REDUCED_DEBUG_INFO);
-        triggerStatus(debugScreenStatus);
-    }
-
-    /**
-     * Gets if the player has the reduced debug screen.
-     *
-     * @return true if the player has the reduced debug screen, false otherwise
-     */
-    public boolean hasReducedDebugScreenInformation() {
-        return reducedDebugScreenInformation;
+        if (isActive()) triggerStatus((byte) (24 + permissionLevel));
     }
 
     /**

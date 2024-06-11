@@ -216,7 +216,7 @@ public final class ServerProcess implements Registries {
             throw new IllegalStateException("Server already started");
         }
 
-        LOGGER.info("Starting " + MinecraftServer.getBrandName() + " server.");
+        LOGGER.info("Starting " + " server.");
 
         // Init server
         try {
@@ -229,7 +229,7 @@ public final class ServerProcess implements Registries {
         // Start server
         server.start();
 
-        LOGGER.info(MinecraftServer.getBrandName() + " server started successfully.");
+        LOGGER.info(ServerSettings.getBrandName() + " server started successfully.");
 
         // Stop the server on SIGINT
         if (SHUTDOWN_ON_SIGNAL) Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
@@ -238,14 +238,14 @@ public final class ServerProcess implements Registries {
     public void stop() {
         if (!stopped.compareAndSet(false, true))
             return;
-        LOGGER.info("Stopping " + MinecraftServer.getBrandName() + " server.");
+        LOGGER.info("Stopping server.");
         scheduler.shutdown();
         connection.shutdown();
         server.stop();
         LOGGER.info("Shutting down all thread pools.");
         benchmark.disable();
         dispatcher.shutdown();
-        LOGGER.info(MinecraftServer.getBrandName() + " server stopped successfully.");
+        LOGGER.info("Server stopped successfully.");
     }
 
     public boolean isAlive() {
@@ -261,8 +261,19 @@ public final class ServerProcess implements Registries {
             // Connection tick (let waiting clients in, send keep alives, handle configuration players packets)
             connection().tick(msTime);
 
-            // Server tick (chunks/entities)
-            serverTick(msTime);
+            // Tick all instances
+            for (Instance instance : Instance.getInstances()) {
+                try {
+                    instance.tick(msTime);
+                } catch (Exception e) {
+                    exception().handleException(e);
+                }
+            }
+            // Tick all chunks (and entities inside)
+            dispatcher().updateAndAwait(msTime);
+
+            // Clear removed entities & update threads
+            dispatcher().refreshThreads(System.currentTimeMillis() - msTime);
 
             scheduler().processTickEnd();
 
@@ -273,29 +284,10 @@ public final class ServerProcess implements Registries {
             server().tick();
 
             // Monitoring
-            {
-                final double acquisitionTimeMs = Acquirable.resetAcquiringTime() / 1e6D;
-                final double tickTimeMs = (System.nanoTime() - nanoTime) / 1e6D;
-                final TickMonitor tickMonitor = new TickMonitor(tickTimeMs, acquisitionTimeMs);
-                EventDispatcher.call(new ServerTickMonitorEvent(tickMonitor));
-            }
-        }
-
-        private void serverTick(long tickStart) {
-            // Tick all instances
-            for (Instance instance : Instance.getInstances()) {
-                try {
-                    instance.tick(tickStart);
-                } catch (Exception e) {
-                    exception().handleException(e);
-                }
-            }
-            // Tick all chunks (and entities inside)
-            dispatcher().updateAndAwait(tickStart);
-
-            // Clear removed entities & update threads
-            final long tickTime = System.currentTimeMillis() - tickStart;
-            dispatcher().refreshThreads(tickTime);
+            final double acquisitionTimeMs = Acquirable.resetAcquiringTime() / 1e6D;
+            final double tickTimeMs = (System.nanoTime() - nanoTime) / 1e6D;
+            final TickMonitor tickMonitor = new TickMonitor(tickTimeMs, acquisitionTimeMs);
+            EventDispatcher.call(new ServerTickMonitorEvent(tickMonitor));
         }
     }
 }

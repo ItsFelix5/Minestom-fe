@@ -2,6 +2,7 @@ package net.minestom.server.extras.query.response;
 
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.extras.query.Query;
 import net.minestom.server.utils.binary.BinaryWriter;
 import net.minestom.server.utils.binary.Writeable;
@@ -118,11 +119,9 @@ public class FullQueryResponse implements Writeable {
      * @return the string result
      */
     public static String generatePluginsValue() {
-        StringBuilder builder = new StringBuilder(MinecraftServer.getBrandName())
-                .append(' ')
-                .append(MinecraftServer.VERSION_NAME);
+        String builder = ServerSettings.getBrandName() + ' ' + MinecraftServer.VERSION_NAME;
 
-        return builder.toString();
+        return builder;
     }
 
     @Override

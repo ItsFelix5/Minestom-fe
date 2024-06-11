@@ -31,7 +31,7 @@ public final class TickThread extends MinestomThread {
     private final List<ThreadDispatcher.Partition> entries = new ArrayList<>();
 
     public TickThread(int number) {
-        super(MinecraftServer.THREAD_NAME_TICK + "-" + number);
+        super("Ms-Tick-" + number);
     }
 
     public static @Nullable TickThread current() {

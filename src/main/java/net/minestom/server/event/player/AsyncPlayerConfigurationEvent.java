@@ -20,7 +20,6 @@ public class AsyncPlayerConfigurationEvent implements PlayerEvent {
     private final Player player;
     private final boolean isFirstConfig;
 
-    private boolean hardcore;
     private boolean clearChat;
     private boolean sendRegistryData;
     private Instance spawningInstance;
@@ -29,7 +28,6 @@ public class AsyncPlayerConfigurationEvent implements PlayerEvent {
         this.player = player;
         this.isFirstConfig = isFirstConfig;
 
-        this.hardcore = false;
         this.clearChat = false;
         this.sendRegistryData = isFirstConfig;
         this.spawningInstance = null;
@@ -45,14 +43,6 @@ public class AsyncPlayerConfigurationEvent implements PlayerEvent {
      */
     public boolean isFirstConfig() {
         return isFirstConfig;
-    }
-
-    public boolean isHardcore() {
-        return this.hardcore;
-    }
-
-    public void setHardcore(boolean hardcore) {
-        this.hardcore = hardcore;
     }
 
     /**

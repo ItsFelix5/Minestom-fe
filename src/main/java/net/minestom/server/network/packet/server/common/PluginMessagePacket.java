@@ -1,6 +1,6 @@
 package net.minestom.server.network.packet.server.common;
 
-import net.minestom.server.MinecraftServer;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
@@ -39,8 +39,7 @@ public record PluginMessagePacket(String channel,
      * @return the current brand name packet
      */
     public static @NotNull PluginMessagePacket getBrandPacket() {
-        final String brandName = MinecraftServer.getBrandName();
-        final byte[] data = NetworkBuffer.makeArray(networkBuffer -> networkBuffer.write(STRING, brandName));
+        final byte[] data = NetworkBuffer.makeArray(networkBuffer -> networkBuffer.write(STRING, ServerSettings.getBrandName()));
         return new PluginMessagePacket("minecraft:brand", data);
     }
 }

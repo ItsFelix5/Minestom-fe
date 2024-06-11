@@ -3,7 +3,7 @@ package net.minestom.server.world;
 /**
  * Those are all the difficulties which can be displayed in the player menu.
  * <p>
- * Sets with {@link net.minestom.server.MinecraftServer#setDifficulty(Difficulty)}.
+ * Sets with {@link net.minestom.server.ServerSettings#setDifficulty(Difficulty)}.
  */
 public enum Difficulty {
 

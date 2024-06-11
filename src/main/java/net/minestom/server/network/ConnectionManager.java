@@ -308,7 +308,7 @@ public final class ConnectionManager {
             if (packFuture != null) packFuture.join();
 
             keepAlivePlayers.remove(player);
-            player.setPendingOptions(spawningInstance, event.isHardcore());
+            player.setPendingOptions(spawningInstance);
             player.sendPacket(new FinishConfigurationPacket());
         });
     }
