@@ -1,28 +1,52 @@
 package net.minestom.server.entity.attribute;
 
+import net.minestom.server.network.NetworkBuffer;
+import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
  * Represents an instance of an attribute and its modifiers.
  */
 public final class AttributeInstance {
+    public static final NetworkBuffer.Type<AttributeInstance> NETWORK_TYPE = new NetworkBuffer.Type<>() {
+        @Override
+        public void write(@NotNull NetworkBuffer buffer, AttributeInstance value) {
+            buffer.write(Attribute.NETWORK_TYPE, value.attribute());
+            buffer.write(NetworkBuffer.DOUBLE, value.getBaseValue());
+            buffer.writeCollection(AttributeModifier.NETWORK_TYPE, value.modifiers());
+        }
+
+        @Override
+        public AttributeInstance read(@NotNull NetworkBuffer buffer) {
+            return new AttributeInstance(buffer.read(Attribute.NETWORK_TYPE), buffer.read(NetworkBuffer.DOUBLE),
+                    buffer.readCollection(AttributeModifier.NETWORK_TYPE, Short.MAX_VALUE), null);
+        }
+    };
+
     private final Attribute attribute;
-    private final Map<UUID, AttributeModifier> modifiers = new HashMap<>();
-    private final Consumer<AttributeInstance> propertyChangeListener;
+    private final Map<NamespaceID, AttributeModifier> modifiers;
+    private final Collection<AttributeModifier> unmodifiableModifiers;
     private double baseValue;
+
+    private final Consumer<AttributeInstance> propertyChangeListener;
     private double cachedValue = 0.0f;
 
     public AttributeInstance(@NotNull Attribute attribute, @Nullable Consumer<AttributeInstance> listener) {
+        this(attribute, attribute.defaultValue(), new ArrayList<>(), listener);
+    }
+
+    public AttributeInstance(@NotNull Attribute attribute, double baseValue, @NotNull Collection<AttributeModifier> modifiers, @Nullable Consumer<AttributeInstance> listener) {
         this.attribute = attribute;
+        this.modifiers = new HashMap<>();
+        for (var modifier : modifiers) this.modifiers.put(modifier.id(), modifier);
+        this.unmodifiableModifiers = Collections.unmodifiableCollection(this.modifiers.values());
+        this.baseValue = baseValue;
+
         this.propertyChangeListener = listener;
-        this.baseValue = attribute.defaultValue();
         refreshCachedValue();
     }
 
@@ -31,7 +55,7 @@ public final class AttributeInstance {
      *
      * @return the associated attribute
      */
-    public @NotNull Attribute getAttribute() {
+    public @NotNull Attribute attribute() {
         return attribute;
     }
 
@@ -59,6 +83,16 @@ public final class AttributeInstance {
     }
 
     /**
+     * Get the modifiers applied to this instance.
+     *
+     * @return an immutable collection of the modifiers applied to this attribute.
+     */
+    @NotNull
+    public Collection<AttributeModifier> modifiers() {
+        return unmodifiableModifiers;
+    }
+
+    /**
      * Add a modifier to this instance.
      *
      * @param modifier the modifier to add
@@ -79,22 +113,12 @@ public final class AttributeInstance {
     /**
      * Remove a modifier from this instance.
      *
-     * @param uuid The UUID of the modifier to remove
+     * @param id The namespace id of the modifier to remove
      */
-    public void removeModifier(@NotNull UUID uuid) {
-        if (modifiers.remove(uuid) != null) {
+    public void removeModifier(@NotNull NamespaceID id) {
+        if (modifiers.remove(id) != null) {
             refreshCachedValue();
         }
-    }
-
-    /**
-     * Get the modifiers applied to this instance.
-     *
-     * @return the modifiers.
-     */
-    @NotNull
-    public Collection<AttributeModifier> getModifiers() {
-        return modifiers.values();
     }
 
     /**
@@ -127,5 +151,16 @@ public final class AttributeInstance {
 
         // Signal entity
         if (propertyChangeListener != null) propertyChangeListener.accept(this);
+    }
+
+    @Deprecated
+    @NotNull
+    public Collection<AttributeModifier> getModifiers() {
+        return modifiers();
+    }
+
+    @Deprecated
+    public @NotNull Attribute getAttribute() {
+        return attribute;
     }
 }

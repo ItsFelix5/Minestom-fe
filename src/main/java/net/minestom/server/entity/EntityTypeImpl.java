@@ -24,7 +24,7 @@ import net.minestom.server.entity.metadata.monster.skeleton.SkeletonMeta;
 import net.minestom.server.entity.metadata.monster.skeleton.StrayMeta;
 import net.minestom.server.entity.metadata.monster.skeleton.WitherSkeletonMeta;
 import net.minestom.server.entity.metadata.monster.zombie.*;
-import net.minestom.server.entity.metadata.other.*;
+import net.minestom.server.entity.metadata.other.PaintingMeta;
 import net.minestom.server.entity.metadata.projectile.*;
 import net.minestom.server.entity.metadata.villager.VillagerMeta;
 import net.minestom.server.entity.metadata.villager.WanderingTraderMeta;

@@ -6,13 +6,16 @@ import net.minestom.server.adventure.bossbar.BossBarManager;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.entity.metadata.animal.tameable.WolfMeta;
+import net.minestom.server.entity.metadata.other.PaintingMeta;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.gamedata.tags.TagManager;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.banner.BannerPattern;
+import net.minestom.server.instance.block.jukebox.JukeboxSong;
 import net.minestom.server.item.armor.TrimMaterial;
 import net.minestom.server.item.armor.TrimPattern;
+import net.minestom.server.item.enchant.*;
 import net.minestom.server.listener.manager.PacketListenerManager;
 import net.minestom.server.message.ChatType;
 import net.minestom.server.monitoring.BenchmarkManager;
@@ -24,6 +27,7 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.scoreboard.TeamManager;
 import net.minestom.server.thread.TickSchedulerThread;
 import net.minestom.server.timer.SchedulerManager;
+import net.minestom.server.utils.nbt.BinaryTagSerializer;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -42,8 +46,8 @@ import java.net.SocketAddress;
 public class MinecraftServer {
     public static final ComponentLogger LOGGER = ComponentLogger.logger(MinecraftServer.class);
 
-    public static final String VERSION_NAME = "1.20.6";
-    public static final int PROTOCOL_VERSION = 766;
+    public static final String VERSION_NAME = "1.21";
+    public static final int PROTOCOL_VERSION = 767;
 
     private static volatile ServerProcess serverProcess;
 
@@ -154,6 +158,34 @@ public class MinecraftServer {
 
     public static @NotNull DynamicRegistry<WolfMeta.Variant> getWolfVariantRegistry() {
         return serverProcess.wolfVariant();
+    }
+
+    public static @NotNull DynamicRegistry<Enchantment> getEnchantmentRegistry() {
+        return serverProcess.enchantment();
+    }
+
+    public static @NotNull DynamicRegistry<PaintingMeta.Variant> getPaintingVariantRegistry() {
+        return serverProcess.paintingVariant();
+    }
+
+    public static @NotNull DynamicRegistry<JukeboxSong> getJukeboxSongRegistry() {
+        return serverProcess.jukeboxSong();
+    }
+
+    public static @NotNull DynamicRegistry<BinaryTagSerializer<? extends LevelBasedValue>> enchantmentLevelBasedValues() {
+        return process().enchantmentLevelBasedValues();
+    }
+
+    public static @NotNull DynamicRegistry<BinaryTagSerializer<? extends ValueEffect>> enchantmentValueEffects() {
+        return process().enchantmentValueEffects();
+    }
+
+    public static @NotNull DynamicRegistry<BinaryTagSerializer<? extends EntityEffect>> enchantmentEntityEffects() {
+        return process().enchantmentEntityEffects();
+    }
+
+    public static @NotNull DynamicRegistry<BinaryTagSerializer<? extends LocationEffect>> enchantmentLocationEffects() {
+        return process().enchantmentLocationEffects();
     }
 
     public static Server getServer() {

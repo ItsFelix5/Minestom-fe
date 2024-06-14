@@ -146,7 +146,7 @@ public class PlayerIntegrationTest {
     @Test
     public void refreshPlayerTest(Env env) {
         final int TEST_PERMISSION_LEVEL = 2;
-        final var testDimension = env.process().dimensionType().register(DimensionType.builder(NamespaceID.from("minestom:test_dimension")).build());
+        final var testDimension = env.process().dimensionType().register(NamespaceID.from("minestom:test_dimension"), DimensionType.builder().build());
 
         var instance = env.createFlatInstance();
         var instance2 = new InstanceContainer(testDimension);
@@ -181,7 +181,7 @@ public class PlayerIntegrationTest {
     @Test
     public void deathLocationTest(Env env) {
         String dimensionNamespace = "minestom:test_dimension";
-        final var testDimension = env.process().dimensionType().register(DimensionType.builder(NamespaceID.from(dimensionNamespace)).build());
+        final var testDimension = env.process().dimensionType().register(NamespaceID.from(dimensionNamespace), DimensionType.builder().build());
 
         var instance = new InstanceContainer(testDimension);
         var connection = env.createConnection();
