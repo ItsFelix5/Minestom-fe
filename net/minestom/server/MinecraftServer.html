@@ -30,6 +30,7 @@ loadScripts(document, 'script');</script>
 <li><a href="package-summary.html">Package</a></li>
 <li class="nav-bar-cell1-rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
 <li><a href="../../../index-all.html">Index</a></li>
 <li><a href="../../../help-doc.html#class">Help</a></li>
 </ul>
@@ -143,6 +144,18 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/EntityEffect.html" title="interface in net.minestom.server.item.enchant">EntityEffect</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#enchantmentEntityEffects()" class="member-name-link">enchantmentEntityEffects</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/LevelBasedValue.html" title="interface in net.minestom.server.item.enchant">LevelBasedValue</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#enchantmentLevelBasedValues()" class="member-name-link">enchantmentLevelBasedValues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/LocationEffect.html" title="interface in net.minestom.server.item.enchant">LocationEffect</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#enchantmentLocationEffects()" class="member-name-link">enchantmentLocationEffects</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/ValueEffect.html" title="interface in net.minestom.server.item.enchant">ValueEffect</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#enchantmentValueEffects()" class="member-name-link">enchantmentValueEffects</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="advancements/AdvancementManager.html" title="class in net.minestom.server.advancements">AdvancementManager</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getAdvancementManager()" class="member-name-link">getAdvancementManager</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
@@ -178,11 +191,17 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="world/DimensionType.html" title="interface in net.minestom.server.world">DimensionType</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDimensionTypeRegistry()" class="member-name-link">getDimensionTypeRegistry</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="exception/ExceptionManager.html" title="class in net.minestom.server.exception">ExceptionManager</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getExceptionManager()" class="member-name-link">getExceptionManager</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="item/enchant/Enchantment.html" title="interface in net.minestom.server.item.enchant">Enchantment</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getEnchantmentRegistry()" class="member-name-link">getEnchantmentRegistry</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="event/GlobalEventHandler.html" title="class in net.minestom.server.event">GlobalEventHandler</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getGlobalEventHandler()" class="member-name-link">getGlobalEventHandler</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="exception/ExceptionManager.html" title="class in net.minestom.server.exception">ExceptionManager</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getExceptionManager()" class="member-name-link">getExceptionManager</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="event/GlobalEventHandler.html" title="class in net.minestom.server.event">GlobalEventHandler</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getGlobalEventHandler()" class="member-name-link">getGlobalEventHandler</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="instance/block/jukebox/JukeboxSong.html" title="interface in net.minestom.server.instance.block.jukebox">JukeboxSong</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getJukeboxSongRegistry()" class="member-name-link">getJukeboxSongRegistry</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="listener/manager/PacketListenerManager.html" title="class in net.minestom.server.listener.manager">PacketListenerManager</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPacketListenerManager()" class="member-name-link">getPacketListenerManager</a>()</code></div>
@@ -190,54 +209,57 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="network/PacketProcessor.html" title="class in net.minestom.server.network">PacketProcessor</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPacketProcessor()" class="member-name-link">getPacketProcessor</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="recipe/RecipeManager.html" title="class in net.minestom.server.recipe">RecipeManager</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getRecipeManager()" class="member-name-link">getRecipeManager</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="entity/metadata/other/PaintingMeta.Variant.html" title="interface in net.minestom.server.entity.metadata.other">PaintingMeta.Variant</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPaintingVariantRegistry()" class="member-name-link">getPaintingVariantRegistry</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="timer/SchedulerManager.html" title="class in net.minestom.server.timer">SchedulerManager</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getSchedulerManager()" class="member-name-link">getSchedulerManager</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="recipe/RecipeManager.html" title="class in net.minestom.server.recipe">RecipeManager</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getRecipeManager()" class="member-name-link">getRecipeManager</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="network/socket/Server.html" title="class in net.minestom.server.network.socket">Server</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getServer()" class="member-name-link">getServer</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="timer/SchedulerManager.html" title="class in net.minestom.server.timer">SchedulerManager</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getSchedulerManager()" class="member-name-link">getSchedulerManager</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="gamedata/tags/TagManager.html" title="class in net.minestom.server.gamedata.tags">TagManager</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTagManager()" class="member-name-link">getTagManager</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="network/socket/Server.html" title="class in net.minestom.server.network.socket">Server</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getServer()" class="member-name-link">getServer</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="scoreboard/TeamManager.html" title="class in net.minestom.server.scoreboard">TeamManager</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTeamManager()" class="member-name-link">getTeamManager</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="gamedata/tags/TagManager.html" title="class in net.minestom.server.gamedata.tags">TagManager</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTagManager()" class="member-name-link">getTagManager</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="item/armor/TrimMaterial.html" title="interface in net.minestom.server.item.armor">TrimMaterial</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTrimMaterialRegistry()" class="member-name-link">getTrimMaterialRegistry</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="scoreboard/TeamManager.html" title="class in net.minestom.server.scoreboard">TeamManager</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTeamManager()" class="member-name-link">getTeamManager</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="item/armor/TrimPattern.html" title="interface in net.minestom.server.item.armor">TrimPattern</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTrimPatternRegistry()" class="member-name-link">getTrimPatternRegistry</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="item/armor/TrimMaterial.html" title="interface in net.minestom.server.item.armor">TrimMaterial</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTrimMaterialRegistry()" class="member-name-link">getTrimMaterialRegistry</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="entity/metadata/animal/tameable/WolfMeta.Variant.html" title="interface in net.minestom.server.entity.metadata.animal.tameable">WolfMeta.Variant</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getWolfVariantRegistry()" class="member-name-link">getWolfVariantRegistry</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="item/armor/TrimPattern.html" title="interface in net.minestom.server.item.armor">TrimPattern</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTrimPatternRegistry()" class="member-name-link">getTrimPatternRegistry</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#init()" class="member-name-link">init</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isStarted()" class="member-name-link">isStarted</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @UnknownNullability <a href="ServerProcess.html" title="class in net.minestom.server">ServerProcess</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#process()" class="member-name-link">process</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a><wbr>&lt;<a href="entity/metadata/animal/tameable/WolfMeta.Variant.html" title="interface in net.minestom.server.entity.metadata.animal.tameable">WolfMeta.Variant</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getWolfVariantRegistry()" class="member-name-link">getWolfVariantRegistry</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#init()" class="member-name-link">init</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isStarted()" class="member-name-link">isStarted</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @UnknownNullability <a href="ServerProcess.html" title="class in net.minestom.server">ServerProcess</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#process()" class="member-name-link">process</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start(java.lang.String,int)" class="member-name-link">start</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;address,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start(java.lang.String,int)" class="member-name-link">start</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;address,
  int&nbsp;port)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start(java.net.SocketAddress)" class="member-name-link">start</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/net/SocketAddress.html" title="class or interface in java.net" class="external-link">SocketAddress</a>&nbsp;address)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start(java.net.SocketAddress)" class="member-name-link">start</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/net/SocketAddress.html" title="class or interface in java.net" class="external-link">SocketAddress</a>&nbsp;address)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Starts the server.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#stopCleanly()" class="member-name-link">stopCleanly</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#stopCleanly()" class="member-name-link">stopCleanly</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Stops this server properly (saves if needed, kicking players, etc.)</div>
 </div>
 </div>
@@ -486,6 +508,55 @@ loadScripts(document, 'script');</script>
 <h3>getWolfVariantRegistry</h3>
 <div class="member-signature"><span class="annotations">@NotNull
 </span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="entity/metadata/animal/tameable/WolfMeta.Variant.html" title="interface in net.minestom.server.entity.metadata.animal.tameable">WolfMeta.Variant</a>&gt;</span>&nbsp;<span class="element-name">getWolfVariantRegistry</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getEnchantmentRegistry()">
+<h3>getEnchantmentRegistry</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="item/enchant/Enchantment.html" title="interface in net.minestom.server.item.enchant">Enchantment</a>&gt;</span>&nbsp;<span class="element-name">getEnchantmentRegistry</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getPaintingVariantRegistry()">
+<h3>getPaintingVariantRegistry</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="entity/metadata/other/PaintingMeta.Variant.html" title="interface in net.minestom.server.entity.metadata.other">PaintingMeta.Variant</a>&gt;</span>&nbsp;<span class="element-name">getPaintingVariantRegistry</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getJukeboxSongRegistry()">
+<h3>getJukeboxSongRegistry</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="instance/block/jukebox/JukeboxSong.html" title="interface in net.minestom.server.instance.block.jukebox">JukeboxSong</a>&gt;</span>&nbsp;<span class="element-name">getJukeboxSongRegistry</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="enchantmentLevelBasedValues()">
+<h3>enchantmentLevelBasedValues</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/LevelBasedValue.html" title="interface in net.minestom.server.item.enchant">LevelBasedValue</a>&gt;&gt;</span>&nbsp;<span class="element-name">enchantmentLevelBasedValues</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="enchantmentValueEffects()">
+<h3>enchantmentValueEffects</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/ValueEffect.html" title="interface in net.minestom.server.item.enchant">ValueEffect</a>&gt;&gt;</span>&nbsp;<span class="element-name">enchantmentValueEffects</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="enchantmentEntityEffects()">
+<h3>enchantmentEntityEffects</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/EntityEffect.html" title="interface in net.minestom.server.item.enchant">EntityEffect</a>&gt;&gt;</span>&nbsp;<span class="element-name">enchantmentEntityEffects</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="enchantmentLocationEffects()">
+<h3>enchantmentLocationEffects</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type">@NotNull <a href="registry/DynamicRegistry.html" title="interface in net.minestom.server.registry">DynamicRegistry</a>&lt;<a href="utils/nbt/BinaryTagSerializer.html" title="interface in net.minestom.server.utils.nbt">BinaryTagSerializer</a>&lt;? extends <a href="item/enchant/LocationEffect.html" title="interface in net.minestom.server.item.enchant">LocationEffect</a>&gt;&gt;</span>&nbsp;<span class="element-name">enchantmentLocationEffects</span>()</div>
 </section>
 </li>
 <li>
