@@ -12,7 +12,7 @@ import java.util.function.UnaryOperator;
 @SuppressWarnings("rawtypes")
 public class ArgumentEnum<E extends Enum> extends Argument<E> {
 
-    public final static int NOT_ENUM_VALUE_ERROR = 1;
+    public static final int NOT_ENUM_VALUE_ERROR = 1;
 
     private final Class<E> enumClass;
     private final E[] values;

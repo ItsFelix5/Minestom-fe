@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public final class BlockManager {
-    private final static Logger LOGGER = LoggerFactory.getLogger(BlockManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BlockManager.class);
     // Namespace -> handler supplier
     private final Map<String, Supplier<BlockHandler>> blockHandlerMap = new ConcurrentHashMap<>();
     // block id -> block placement rule

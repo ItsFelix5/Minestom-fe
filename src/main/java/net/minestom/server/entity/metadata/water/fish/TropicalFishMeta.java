@@ -109,7 +109,7 @@ public class TropicalFishMeta extends AbstractFishMeta implements ObjectDataProv
         LARGE,
         INVISIBLE;
 
-        private final static Type[] VALUES = values();
+        private static final Type[] VALUES = values();
     }
 
     public enum Pattern {
@@ -121,7 +121,7 @@ public class TropicalFishMeta extends AbstractFishMeta implements ObjectDataProv
         SPOTTY, // CLAYFISH for LARGE fish
         NONE;
 
-        private final static Pattern[] VALUES = values();
+        private static final Pattern[] VALUES = values();
     }
 
 }

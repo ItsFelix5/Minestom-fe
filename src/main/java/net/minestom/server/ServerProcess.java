@@ -28,7 +28,6 @@ import net.minestom.server.network.socket.Server;
 import net.minestom.server.recipe.RecipeManager;
 import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.registry.Registries;
-import net.minestom.server.scoreboard.TeamManager;
 import net.minestom.server.thread.Acquirable;
 import net.minestom.server.thread.ThreadDispatcher;
 import net.minestom.server.timer.SchedulerManager;
@@ -73,7 +72,6 @@ public final class ServerProcess implements Registries {
     private final BlockManager block;
     private final CommandManager command;
     private final RecipeManager recipe;
-    private final TeamManager team;
     private final GlobalEventHandler eventHandler;
     private final SchedulerManager scheduler;
     private final BenchmarkManager benchmark;
@@ -117,7 +115,6 @@ public final class ServerProcess implements Registries {
         this.block = new BlockManager();
         this.command = new CommandManager();
         this.recipe = new RecipeManager();
-        this.team = new TeamManager();
         this.eventHandler = new GlobalEventHandler();
         this.scheduler = new SchedulerManager();
         this.benchmark = new BenchmarkManager();
@@ -204,10 +201,6 @@ public final class ServerProcess implements Registries {
 
     public @NotNull RecipeManager recipe() {
         return recipe;
-    }
-
-    public @NotNull TeamManager team() {
-        return team;
     }
 
     public @NotNull GlobalEventHandler eventHandler() {

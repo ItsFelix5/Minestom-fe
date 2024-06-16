@@ -18,7 +18,7 @@ public final class BoundingBox implements Shape {
     private static final BoundingBox sneakingBoundingBox = new BoundingBox(0.6, 1.5, 0.6);
     private static final BoundingBox smallBoundingBox = new BoundingBox(0.6, 0.6, 0.6);
 
-    final static BoundingBox ZERO = new BoundingBox(0, 0, 0);
+    static final BoundingBox ZERO = new BoundingBox(0, 0, 0);
 
     private final double width, height, depth;
     private final Point offset;

@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class PreciseGroundNodeGenerator implements NodeGenerator {
     private PNode tempNode = null;
-    private final static int MAX_FALL_DISTANCE = 5;
+    private static final int MAX_FALL_DISTANCE = 5;
 
     @Override
     public @NotNull Collection<? extends PNode> getWalkable(@NotNull Instance instance, @NotNull Set<PNode> visited, @NotNull PNode current, @NotNull Point goal, @NotNull BoundingBox boundingBox) {

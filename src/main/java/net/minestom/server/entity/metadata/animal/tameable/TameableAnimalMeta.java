@@ -11,8 +11,8 @@ public class TameableAnimalMeta extends AnimalMeta {
     public static final byte OFFSET = AnimalMeta.MAX_OFFSET;
     public static final byte MAX_OFFSET = OFFSET + 2;
 
-    private final static byte SITTING_BIT = 0x01;
-    private final static byte TAMED_BIT = 0x04;
+    private static final byte SITTING_BIT = 0x01;
+    private static final byte TAMED_BIT = 0x04;
 
     protected TameableAnimalMeta(@NotNull Entity entity, @NotNull Metadata metadata) {
         super(entity, metadata);

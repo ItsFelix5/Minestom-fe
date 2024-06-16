@@ -35,7 +35,7 @@ public class RabbitMeta extends AnimalMeta {
         SALT_AND_PEPPER,
         KILLER_BUNNY;
 
-        private final static Type[] VALUES = values();
+        private static final Type[] VALUES = values();
     }
 
 }

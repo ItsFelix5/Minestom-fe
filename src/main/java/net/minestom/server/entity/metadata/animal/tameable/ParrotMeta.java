@@ -28,7 +28,7 @@ public class ParrotMeta extends TameableAnimalMeta {
         YELLOW_BLUE,
         GREY;
 
-        private final static Color[] VALUES = values();
+        private static final Color[] VALUES = values();
     }
 
 }

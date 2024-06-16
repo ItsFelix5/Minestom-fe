@@ -97,7 +97,7 @@ public final class Tag implements ProtocolObject, Keyed {
         ENCHANTMENTS("minecraft:enchantment", Registry.Resource.ENCHANTMENT_TAGS,
                 name -> MinecraftServer.getEnchantmentRegistry().getId(DynamicRegistry.Key.of(name)));
 
-        private final static BasicType[] VALUES = values();
+        private static final BasicType[] VALUES = values();
         private final String identifier;
         private final Registry.Resource resource;
         private final Function<String, Integer> function;

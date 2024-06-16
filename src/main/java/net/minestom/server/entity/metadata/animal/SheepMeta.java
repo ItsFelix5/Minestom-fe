@@ -8,8 +8,8 @@ public class SheepMeta extends AnimalMeta {
     public static final byte OFFSET = AnimalMeta.MAX_OFFSET;
     public static final byte MAX_OFFSET = OFFSET + 1;
 
-    private final static byte COLOR_BITS = 0x0F;
-    private final static byte SHEARED_BIT = 0x10;
+    private static final byte COLOR_BITS = 0x0F;
+    private static final byte SHEARED_BIT = 0x10;
 
     public SheepMeta(@NotNull Entity entity, @NotNull Metadata metadata) {
         super(entity, metadata);

@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Be aware that this is not the most accurate method, you should use a proper java profiler depending on your needs.
  */
 public final class BenchmarkManager {
-    private final static Logger LOGGER = LoggerFactory.getLogger(BenchmarkManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BenchmarkManager.class);
     private static final ThreadMXBean THREAD_MX_BEAN = ManagementFactory.getThreadMXBean();
     private static final List<String> THREADS = new ArrayList<>();
 

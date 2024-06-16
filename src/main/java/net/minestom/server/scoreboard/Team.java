@@ -28,6 +28,8 @@ public class Team implements PacketGroupingAudience {
     private static final byte ALLOW_FRIENDLY_FIRE_BIT = 0x01;
     private static final byte SEE_INVISIBLE_PLAYERS_BIT = 0x02;
 
+    private static final Set<Team> teams = new CopyOnWriteArraySet<>();
+
     /**
      * A collection of all registered entities who are on the team.
      */
@@ -76,11 +78,43 @@ public class Team implements PacketGroupingAudience {
     private final Pointers pointers;
 
     /**
+     * Gets a {@link Team} with the given name
+     *
+     * @param teamName The registry name of the team
+     * @return a registered {@link Team} or {@code null}
+     */
+    public static Team getTeam(String teamName) {
+        for (Team team : teams) if (team.getTeamName().equals(teamName)) return team;
+        return null;
+    }
+
+    /**
+     * Checks if the given name a registry name of a registered {@link Team}
+     *
+     * @param teamName The name of the team
+     * @return {@code true} if the team is registered, otherwise {@code false}
+     */
+    public static boolean exists(String teamName) {
+        for (Team team : teams) if (team.getTeamName().equals(teamName)) return true;
+        return false;
+    }
+
+    /**
+     * Checks if the given {@link Team} registered
+     *
+     * @param team The searched team
+     * @return {@code true} if the team is registered, otherwise {@code false}
+     */
+    public static boolean exists(Team team) {
+        return exists(team.getTeamName());
+    }
+
+    /**
      * Default constructor to creates a team.
      *
      * @param teamName The registry name for the team
      */
-    protected Team(@NotNull String teamName) {
+    public Team(@NotNull String teamName) {
         this.teamName = teamName;
 
         this.teamDisplayName = Component.empty();
@@ -98,6 +132,18 @@ public class Team implements PacketGroupingAudience {
                 .withDynamic(Identity.NAME, this::getTeamName)
                 .withDynamic(Identity.DISPLAY_NAME, this::getTeamDisplayName)
                 .build();
+
+
+        teams.add(this);
+        PacketUtils.broadcastPlayPacket(createTeamsCreationPacket());
+    }
+
+    /**
+     * Deletes a {@link Team}
+     */
+    public void delete() {
+        // Sends to all online players a team destroy packet
+        if(teams.remove(this)) PacketUtils.broadcastPlayPacket(createTeamDestructionPacket());
     }
 
     /**
@@ -124,11 +170,9 @@ public class Team implements PacketGroupingAudience {
         // Adds a new member to the team
         this.members.addAll(toAdd);
 
-        // Initializes add player packet
-        final TeamsPacket addPlayerPacket = new TeamsPacket(teamName,
-                new TeamsPacket.AddEntitiesToTeamAction(toAdd));
         // Sends to all online players the add player packet
-        PacketUtils.broadcastPlayPacket(addPlayerPacket);
+        PacketUtils.broadcastPlayPacket(new TeamsPacket(teamName,
+                new TeamsPacket.AddEntitiesToTeamAction(toAdd)));
 
         // invalidate player members
         this.isPlayerMembersUpToDate = false;
@@ -171,7 +215,7 @@ public class Team implements PacketGroupingAudience {
     /**
      * Changes the display name of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param teamDisplayName The new display name
      */
@@ -180,85 +224,42 @@ public class Team implements PacketGroupingAudience {
     }
 
     /**
-     * Changes the display name of the team and sends an update packet.
-     *
-     * @param teamDisplayName The new display name
-     */
-    public void updateTeamDisplayName(Component teamDisplayName) {
-        this.setTeamDisplayName(teamDisplayName);
-        sendUpdatePacket();
-    }
-
-    /**
      * Changes the {@link NameTagVisibility} of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param visibility The new tag visibility
-     * @see #updateNameTagVisibility(NameTagVisibility)
      */
     public void setNameTagVisibility(@NotNull NameTagVisibility visibility) {
         this.nameTagVisibility = visibility;
     }
 
     /**
-     * Changes the {@link NameTagVisibility} of the team and sends an update packet.
-     *
-     * @param nameTagVisibility The new tag visibility
-     */
-    public void updateNameTagVisibility(@NotNull NameTagVisibility nameTagVisibility) {
-        this.setNameTagVisibility(nameTagVisibility);
-        sendUpdatePacket();
-    }
-
-    /**
      * Changes the {@link CollisionRule} of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param rule The new rule
-     * @see #updateCollisionRule(CollisionRule)
      */
     public void setCollisionRule(@NotNull CollisionRule rule) {
         this.collisionRule = rule;
     }
 
     /**
-     * Changes the collision rule of the team and sends an update packet.
-     *
-     * @param collisionRule The new collision rule
-     */
-    public void updateCollisionRule(@NotNull CollisionRule collisionRule) {
-        this.setCollisionRule(collisionRule);
-        sendUpdatePacket();
-    }
-
-    /**
      * Changes the color of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param color The new team color
-     * @see #updateTeamColor(NamedTextColor)
      */
     public void setTeamColor(@NotNull NamedTextColor color) {
         this.teamColor = color;
     }
 
     /**
-     * Changes the color of the team and sends an update packet.
-     *
-     * @param color The new team color
-     */
-    public void updateTeamColor(@NotNull NamedTextColor color) {
-        this.setTeamColor(color);
-        sendUpdatePacket();
-    }
-
-    /**
      * Changes the prefix of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param prefix The new prefix
      */
@@ -267,19 +268,9 @@ public class Team implements PacketGroupingAudience {
     }
 
     /**
-     * Changes the prefix of the team and sends an update packet.
-     *
-     * @param prefix The new prefix
-     */
-    public void updatePrefix(Component prefix) {
-        this.setPrefix(prefix);
-        sendUpdatePacket();
-    }
-
-    /**
      * Changes the suffix of the team.
      * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
      *
      * @param suffix The new suffix
      */
@@ -287,69 +278,35 @@ public class Team implements PacketGroupingAudience {
         this.suffix = suffix;
     }
 
-    /**
-     * Changes the suffix of the team and sends an update packet.
-     *
-     * @param suffix The new suffix
-     */
-    public void updateSuffix(Component suffix) {
-        this.setSuffix(suffix);
-        sendUpdatePacket();
-    }
-
-    /**
-     * Changes the friendly flags of the team.
-     * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
-     *
-     * @param flag The new friendly flag
-     */
-    public void setFriendlyFlags(byte flag) {
-        this.friendlyFlags = flag;
-    }
-
-    /**
-     * Changes the friendly flags of the team and sends an update packet.
-     *
-     * @param flag The new friendly flag
-     */
-    public void updateFriendlyFlags(byte flag) {
-        this.setFriendlyFlags(flag);
-        this.sendUpdatePacket();
-    }
-
     private boolean getFriendlyFlagBit(byte index) {
         return (this.friendlyFlags & index) == index;
     }
 
     private void setFriendlyFlagBit(byte index, boolean value) {
-        if (value) {
-            this.friendlyFlags |= index;
-        } else {
-            this.friendlyFlags &= ~index;
-        }
+        if (value) this.friendlyFlags |= index;
+        else this.friendlyFlags &= ~index;
     }
 
+    /**
+     * Changes the friendly flags for allow friendly fire.
+     * <br><br>
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
+     */
     public void setAllowFriendlyFire(boolean value) {
         this.setFriendlyFlagBit(ALLOW_FRIENDLY_FIRE_BIT, value);
-    }
-
-    public void updateAllowFriendlyFire(boolean value) {
-        this.setAllowFriendlyFire(value);
-        this.sendUpdatePacket();
     }
 
     public boolean isAllowFriendlyFire() {
         return this.getFriendlyFlagBit(ALLOW_FRIENDLY_FIRE_BIT);
     }
 
+    /**
+     * Changes the friendly flags to see invisible players of own team.
+     * <br><br>
+     * <b>Warning: </b> If you do not call {@link #sendUpdatePacket()}, this is only changed of the <b>server side</b>.
+     */
     public void setSeeInvisiblePlayers(boolean value) {
         this.setFriendlyFlagBit(SEE_INVISIBLE_PLAYERS_BIT, value);
-    }
-
-    public void updateSeeInvisiblePlayers(boolean value) {
-        this.setSeeInvisiblePlayers(value);
-        this.sendUpdatePacket();
     }
 
     public boolean isSeeInvisiblePlayers() {
@@ -371,9 +328,8 @@ public class Team implements PacketGroupingAudience {
      * @return the packet to add the team
      */
     public @NotNull TeamsPacket createTeamsCreationPacket() {
-        final var info = new TeamsPacket.CreateTeamAction(teamDisplayName, friendlyFlags,
-                nameTagVisibility, collisionRule, teamColor, prefix, suffix, members);
-        return new TeamsPacket(teamName, info);
+        return new TeamsPacket(teamName, new TeamsPacket.CreateTeamAction(teamDisplayName, friendlyFlags,
+                nameTagVisibility, collisionRule, teamColor, prefix, suffix, members));
     }
 
     /**
@@ -461,9 +417,8 @@ public class Team implements PacketGroupingAudience {
      * Sends an {@link TeamsPacket.UpdateTeamAction} action packet.
      */
     public void sendUpdatePacket() {
-        final var info = new TeamsPacket.UpdateTeamAction(teamDisplayName, friendlyFlags,
-                nameTagVisibility, collisionRule, teamColor, prefix, suffix);
-        PacketUtils.broadcastPlayPacket(new TeamsPacket(teamName, info));
+        PacketUtils.broadcastPlayPacket(new TeamsPacket(teamName, new TeamsPacket.UpdateTeamAction(teamDisplayName, friendlyFlags,
+                nameTagVisibility, collisionRule, teamColor, prefix, suffix)));
     }
 
     @Override
@@ -474,9 +429,7 @@ public class Team implements PacketGroupingAudience {
             for (String member : this.members) {
                 Player player = MinecraftServer.getConnectionManager().getOnlinePlayerByUsername(member);
 
-                if (player != null) {
-                    this.playerMembers.add(player);
-                }
+                if (player != null) this.playerMembers.add(player);
             }
 
             this.isPlayerMembersUpToDate = true;

@@ -14,9 +14,9 @@ public class LivingEntityMeta extends EntityMeta {
     public static final byte OFFSET = EntityMeta.MAX_OFFSET;
     public static final byte MAX_OFFSET = OFFSET + 7;
 
-    private final static byte IS_HAND_ACTIVE_BIT = 0x01;
-    private final static byte ACTIVE_HAND_BIT = 0x02;
-    private final static byte IS_IN_SPIN_ATTACK_BIT = 0x04;
+    private static final byte IS_HAND_ACTIVE_BIT = 0x01;
+    private static final byte ACTIVE_HAND_BIT = 0x02;
+    private static final byte IS_IN_SPIN_ATTACK_BIT = 0x04;
 
     protected LivingEntityMeta(@NotNull Entity entity, @NotNull Metadata metadata) {
         super(entity, metadata);
