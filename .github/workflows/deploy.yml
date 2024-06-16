@@ -31,8 +31,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLEAR_GLOBS_FILE: ".github/javadoc-publish-clear"
 
-  jitpack:
-    runs-on: ubuntu-latest
-    steps:
       - name: Trigger Jitpack Build
         run: curl "https://jitpack.io/com/github/ItsFelix5/Minestom-fe/${GITHUB_SHA:0:10}/build.log"
