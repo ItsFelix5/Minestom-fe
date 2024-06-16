@@ -114,11 +114,9 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <section class="constructor-summary" id="constructor-summary">
 <h2>Constructor Summary</h2>
 <div class="caption"><span>Constructors</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier</div>
-<div class="table-header col-second">Constructor</div>
+<div class="summary-table two-column-summary">
+<div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>protected </code></div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">Team</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Default constructor to creates a team.</div>
@@ -131,7 +129,7 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
 <div class="summary-table three-column-summary">
 <div class="table-header col-first">Modifier and Type</div>
@@ -157,40 +155,60 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates the creation packet to add a team.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCollisionRule()" class="member-name-link">getCollisionRule</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#delete()" class="member-name-link">delete</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes a <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#exists(java.lang.String)" class="member-name-link">exists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks if the given name a registry name of a registered <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#exists(net.minestom.server.scoreboard.Team)" class="member-name-link">exists</a><wbr>(<a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a>&nbsp;team)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks if the given <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> registered</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCollisionRule()" class="member-name-link">getCollisionRule</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the collision rule of the team.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>byte</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFriendlyFlags()" class="member-name-link">getFriendlyFlags</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>byte</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFriendlyFlags()" class="member-name-link">getFriendlyFlags</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the friendly flags of the team.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMembers()" class="member-name-link">getMembers</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMembers()" class="member-name-link">getMembers</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Obtains an unmodifiable <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link"><code>Set</code></a> of registered players who are on the team.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNameTagVisibility()" class="member-name-link">getNameTagVisibility</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNameTagVisibility()" class="member-name-link">getNameTagVisibility</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the tag visibility of the team.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a><wbr>&lt;<a href="../entity/Player.html" title="class in net.minestom.server.entity">Player</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayers()" class="member-name-link">getPlayers</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a><wbr>&lt;<a href="../entity/Player.html" title="class in net.minestom.server.entity">Player</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPlayers()" class="member-name-link">getPlayers</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets an iterable of the players this audience contains.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPrefix()" class="member-name-link">getPrefix</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPrefix()" class="member-name-link">getPrefix</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the prefix of the team.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSuffix()" class="member-name-link">getSuffix</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSuffix()" class="member-name-link">getSuffix</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the suffix of the team.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTeam(java.lang.String)" class="member-name-link">getTeam</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Gets a <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> with the given name</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/format/NamedTextColor.html" title="class or interface in net.kyori.adventure.text.format" class="external-link">NamedTextColor</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTeamColor()" class="member-name-link">getTeamColor</a>()</code></div>
@@ -207,42 +225,44 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the registry name of the team.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isAllowFriendlyFire()" class="member-name-link">isAllowFriendlyFire</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getTeams()" class="member-name-link">getTeams</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Gets a <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link"><code>Set</code></a> with all <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a>'s</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isSeeInvisiblePlayers()" class="member-name-link">isSeeInvisiblePlayers</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isAllowFriendlyFire()" class="member-name-link">isAllowFriendlyFire</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointers.html" title="class or interface in net.kyori.adventure.pointer" class="external-link">Pointers</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pointers()" class="member-name-link">pointers</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isSeeInvisiblePlayers()" class="member-name-link">isSeeInvisiblePlayers</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeMember(java.lang.String)" class="member-name-link">removeMember</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;member)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/pointer/Pointers.html" title="class or interface in net.kyori.adventure.pointer" class="external-link">Pointers</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pointers()" class="member-name-link">pointers</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeMember(java.lang.String)" class="member-name-link">removeMember</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;member)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes a member from the <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeMembers(java.util.Collection)" class="member-name-link">removeMembers</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;toRemove)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeMembers(java.util.Collection)" class="member-name-link">removeMembers</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;toRemove)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Removes members from the <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a>.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendUpdatePacket()" class="member-name-link">sendUpdatePacket</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sendUpdatePacket()" class="member-name-link">sendUpdatePacket</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends an <a href="../network/packet/server/play/TeamsPacket.UpdateTeamAction.html" title="class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.UpdateTeamAction</code></a> action packet.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAllowFriendlyFire(boolean)" class="member-name-link">setAllowFriendlyFire</a><wbr>(boolean&nbsp;value)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCollisionRule(net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule)" class="member-name-link">setCollisionRule</a><wbr>(@NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a>&nbsp;rule)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setAllowFriendlyFire(boolean)" class="member-name-link">setAllowFriendlyFire</a><wbr>(boolean&nbsp;value)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.CollisionRule</code></a> of the team.</div>
+<div class="block">Changes the friendly flags for allow friendly fire.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFriendlyFlags(byte)" class="member-name-link">setFriendlyFlags</a><wbr>(byte&nbsp;flag)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCollisionRule(net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule)" class="member-name-link">setCollisionRule</a><wbr>(@NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a>&nbsp;rule)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the friendly flags of the team.</div>
+<div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.CollisionRule</code></a> of the team.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setNameTagVisibility(net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility)" class="member-name-link">setNameTagVisibility</a><wbr>(@NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a>&nbsp;visibility)</code></div>
@@ -256,7 +276,9 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSeeInvisiblePlayers(boolean)" class="member-name-link">setSeeInvisiblePlayers</a><wbr>(boolean&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Changes the friendly flags to see invisible players of own team.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSuffix(net.kyori.adventure.text.Component)" class="member-name-link">setSuffix</a><wbr>(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;suffix)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -271,47 +293,6 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTeamDisplayName(net.kyori.adventure.text.Component)" class="member-name-link">setTeamDisplayName</a><wbr>(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;teamDisplayName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Changes the display name of the team.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateAllowFriendlyFire(boolean)" class="member-name-link">updateAllowFriendlyFire</a><wbr>(boolean&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateCollisionRule(net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule)" class="member-name-link">updateCollisionRule</a><wbr>(@NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a>&nbsp;collisionRule)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the collision rule of the team and sends an update packet.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateFriendlyFlags(byte)" class="member-name-link">updateFriendlyFlags</a><wbr>(byte&nbsp;flag)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the friendly flags of the team and sends an update packet.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateNameTagVisibility(net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility)" class="member-name-link">updateNameTagVisibility</a><wbr>(@NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a>&nbsp;nameTagVisibility)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.NameTagVisibility</code></a> of the team and sends an update packet.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePrefix(net.kyori.adventure.text.Component)" class="member-name-link">updatePrefix</a><wbr>(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;prefix)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the prefix of the team and sends an update packet.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSeeInvisiblePlayers(boolean)" class="member-name-link">updateSeeInvisiblePlayers</a><wbr>(boolean&nbsp;value)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateSuffix(net.kyori.adventure.text.Component)" class="member-name-link">updateSuffix</a><wbr>(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;suffix)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the suffix of the team and sends an update packet.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateTeamColor(net.kyori.adventure.text.format.NamedTextColor)" class="member-name-link">updateTeamColor</a><wbr>(@NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/format/NamedTextColor.html" title="class or interface in net.kyori.adventure.text.format" class="external-link">NamedTextColor</a>&nbsp;color)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the color of the team and sends an update packet.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateTeamDisplayName(net.kyori.adventure.text.Component)" class="member-name-link">updateTeamDisplayName</a><wbr>(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;teamDisplayName)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the display name of the team and sends an update packet.</div>
 </div>
 </div>
 </div>
@@ -345,7 +326,7 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <li>
 <section class="detail" id="&lt;init&gt;(java.lang.String)">
 <h3>Team</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">Team</span><wbr><span class="parameters">(@NotNull
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Team</span><wbr><span class="parameters">(@NotNull
  @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</span></div>
 <div class="block">Default constructor to creates a team.</div>
 <dl class="notes">
@@ -362,6 +343,63 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="getTeams()">
+<h3>getTeams</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a>&gt;</span>&nbsp;<span class="element-name">getTeams</span>()</div>
+<div class="block">Gets a <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link"><code>Set</code></a> with all <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a>'s</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link"><code>Set</code></a> with all <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a>'s</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getTeam(java.lang.String)">
+<h3>getTeam</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a></span>&nbsp;<span class="element-name">getTeam</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</span></div>
+<div class="block">Gets a <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> with the given name</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>teamName</code> - The registry name of the team</dd>
+<dt>Returns:</dt>
+<dd>a registered <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> or <code>null</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="exists(java.lang.String)">
+<h3>exists</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">exists</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;teamName)</span></div>
+<div class="block">Checks if the given name a registry name of a registered <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>teamName</code> - The name of the team</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if the team is registered, otherwise <code>false</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="exists(net.minestom.server.scoreboard.Team)">
+<h3>exists</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">exists</span><wbr><span class="parameters">(<a href="Team.html" title="class in net.minestom.server.scoreboard">Team</a>&nbsp;team)</span></div>
+<div class="block">Checks if the given <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> registered</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>team</code> - The searched team</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if the team is registered, otherwise <code>false</code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="delete()">
+<h3>delete</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span>()</div>
+<div class="block">Deletes a <a href="Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a></div>
+</section>
+</li>
 <li>
 <section class="detail" id="addMember(java.lang.String)">
 <h3>addMember</h3>
@@ -428,18 +466,7 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setTeamDisplayName</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;teamDisplayName)</span></div>
 <div class="block">Changes the display name of the team.
  <br><br>
- <b>Warning:</b> This is only changed <b>server side</b>.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>teamDisplayName</code> - The new display name</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateTeamDisplayName(net.kyori.adventure.text.Component)">
-<h3>updateTeamDisplayName</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateTeamDisplayName</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;teamDisplayName)</span></div>
-<div class="block">Changes the display name of the team and sends an update packet.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>teamDisplayName</code> - The new display name</dd>
@@ -453,28 +480,10 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
  @NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a>&nbsp;visibility)</span></div>
 <div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.NameTagVisibility</code></a> of the team.
  <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>visibility</code> - The new tag visibility</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#updateNameTagVisibility(net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility)"><code>updateNameTagVisibility(NameTagVisibility)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateNameTagVisibility(net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility)">
-<h3>updateNameTagVisibility</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateNameTagVisibility</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.NameTagVisibility</a>&nbsp;nameTagVisibility)</span></div>
-<div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.NameTagVisibility.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.NameTagVisibility</code></a> of the team and sends an update packet.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>nameTagVisibility</code> - The new tag visibility</dd>
 </dl>
 </section>
 </li>
@@ -485,28 +494,10 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
  @NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a>&nbsp;rule)</span></div>
 <div class="block">Changes the <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play"><code>TeamsPacket.CollisionRule</code></a> of the team.
  <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>rule</code> - The new rule</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#updateCollisionRule(net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule)"><code>updateCollisionRule(CollisionRule)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateCollisionRule(net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule)">
-<h3>updateCollisionRule</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateCollisionRule</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../network/packet/server/play/TeamsPacket.CollisionRule.html" title="enum class in net.minestom.server.network.packet.server.play">TeamsPacket.CollisionRule</a>&nbsp;collisionRule)</span></div>
-<div class="block">Changes the collision rule of the team and sends an update packet.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>collisionRule</code> - The new collision rule</dd>
 </dl>
 </section>
 </li>
@@ -517,25 +508,7 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
  @NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/format/NamedTextColor.html" title="class or interface in net.kyori.adventure.text.format" class="external-link">NamedTextColor</a>&nbsp;color)</span></div>
 <div class="block">Changes the color of the team.
  <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>color</code> - The new team color</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#updateTeamColor(net.kyori.adventure.text.format.NamedTextColor)"><code>updateTeamColor(NamedTextColor)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateTeamColor(net.kyori.adventure.text.format.NamedTextColor)">
-<h3>updateTeamColor</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateTeamColor</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/format/NamedTextColor.html" title="class or interface in net.kyori.adventure.text.format" class="external-link">NamedTextColor</a>&nbsp;color)</span></div>
-<div class="block">Changes the color of the team and sends an update packet.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>color</code> - The new team color</dd>
@@ -548,18 +521,7 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPrefix</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;prefix)</span></div>
 <div class="block">Changes the prefix of the team.
  <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>prefix</code> - The new prefix</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updatePrefix(net.kyori.adventure.text.Component)">
-<h3>updatePrefix</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updatePrefix</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;prefix)</span></div>
-<div class="block">Changes the prefix of the team and sends an update packet.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>prefix</code> - The new prefix</dd>
@@ -572,45 +534,10 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setSuffix</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;suffix)</span></div>
 <div class="block">Changes the suffix of the team.
  <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>suffix</code> - The new suffix</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateSuffix(net.kyori.adventure.text.Component)">
-<h3>updateSuffix</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateSuffix</span><wbr><span class="parameters">(<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/Component.html" title="class or interface in net.kyori.adventure.text" class="external-link">Component</a>&nbsp;suffix)</span></div>
-<div class="block">Changes the suffix of the team and sends an update packet.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>suffix</code> - The new suffix</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setFriendlyFlags(byte)">
-<h3>setFriendlyFlags</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setFriendlyFlags</span><wbr><span class="parameters">(byte&nbsp;flag)</span></div>
-<div class="block">Changes the friendly flags of the team.
- <br><br>
- <b>Warning:</b> This is only changed on the <b>server side</b>.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>flag</code> - The new friendly flag</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="updateFriendlyFlags(byte)">
-<h3>updateFriendlyFlags</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateFriendlyFlags</span><wbr><span class="parameters">(byte&nbsp;flag)</span></div>
-<div class="block">Changes the friendly flags of the team and sends an update packet.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>flag</code> - The new friendly flag</dd>
 </dl>
 </section>
 </li>
@@ -618,12 +545,9 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <section class="detail" id="setAllowFriendlyFire(boolean)">
 <h3>setAllowFriendlyFire</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setAllowFriendlyFire</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="updateAllowFriendlyFire(boolean)">
-<h3>updateAllowFriendlyFire</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateAllowFriendlyFire</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
+<div class="block">Changes the friendly flags for allow friendly fire.
+ <br><br>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 </section>
 </li>
 <li>
@@ -636,12 +560,9 @@ implements <a href="../adventure/audience/PacketGroupingAudience.html" title="in
 <section class="detail" id="setSeeInvisiblePlayers(boolean)">
 <h3>setSeeInvisiblePlayers</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setSeeInvisiblePlayers</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="updateSeeInvisiblePlayers(boolean)">
-<h3>updateSeeInvisiblePlayers</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateSeeInvisiblePlayers</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
+<div class="block">Changes the friendly flags to see invisible players of own team.
+ <br><br>
+ <b>Warning: </b> If you do not call <a href="#sendUpdatePacket()"><code>sendUpdatePacket()</code></a>, this is only changed of the <b>server side</b>.</div>
 </section>
 </li>
 <li>
