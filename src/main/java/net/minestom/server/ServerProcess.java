@@ -19,7 +19,6 @@ import net.minestom.server.instance.block.jukebox.JukeboxSong;
 import net.minestom.server.item.armor.TrimMaterial;
 import net.minestom.server.item.armor.TrimPattern;
 import net.minestom.server.item.enchant.*;
-import net.minestom.server.listener.manager.PacketListenerManager;
 import net.minestom.server.message.ChatType;
 import net.minestom.server.monitoring.BenchmarkManager;
 import net.minestom.server.monitoring.TickMonitor;
@@ -70,7 +69,6 @@ public final class ServerProcess implements Registries {
     private final DynamicRegistry<JukeboxSong> jukeboxSong;
 
     private final ConnectionManager connection;
-    private final PacketListenerManager packetListener;
     private final PacketProcessor packetProcessor;
     private final BlockManager block;
     private final CommandManager command;
@@ -115,8 +113,7 @@ public final class ServerProcess implements Registries {
         this.jukeboxSong = JukeboxSong.createDefaultRegistry();
 
         this.connection = new ConnectionManager();
-        this.packetListener = new PacketListenerManager();
-        this.packetProcessor = new PacketProcessor(packetListener);
+        this.packetProcessor = new PacketProcessor();
         this.block = new BlockManager();
         this.command = new CommandManager();
         this.recipe = new RecipeManager();
@@ -249,10 +246,6 @@ public final class ServerProcess implements Registries {
         return biome;
     }
 
-    public @NotNull PacketListenerManager packetListener() {
-        return packetListener;
-    }
-
     public @NotNull PacketProcessor packetProcessor() {
         return packetProcessor;
     }
@@ -274,7 +267,7 @@ public final class ServerProcess implements Registries {
             throw new IllegalStateException("Server already started");
         }
 
-        LOGGER.info("Starting " + " server.");
+        LOGGER.info("Starting server...");
 
         // Init server
         try {
@@ -296,11 +289,10 @@ public final class ServerProcess implements Registries {
     public void stop() {
         if (!stopped.compareAndSet(false, true))
             return;
-        LOGGER.info("Stopping server.");
+        LOGGER.info("Stopping server...");
         scheduler.shutdown();
         connection.shutdown();
         server.stop();
-        LOGGER.info("Shutting down all thread pools.");
         benchmark.disable();
         dispatcher.shutdown();
         LOGGER.info("Server stopped successfully.");

@@ -6,7 +6,6 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.listener.BlockPlacementListener;
 import net.minestom.server.network.packet.client.play.ClientPlayerBlockPlacementPacket;
 import net.minestom.testing.Env;
 import net.minestom.testing.EnvTest;
@@ -35,7 +34,7 @@ public class BlockPlaceIntegrationTest {
         // Should be air, then we place (this is outside the border)
         assertEquals(Block.AIR, instance.getBlock(3, 40, 0));
         var placePacket = new ClientPlayerBlockPlacementPacket(Player.Hand.MAIN, new Pos(3, 39, 0), BlockFace.TOP, 0.5f, 0.5f, 0.5f, false, 1);
-        BlockPlacementListener.listener(placePacket, player);
+        placePacket.listener(player);
 
         // Should still be air
         var placedBlock = instance.getBlock(3, 40, 0);
@@ -52,7 +51,7 @@ public class BlockPlaceIntegrationTest {
         // Should be air, then we place
         assertEquals(Block.AIR, instance.getBlock(3, -64, 0));
         var placePacket = new ClientPlayerBlockPlacementPacket(Player.Hand.MAIN, new Pos(3, -64, 0), BlockFace.TOP, 0.5f, 0.5f, 0.5f, false, 1);
-        BlockPlacementListener.listener(placePacket, player);
+        placePacket.listener(player);
 
         // Should be stone.
         var placedBlock = instance.getBlock(3, -64, 0);

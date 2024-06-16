@@ -1,7 +1,6 @@
 package net.minestom.server.network;
 
 import net.minestom.server.entity.Player;
-import net.minestom.server.listener.manager.PacketListenerManager;
 import net.minestom.server.network.packet.client.ClientPacket;
 import net.minestom.server.network.packet.client.ClientPacketsHandler;
 import net.minestom.server.network.packet.client.handshake.ClientHandshakePacket;
@@ -22,15 +21,11 @@ public class PacketProcessor {
     private final ClientPacketsHandler configurationHandler;
     private final ClientPacketsHandler playHandler;
 
-    private final PacketListenerManager packetListenerManager;
-
-    public PacketProcessor(@NotNull PacketListenerManager packetListenerManager) {
+    public PacketProcessor() {
         statusHandler = new ClientPacketsHandler.Status();
         loginHandler = new ClientPacketsHandler.Login();
         configurationHandler = new ClientPacketsHandler.Configuration();
         playHandler = new ClientPacketsHandler.Play();
-
-        this.packetListenerManager = packetListenerManager;
     }
 
     public @NotNull ClientPacket create(@NotNull ConnectionState connectionState, int packetId, ByteBuffer body) {
@@ -54,7 +49,7 @@ public class PacketProcessor {
 
         switch (connection.getConnectionState()) {
             // Process all pre-config packets immediately
-            case HANDSHAKE, STATUS, LOGIN -> packetListenerManager.processClientPacket(packet, connection);
+            case HANDSHAKE, STATUS, LOGIN -> packet.listener(connection);
             // Process config and play packets on the next tick
             case CONFIGURATION, PLAY -> {
                 final Player player = connection.getPlayer();

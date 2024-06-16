@@ -1,6 +1,8 @@
 package net.minestom.server.network.packet.client.play;
 
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -21,5 +23,23 @@ public record ClientVehicleMovePacket(@NotNull Pos position) implements ClientPa
         writer.write(DOUBLE, position.z());
         writer.write(FLOAT, position.yaw());
         writer.write(FLOAT, position.pitch());
+    }
+
+    @Override
+    public void listener(Player player) {
+        final Entity vehicle = player.getVehicle();
+        if (vehicle == null)
+            return;
+
+        vehicle.refreshPosition(position);
+
+        // This packet causes weird screen distortion
+        /*VehicleMovePacket vehicleMovePacket = new VehicleMovePacket();
+        vehicleMovePacket.x = packet.x;
+        vehicleMovePacket.y = packet.y;
+        vehicleMovePacket.z = packet.z;
+        vehicleMovePacket.yaw = packet.yaw;
+        vehicleMovePacket.pitch = packet.pitch;
+        player.getPlayerConnection().sendPacket(vehicleMovePacket);*/
     }
 }

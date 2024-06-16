@@ -1,6 +1,9 @@
 package net.minestom.server.network.packet.client.play;
 
 import net.minestom.server.advancements.AdvancementAction;
+import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.AdvancementTabEvent;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -40,5 +43,10 @@ public record ClientAdvancementTabPacket(@NotNull AdvancementAction action,
             }
             writer.write(STRING, tabIdentifier);
         }
+    }
+
+    @Override
+    public void listener(Player player) {
+        if (tabIdentifier != null) EventDispatcher.call(new AdvancementTabEvent(player, action, tabIdentifier));
     }
 }

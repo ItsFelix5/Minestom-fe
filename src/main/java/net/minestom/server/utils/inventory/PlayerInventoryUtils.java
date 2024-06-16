@@ -47,11 +47,8 @@ public final class PlayerInventoryUtils {
     public static int convertSlot(int slot, int offset) {
         final int rowSize = 9;
         slot -= offset;
-        if (slot >= rowSize * 3 && slot < rowSize * 4) {
-            slot = slot % 9;
-        } else {
-            slot = slot + rowSize;
-        }
+        if (slot >= rowSize * 3 && slot < rowSize * 4) slot = slot % 9;
+        else slot = slot + rowSize;
         return slot;
     }
 
@@ -63,17 +60,8 @@ public final class PlayerInventoryUtils {
      * @return a slot id which can be used for packets
      */
     public static int convertToPacketSlot(int slot) {
-        if (slot > -1 && slot < 9) { // Held bar 0-8
-            slot = slot + 36;
-        } else if (slot > 8 && slot < 36) { // Inventory 9-35
-            slot = slot;
-        } else if (slot >= CRAFT_RESULT && slot <= CRAFT_SLOT_4) { // Crafting 36-40
-            slot = slot - 36;
-        } else if (slot >= HELMET_SLOT && slot <= BOOTS_SLOT) { // Armor 41-44
-            slot = slot - 36;
-        } else if (slot == OFFHAND_SLOT) { // Off hand
-            slot = 45;
-        }
+        if (slot > -1 && slot < 9) slot += 36;
+        else if ((slot >= CRAFT_RESULT && slot <= CRAFT_SLOT_4) || (slot >= HELMET_SLOT && slot <= BOOTS_SLOT)) slot -= 36;
         return slot;
     }
 

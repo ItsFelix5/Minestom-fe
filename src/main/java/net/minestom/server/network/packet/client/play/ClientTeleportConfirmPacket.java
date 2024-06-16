@@ -1,5 +1,6 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -14,5 +15,10 @@ public record ClientTeleportConfirmPacket(int teleportId) implements ClientPacke
     @Override
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(VAR_INT, teleportId);
+    }
+
+    @Override
+    public void listener(Player player) {
+        player.refreshReceivedTeleportId(teleportId);
     }
 }

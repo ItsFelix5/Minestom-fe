@@ -3,6 +3,7 @@ package net.minestom.server.network.packet.client.common;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import net.minestom.server.network.packet.server.common.CookieStorePacket;
+import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,4 +33,8 @@ public record ClientCookieResponsePacket(
         writer.writeOptional(NetworkBuffer.BYTE_ARRAY, value);
     }
 
+    @Override
+    public void listener(PlayerConnection connection) {
+        connection.receiveCookieResponse(key, value);
+    }
 }

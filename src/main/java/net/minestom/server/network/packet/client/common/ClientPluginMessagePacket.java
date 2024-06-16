@@ -1,5 +1,8 @@
 package net.minestom.server.network.packet.client.common;
 
+import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.PlayerPluginMessageEvent;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -21,5 +24,10 @@ public record ClientPluginMessagePacket(@NotNull String channel, byte[] data) im
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(STRING, channel);
         writer.write(RAW_BYTES, data);
+    }
+
+    @Override
+    public void listener(Player player) {
+        EventDispatcher.call(new PlayerPluginMessageEvent(player, channel, data));
     }
 }

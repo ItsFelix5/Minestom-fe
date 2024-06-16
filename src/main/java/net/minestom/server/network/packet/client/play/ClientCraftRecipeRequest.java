@@ -1,7 +1,9 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
+import net.minestom.server.network.packet.server.play.CraftRecipeResponse;
 import org.jetbrains.annotations.NotNull;
 
 import static net.minestom.server.network.NetworkBuffer.*;
@@ -22,5 +24,10 @@ public record ClientCraftRecipeRequest(byte windowId, String recipe, boolean mak
         writer.write(BYTE, windowId);
         writer.write(STRING, recipe);
         writer.write(BOOLEAN, makeAll);
+    }
+
+    @Override
+    public void listener(Player player) {
+        player.sendPacket(new CraftRecipeResponse(windowId, recipe));
     }
 }

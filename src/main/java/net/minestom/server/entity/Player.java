@@ -55,7 +55,6 @@ import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.item.component.WrittenBookContent;
-import net.minestom.server.listener.manager.PacketListenerManager;
 import net.minestom.server.message.ChatMessageType;
 import net.minestom.server.message.ChatPosition;
 import net.minestom.server.message.Messenger;
@@ -817,38 +816,58 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     @Override
     protected void updatePose() {
-        Pose oldPose = getPose();
-        Pose newPose;
+        Pose newPose = Pose.STANDING;
 
         // Figure out their expected state
+        // Excludes sleeping as minestom does not have that builtin.
         var meta = getEntityMeta();
-        if (meta.isFlyingWithElytra()) {
-            newPose = Pose.FALL_FLYING;
-        } else if (false) { // When should they be sleeping? We don't have any in-bed state...
-            newPose = Pose.SLEEPING;
-        } else if (meta.isSwimming()) {
-            newPose = Pose.SWIMMING;
-        } else if (meta instanceof LivingEntityMeta livingMeta && livingMeta.isInRiptideSpinAttack()) {
+        if (meta.isFlyingWithElytra()) newPose = Pose.FALL_FLYING;
+        else if (meta.isSwimming()) newPose = Pose.SWIMMING;
+        else if (meta instanceof LivingEntityMeta livingMeta && livingMeta.isInRiptideSpinAttack())
             newPose = Pose.SPIN_ATTACK;
-        } else if (isSneaking() && !isFlying()) {
-            newPose = Pose.SNEAKING;
-        } else {
-            newPose = Pose.STANDING;
-        }
+        else if (isSneaking() && !isFlying()) newPose = Pose.SNEAKING;
 
         // Try to put them in their expected state, or the closest if they don't fit.
-        if (canFitWithBoundingBox(newPose)) {
-            // Use expected state
-        } else if (canFitWithBoundingBox(Pose.SNEAKING)) {
-            newPose = Pose.SNEAKING;
-        } else if (canFitWithBoundingBox(Pose.SWIMMING)) {
-            newPose = Pose.SWIMMING;
-        } else {
-            // If they can't fit anywhere, just use standing
-            newPose = Pose.STANDING;
+        if (canFitWithBoundingBox(newPose)) setPose(newPose); // Use expected state
+        else if (canFitWithBoundingBox(Pose.SNEAKING)) setPose(Pose.SNEAKING);
+        else if (canFitWithBoundingBox(Pose.SWIMMING)) setPose(Pose.SWIMMING);
+        else setPose(Pose.STANDING); // If they can't fit anywhere, just use standing
+    }
+
+    @ApiStatus.Internal
+    public void processMovement(@NotNull Pos packetPosition, boolean onGround) {
+        if (position.equals(packetPosition)) return; // For some reason, the position is the same
+        // Prevent moving before the player spawned, probably a modified client (or high latency?)
+        if (instance == null) return;
+        // Prevent the player from moving during a teleport
+        if (teleportId.get() != receivedTeleportId) return;
+        // Try to move in an unloaded chunk, prevent it
+        if (!position.sameChunk(packetPosition) && !ChunkUtils.isLoaded(instance, packetPosition)) {
+            teleport(position);
+            return;
         }
 
-        if (newPose != oldPose) setPose(newPose);
+        PlayerMoveEvent playerMoveEvent = new PlayerMoveEvent(this, packetPosition, onGround);
+        EventDispatcher.call(playerMoveEvent);
+        if (!position.equals(getPosition())) return; // Player has been teleported in the event
+        if (playerMoveEvent.isCancelled()) {
+            // Teleport to previous position
+            sendPacket(new PlayerPositionAndLookPacket(position, (byte) 0x00, teleportId.incrementAndGet()));
+            return;
+        }
+        final Pos eventPosition = playerMoveEvent.getNewPosition();
+        if (packetPosition.equals(eventPosition)) {
+            // Event didn't change the position
+            refreshPosition(eventPosition);
+            refreshOnGround(onGround);
+        } else {
+            // Position modified by the event
+            if (packetPosition.samePoint(eventPosition)) {
+                refreshPosition(eventPosition, true);
+                refreshOnGround(onGround);
+                setView(eventPosition.yaw(), eventPosition.pitch());
+            } else teleport(eventPosition);
+        }
     }
 
     /**
@@ -2074,9 +2093,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             kick(Component.text("Too Many Packets", NamedTextColor.RED));
             return;
         }
-        final PacketListenerManager manager = MinecraftServer.getPacketListenerManager();
         // This method is NOT thread-safe
-        this.packets.drain(packet -> manager.processClientPacket(packet, playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
+        this.packets.drain(packet -> packet.listener(playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
     }
 
     /**

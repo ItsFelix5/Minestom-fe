@@ -1,11 +1,22 @@
 package net.minestom.server.extras;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.network.NetworkBuffer;
-import net.minestom.server.utils.validate.Check;
+import net.minestom.server.network.packet.client.login.ClientLoginStartPacket;
+import net.minestom.server.network.packet.server.login.LoginDisconnectPacket;
+import net.minestom.server.network.player.GameProfile;
+import net.minestom.server.network.player.PlayerSocketConnection;
 import org.jetbrains.annotations.NotNull;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.MessageDigest;
@@ -22,8 +33,6 @@ public final class VelocityProxy {
     public static final String PLAYER_INFO_CHANNEL = "velocity:player_info";
     private static final int SUPPORTED_FORWARDING_VERSION = 1;
     private static final String MAC_ALGORITHM = "HmacSHA256";
-
-    private static volatile boolean enabled;
     private static Key key;
 
     /**
@@ -33,20 +42,42 @@ public final class VelocityProxy {
      *               be sure to do not hardcode it in your code but to retrieve it from a file or anywhere else safe
      */
     public static void enable(@NotNull String secret) {
-        Check.stateCondition(enabled, "Velocity modern forwarding is already enabled");
-        Check.stateCondition(MojangAuth.isEnabled(), "Velocity modern forwarding should not be enabled with MojangAuth");
-
-        VelocityProxy.enabled = true;
         VelocityProxy.key = new SecretKeySpec(secret.getBytes(), MAC_ALGORITHM);
+        ClientLoginStartPacket.setAuthHandler(VelocityProxy::handleLogin);
     }
 
-    /**
-     * Gets if velocity modern forwarding is enabled.
-     *
-     * @return true if velocity modern forwarding is enabled
-     */
-    public static boolean isEnabled() {
-        return enabled;
+    private static void handleLogin(PlayerSocketConnection connection) {
+        connection.loginPluginMessageProcessor().request(PLAYER_INFO_CHANNEL, null)
+                .thenAccept(response -> {
+                    byte[] data = response.getPayload();
+
+                    SocketAddress socketAddress = null;
+                    GameProfile gameProfile = null;
+                    boolean success = false;
+                    if (data != null && data.length > 0) {
+                        NetworkBuffer buffer = new NetworkBuffer(ByteBuffer.wrap(data));
+                        success = checkIntegrity(buffer);
+                        if (success) {
+                            // Get the real connection address
+                            final InetAddress address;
+                            try {
+                                address = InetAddress.getByName(buffer.read(STRING));
+                            } catch (UnknownHostException e) {
+                                MinecraftServer.getExceptionManager().handleException(e);
+                                return;
+                            }
+                            final int port = ((java.net.InetSocketAddress) connection.getRemoteAddress()).getPort();
+                            socketAddress = new InetSocketAddress(address, port);
+                            gameProfile = new GameProfile(buffer);
+                        }
+                    }
+
+                    if (success) {
+                        connection.setRemoteAddress(socketAddress);
+                        connection.UNSAFE_setProfile(gameProfile);
+                        MinecraftServer.getConnectionManager().createPlayer(connection, gameProfile.uuid(), gameProfile.name());
+                    } else connection.sendPacket(new LoginDisconnectPacket(Component.text("Invalid proxy response!", NamedTextColor.RED)));
+                });
     }
 
     public static boolean checkIntegrity(@NotNull NetworkBuffer buffer) {

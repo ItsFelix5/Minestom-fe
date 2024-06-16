@@ -1,6 +1,9 @@
 package net.minestom.server.network.packet.client.common;
 
 import net.kyori.adventure.resource.ResourcePackStatus;
+import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.PlayerResourcePackStatusEvent;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +22,14 @@ public record ClientResourcePackStatusPacket(
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(NetworkBuffer.UUID, id);
         writer.writeEnum(ResourcePackStatus.class, status);
+    }
+
+    @Override
+    public void listener(Player player) {
+        EventDispatcher.call(new PlayerResourcePackStatusEvent(player, status));
+
+        // Run adventure callbacks for the resource pack
+        player.onResourcePackStatus(id, status);
     }
 
     private static @NotNull ResourcePackStatus readStatus(@NotNull NetworkBuffer reader) {

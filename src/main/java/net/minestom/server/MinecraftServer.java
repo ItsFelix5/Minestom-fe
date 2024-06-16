@@ -16,7 +16,6 @@ import net.minestom.server.instance.block.jukebox.JukeboxSong;
 import net.minestom.server.item.armor.TrimMaterial;
 import net.minestom.server.item.armor.TrimPattern;
 import net.minestom.server.item.enchant.*;
-import net.minestom.server.listener.manager.PacketListenerManager;
 import net.minestom.server.message.ChatType;
 import net.minestom.server.monitoring.BenchmarkManager;
 import net.minestom.server.network.ConnectionManager;
@@ -65,10 +64,6 @@ public class MinecraftServer {
 
     public static @NotNull GlobalEventHandler getGlobalEventHandler() {
         return serverProcess.eventHandler();
-    }
-
-    public static @NotNull PacketListenerManager getPacketListenerManager() {
-        return serverProcess.packetListener();
     }
 
     public static @NotNull BlockManager getBlockManager() {

@@ -1,5 +1,6 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -17,5 +18,10 @@ public record ClientPlayerRotationPacket(float yaw, float pitch, boolean onGroun
         writer.write(FLOAT, yaw);
         writer.write(FLOAT, pitch);
         writer.write(BOOLEAN, onGround);
+    }
+
+    @Override
+    public void listener(Player player) {
+        player.processMovement(player.getPosition().withView(yaw, pitch), onGround);
     }
 }

@@ -1,5 +1,10 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.PlayerAnvilInputEvent;
+import net.minestom.server.inventory.Inventory;
+import net.minestom.server.inventory.InventoryType;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -20,5 +25,15 @@ public record ClientNameItemPacket(@NotNull String itemName) implements ClientPa
     @Override
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(STRING, itemName);
+    }
+
+    @Override
+    public void listener(Player player) {
+        if (!(player.getOpenInventory() instanceof Inventory openInventory))
+            return;
+        if (openInventory.getInventoryType() != InventoryType.ANVIL)
+            return;
+
+        EventDispatcher.call(new PlayerAnvilInputEvent(player, itemName));
     }
 }

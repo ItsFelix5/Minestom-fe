@@ -1,5 +1,6 @@
 package net.minestom.server.network.packet.client.configuration;
 
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import net.minestom.server.network.packet.server.configuration.SelectKnownPacksPacket;
@@ -27,4 +28,8 @@ public record ClientSelectKnownPacksPacket(
         writer.writeCollection(entries);
     }
 
+    @Override
+    public void listener(Player player) {
+        player.getPlayerConnection().receiveKnownPacksResponse(entries);
+    }
 }

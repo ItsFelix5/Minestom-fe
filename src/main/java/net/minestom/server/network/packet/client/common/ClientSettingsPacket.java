@@ -1,9 +1,12 @@
 package net.minestom.server.network.packet.client.common;
 
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.PlayerSettingsChangeEvent;
 import net.minestom.server.message.ChatMessageType;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
+import net.minestom.server.network.player.PlayerConnection;
 import org.jetbrains.annotations.NotNull;
 
 import static net.minestom.server.network.NetworkBuffer.*;
@@ -34,5 +37,12 @@ public record ClientSettingsPacket(@NotNull String locale, byte viewDistance,
         writer.write(VAR_INT, mainHand.ordinal());
         writer.write(BOOLEAN, enableTextFiltering);
         writer.write(BOOLEAN, allowsListing);
+    }
+
+    @Override
+    public void listener(Player player) {
+        // Since viewDistance bounds checking is performed in the refresh function, it is not necessary to check it here
+        player.getSettings().refresh(locale, viewDistance, chatMessageType, chatColors, displayedSkinParts, mainHand, enableTextFiltering, allowsListing);
+        EventDispatcher.call(new PlayerSettingsChangeEvent(player));
     }
 }

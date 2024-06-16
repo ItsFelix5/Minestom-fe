@@ -94,9 +94,7 @@ public class PlayerIntegrationTest {
 
         boolean found = false;
         for (ServerPacket serverPacket : collector.collect()) {
-            if (!(serverPacket instanceof EntityMetaDataPacket metaDataPacket)) {
-                continue;
-            }
+            if (!(serverPacket instanceof EntityMetaDataPacket metaDataPacket) || !metaDataPacket.entries().containsKey(18)) continue;
             assertEquals((byte) 0, metaDataPacket.entries().get(18).value(),
                     "EntityMetaDataPacket has the incorrect hand after client settings update.");
             found = true;
@@ -123,9 +121,7 @@ public class PlayerIntegrationTest {
                 UpdateHealthPacket.class, PlayerAbilitiesPacket.class
         );
         final List<Collector<?>> trackers = new ArrayList<>();
-        for (var packet : packets) {
-            trackers.add(connection.trackIncoming(packet));
-        }
+        for (var packet : packets) trackers.add(connection.trackIncoming(packet));
 
         var trackerAll = connection.trackIncoming(ServerPacket.class);
 

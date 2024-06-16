@@ -40,9 +40,6 @@ public final class ServerFlag {
     public static final boolean TAG_HANDLER_CACHE_ENABLED = PropertyUtils.getBoolean("minestom.tag-handler-cache", true);
     public static final boolean SERIALIZE_EMPTY_COMPOUND = PropertyUtils.getBoolean("minestom.serialization.serialize-empty-nbt-compound", false);
 
-    // Online Mode
-    public static final @NotNull String AUTH_URL = System.getProperty("minestom.auth.url", "https://sessionserver.mojang.com/session/minecraft/hasJoined");
-
     // World
     public static final int WORLD_BORDER_SIZE = Integer.getInteger("minestom.world-border-size", 29999984);
 

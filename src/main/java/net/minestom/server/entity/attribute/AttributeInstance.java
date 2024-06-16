@@ -134,33 +134,21 @@ public final class AttributeInstance {
      * Recalculate the value of this attribute instance using the modifiers.
      */
     private void refreshCachedValue() {
-        final Collection<AttributeModifier> modifiers = getModifiers();
         double base = getBaseValue();
 
-        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.ADD_VALUE).toArray(AttributeModifier[]::new))
+        for (var modifier : unmodifiableModifiers.stream().filter(mod -> mod.operation() == AttributeOperation.ADD_VALUE).toArray(AttributeModifier[]::new))
             base += modifier.amount();
 
         double result = base;
 
-        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_BASE).toArray(AttributeModifier[]::new))
+        for (var modifier : unmodifiableModifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_BASE).toArray(AttributeModifier[]::new))
             result += (base * modifier.amount());
-        for (var modifier : modifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_TOTAL).toArray(AttributeModifier[]::new))
+        for (var modifier : unmodifiableModifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_TOTAL).toArray(AttributeModifier[]::new))
             result *= (1.0f + modifier.amount());
 
-        this.cachedValue = Math.clamp(result, getAttribute().minValue(), getAttribute().maxValue());
+        this.cachedValue = Math.clamp(result, attribute.minValue(), attribute.maxValue());
 
         // Signal entity
         if (propertyChangeListener != null) propertyChangeListener.accept(this);
-    }
-
-    @Deprecated
-    @NotNull
-    public Collection<AttributeModifier> getModifiers() {
-        return modifiers();
-    }
-
-    @Deprecated
-    public @NotNull Attribute getAttribute() {
-        return attribute;
     }
 }

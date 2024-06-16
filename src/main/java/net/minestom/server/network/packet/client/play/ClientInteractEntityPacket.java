@@ -1,6 +1,13 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.coordinate.Point;
+import net.minestom.server.coordinate.Vec;
+import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.entity.EntityAttackEvent;
+import net.minestom.server.event.player.PlayerEntityInteractEvent;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +30,22 @@ public record ClientInteractEntityPacket(int targetId, @NotNull Type type, boole
         writer.write(VAR_INT, type.id());
         writer.write(type);
         writer.write(BOOLEAN, sneaking);
+    }
+
+    @Override
+    public void listener(Player player) {
+        final Entity entity = player.getInstance().getEntityById(targetId);
+        if (entity == null || !entity.isViewer(player) || player.getDistanceSquared(entity) > 6 * 6)
+            return;
+
+        if (type instanceof ClientInteractEntityPacket.Attack) {
+            if (entity instanceof LivingEntity && ((LivingEntity) entity).isDead()) // Can't attack dead entities
+                return;
+            EventDispatcher.call(new EntityAttackEvent(player, entity));
+        } else if (type instanceof ClientInteractEntityPacket.InteractAt interactAt) {
+            Point interactPosition = new Vec(interactAt.targetX(), interactAt.targetY(), interactAt.targetZ());
+            EventDispatcher.call(new PlayerEntityInteractEvent(player, entity, interactAt.hand(), interactPosition));
+        }
     }
 
     public sealed interface Type extends Writer

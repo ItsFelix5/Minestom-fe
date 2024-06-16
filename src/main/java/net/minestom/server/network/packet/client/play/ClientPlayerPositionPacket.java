@@ -2,6 +2,7 @@ package net.minestom.server.network.packet.client.play;
 
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Vec;
+import net.minestom.server.entity.Player;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -22,5 +23,10 @@ public record ClientPlayerPositionPacket(@NotNull Point position,
         writer.write(DOUBLE, position.y());
         writer.write(DOUBLE, position.z());
         writer.write(BOOLEAN, onGround);
+    }
+
+    @Override
+    public void listener(Player player) {
+        player.processMovement(player.getPosition().withCoord(position), onGround);
     }
 }

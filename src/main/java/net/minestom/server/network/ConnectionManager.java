@@ -9,7 +9,6 @@ import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.AsyncPlayerPreLoginEvent;
 import net.minestom.server.instance.Instance;
-import net.minestom.server.listener.preplay.LoginListener;
 import net.minestom.server.network.packet.client.login.ClientLoginStartPacket;
 import net.minestom.server.network.packet.server.CachedPacket;
 import net.minestom.server.network.packet.server.common.KeepAlivePacket;
@@ -233,7 +232,7 @@ public final class ConnectionManager {
             try {
                 pluginMessageProcessor.awaitReplies(ServerFlag.LOGIN_PLUGIN_MESSAGE_TIMEOUT, TimeUnit.MILLISECONDS);
             } catch (Throwable t) {
-                player.kick(LoginListener.INVALID_PROXY_RESPONSE);
+                player.kick(Component.text("Invalid proxy response!", NamedTextColor.RED));
                 throw new RuntimeException("Error getting replies for login plugin messages", t);
             }
 

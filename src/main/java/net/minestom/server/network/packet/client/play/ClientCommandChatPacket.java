@@ -1,5 +1,8 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.MinecraftServer;
+import net.minestom.server.entity.Player;
+import net.minestom.server.message.Messenger;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import net.minestom.server.utils.validate.Check;
@@ -19,5 +22,11 @@ public record ClientCommandChatPacket(@NotNull String message) implements Client
     @Override
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(STRING, message);
+    }
+
+    @Override
+    public void listener(Player player) {
+        if (Messenger.canReceiveCommand(player)) MinecraftServer.getCommandManager().execute(player, message);
+        else Messenger.sendRejectionMessage(player);
     }
 }

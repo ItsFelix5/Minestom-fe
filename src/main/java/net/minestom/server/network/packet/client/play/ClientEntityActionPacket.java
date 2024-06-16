@@ -1,5 +1,8 @@
 package net.minestom.server.network.packet.client.play;
 
+import net.minestom.server.entity.Player;
+import net.minestom.server.event.EventDispatcher;
+import net.minestom.server.event.player.*;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +21,42 @@ public record ClientEntityActionPacket(int playerId, @NotNull Action action,
         writer.write(VAR_INT, playerId);
         writer.writeEnum(Action.class, action);
         writer.write(VAR_INT, horseJumpBoost);
+    }
+
+    @Override
+    public void listener(Player player) {
+        switch (action) {
+            case START_SNEAKING -> {
+                if (!player.isSneaking()) {
+                    player.setSneaking(true);
+                    EventDispatcher.call(new PlayerStartSneakingEvent(player));
+                }
+            }
+            case STOP_SNEAKING -> {
+                if (player.isSneaking()) {
+                    player.setSneaking(false);
+                    EventDispatcher.call(new PlayerStopSneakingEvent(player));
+                }
+            }
+            case START_SPRINTING -> {
+                if (!player.isSprinting()) {
+                    player.setSprinting(false);
+                    EventDispatcher.call(new PlayerStopSprintingEvent(player));
+                }
+            }
+            case STOP_SPRINTING -> {
+                if (player.isSprinting()) {
+                    player.setSprinting(false);
+                    EventDispatcher.call(new PlayerStopSprintingEvent(player));
+                }
+            }
+            case START_FLYING_ELYTRA -> {
+                player.setFlyingWithElytra(true);
+                EventDispatcher.call(new PlayerStartFlyingWithElytraEvent(player));
+            }
+
+            // TODO do remaining actions
+        }
     }
 
     public enum Action {
