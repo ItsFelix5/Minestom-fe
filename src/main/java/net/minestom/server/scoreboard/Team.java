@@ -78,6 +78,15 @@ public class Team implements PacketGroupingAudience {
     private final Pointers pointers;
 
     /**
+     * Gets a {@link Set} with all {@link Team}'s
+     *
+     * @return a {@link Set} with all {@link Team}'s
+     */
+    public static Set<Team> getTeams() {
+        return teams;
+    }
+
+    /**
      * Gets a {@link Team} with the given name
      *
      * @param teamName The registry name of the team

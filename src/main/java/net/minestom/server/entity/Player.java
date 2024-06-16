@@ -322,9 +322,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         }
 
         //Teams
-        for (Team team : MinecraftServer.getTeamManager().getTeams()) {
-            sendPacket(team.createTeamsCreationPacket());
-        }
+        for (Team team : Team.getTeams()) sendPacket(team.createTeamsCreationPacket());
 
         // Commands
         refreshCommands();
