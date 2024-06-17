@@ -10,6 +10,7 @@ import net.minestom.server.ServerProcess;
 import net.minestom.server.Tickable;
 import net.minestom.server.adventure.audience.PacketGroupingAudience;
 import net.minestom.server.coordinate.Point;
+import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventDispatcher;
@@ -27,6 +28,7 @@ import net.minestom.server.instance.generator.Generator;
 import net.minestom.server.instance.light.Light;
 import net.minestom.server.network.packet.server.play.BlockActionPacket;
 import net.minestom.server.network.packet.server.play.InitializeWorldBorderPacket;
+import net.minestom.server.network.packet.server.play.SpawnPositionPacket;
 import net.minestom.server.network.packet.server.play.TimeUpdatePacket;
 import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.tag.TagHandler;
@@ -95,6 +97,9 @@ public abstract class Instance implements Block.Getter, Block.Setter,
 
     // Tick since the creation of the instance
     private long worldAge;
+
+    // World spawn point
+    private Pos worldSpawn = Pos.ZERO;
 
     // The time of the instance
     private long time;
@@ -881,5 +886,21 @@ public abstract class Instance implements Block.Getter, Block.Setter,
 
         if (light.requiresUpdate()) LightingChunk.relightSection(chunk.getInstance(), chunk.chunkX, sectionCoordinate, chunk.chunkZ);
         return light.getLevel(coordX, coordY, coordZ);
+    }
+
+    /**
+     * Updates the spawn position of the instance and sends the SpawnPositionPacket to all players.
+     *
+     * @param spawnPosition the new spawn position
+     */
+    public void setWorldSpawnPosition(@NotNull Pos spawnPosition) {
+        if (worldSpawn.samePoint(spawnPosition)) return;
+        worldSpawn = spawnPosition;
+        if (getPlayers().isEmpty()) return;
+        PacketUtils.sendGroupedPacket(getPlayers().stream().filter(p->p.getRespawnPoint() == null).toList(), new SpawnPositionPacket(spawnPosition, spawnPosition.yaw()));
+    }
+
+    public Pos getWorldSpawn() {
+        return worldSpawn;
     }
 }

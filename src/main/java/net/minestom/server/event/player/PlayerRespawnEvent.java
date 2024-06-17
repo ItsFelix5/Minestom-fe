@@ -17,6 +17,7 @@ public class PlayerRespawnEvent implements PlayerEvent {
     public PlayerRespawnEvent(@NotNull Player player) {
         this.player = player;
         this.respawnPosition = player.getRespawnPoint();
+        if(respawnPosition == null) respawnPosition = player.getInstance().getWorldSpawn();
     }
 
     /**

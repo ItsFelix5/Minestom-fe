@@ -225,8 +225,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         this.usernameComponent = Component.text(username);
         this.playerConnection = playerConnection;
 
-        setRespawnPoint(Pos.ZERO);
-
         this.settings = new PlayerSettings();
         this.inventory = new PlayerInventory(this);
 
@@ -286,7 +284,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         // Difficulty
         sendPacket(new ServerDifficultyPacket(ServerSettings.getDifficulty(), true));
 
-        sendPacket(new SpawnPositionPacket(respawnPoint, 0));
+        sendPacket(new SpawnPositionPacket(respawnPoint != null? respawnPoint : spawnInstance.getWorldSpawn(), 0));
 
         // Reenable metadata notifications as we leave the configuration state
         metadata.setNotifyAboutChanges(true);
@@ -676,8 +674,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     /**
-     * Changes the player instance without changing its position (defaulted to {@link #getRespawnPoint()}
-     * if the player is not in any instance).
+     * Changes the player instance and teleports to the players respawn point.
      *
      * @param instance the new player instance
      * @return a {@link CompletableFuture} called once the entity's instance has been set,
@@ -686,7 +683,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      */
     @Override
     public CompletableFuture<Void> setInstance(@NotNull Instance instance) {
-        return setInstance(instance, this.instance != null ? getPosition() : getRespawnPoint());
+        return setInstance(instance, respawnPoint != null? respawnPoint:instance.getWorldSpawn());
     }
 
     /**
@@ -746,7 +743,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     @ApiStatus.Internal
     public void onChunkBatchReceived(float newTargetChunksPerTick) {
-//        logger.debug("chunk batch received player={} chunks/tick={} lead={}", username, newTargetChunksPerTick, chunkBatchLead);
         chunkBatchLead -= 1;
         targetChunksPerTick = Float.isNaN(newTargetChunksPerTick) ? MIN_CHUNKS_PER_TICK : MathUtils.clamp(
                 newTargetChunksPerTick * CHUNKS_PER_TICK_MULTIPLIER, MIN_CHUNKS_PER_TICK, MAX_CHUNKS_PER_TICK);
@@ -796,7 +792,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             }
             sendPacket(new ChunkBatchFinishedPacket(batchSize));
             chunkBatchLead += 1;
-//            logger.debug("chunk batch sent player={} chunks={} lead={}", username, batchSize, chunkBatchLead);
 
             // After sending the first chunk we always send a synchronize position to the client. This is to prevent
             // cases where the client falls through the floor slightly while loading the first chunk.
@@ -1407,16 +1402,16 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      *
      * @return a copy of the default respawn point
      */
-    public @NotNull Pos getRespawnPoint() {
+    public @Nullable Pos getRespawnPoint() {
         return respawnPoint;
     }
 
     /**
-     * Changes the default spawn point.
+     * Changes the spawn point.
      *
      * @param respawnPoint the player respawn point
      */
-    public void setRespawnPoint(@NotNull Pos respawnPoint) {
+    public void setRespawnPoint(@Nullable Pos respawnPoint) {
         this.respawnPoint = respawnPoint;
     }
 

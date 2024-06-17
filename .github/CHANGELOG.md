@@ -7,3 +7,4 @@ Not a "proper" versioned changelog, just a list of the changes from upstream Min
 * Moved some variables to ServerSettings. 
 * Added a default explosion provider.
 * Made the scheduler static.
+* Added a world spawn.

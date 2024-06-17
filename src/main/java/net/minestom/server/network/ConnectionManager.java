@@ -276,9 +276,7 @@ public final class ConnectionManager {
             final Instance spawningInstance = event.getSpawningInstance();
             Check.notNull(spawningInstance, "You need to specify a spawning instance in the AsyncPlayerConfigurationEvent");
 
-            if (event.willClearChat()) {
-                player.sendPacket(resetChatPacket);
-            }
+            if (event.willClearChat()) player.sendPacket(resetChatPacket);
 
             // Registry data (if it should be sent)
             if (event.willSendRegistryData()) {
