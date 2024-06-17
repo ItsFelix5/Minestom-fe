@@ -51,9 +51,6 @@ final class BlockCollision {
 
             final boolean intersects;
             if (entity instanceof Player) {
-                // Ignore spectators
-                if (((Player) entity).getGameMode() == GameMode.SPECTATOR)
-                    continue;
                 // Need to move player slightly away from block we're placing.
                 // If player is at block 40 we cannot place a block at block 39 with side length 1 because the block will be in [39, 40]
                 // For this reason we subtract a small amount from the player position

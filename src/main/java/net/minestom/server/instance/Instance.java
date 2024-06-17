@@ -126,7 +126,7 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     private final EventNode<InstanceEvent> eventNode;
 
     // the explosion supplier
-    private ExplosionSupplier explosionSupplier;
+    private ExplosionSupplier explosionSupplier = Explosion::new;
 
     // Adventure
     private final Pointers pointers;
@@ -828,31 +828,27 @@ public abstract class Instance implements Block.Getter, Block.Setter,
      * Creates an explosion at the given position with the given strength.
      * The algorithm used to compute damages is provided by {@link #getExplosionSupplier()}.
      *
-     * @param centerX  the center X
-     * @param centerY  the center Y
-     * @param centerZ  the center Z
+     * @param center the center of the explosion
      * @param strength the strength of the explosion
      * @throws IllegalStateException If no {@link ExplosionSupplier} was supplied
      */
-    public void explode(float centerX, float centerY, float centerZ, float strength) {
-        explode(centerX, centerY, centerZ, strength, null);
+    public void explode(Point center, float strength) {
+        explode(center, strength, null);
     }
 
     /**
      * Creates an explosion at the given position with the given strength.
      * The algorithm used to compute damages is provided by {@link #getExplosionSupplier()}.
      *
-     * @param centerX        center X of the explosion
-     * @param centerY        center Y of the explosion
-     * @param centerZ        center Z of the explosion
+     * @param center   the center of the explosion
      * @param strength       the strength of the explosion
      * @param additionalData data to pass to the explosion supplier
      * @throws IllegalStateException If no {@link ExplosionSupplier} was supplied
      */
-    public void explode(float centerX, float centerY, float centerZ, float strength, @Nullable CompoundBinaryTag additionalData) {
+    public void explode(Point center, float strength, @Nullable CompoundBinaryTag additionalData) {
         final ExplosionSupplier explosionSupplier = getExplosionSupplier();
         Check.stateCondition(explosionSupplier == null, "Tried to create an explosion with no explosion supplier");
-        final Explosion explosion = explosionSupplier.createExplosion(centerX, centerY, centerZ, strength, additionalData);
+        final Explosion explosion = explosionSupplier.createExplosion(center, strength, additionalData);
         explosion.apply(this);
     }
 

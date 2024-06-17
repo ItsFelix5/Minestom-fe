@@ -2351,6 +2351,12 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         return super.teleport(position, chunks, flags);
     }
 
+    @Override
+    public boolean hasCollision() {
+        if(gameMode == GameMode.SPECTATOR) return false;
+        return super.hasCollision();
+    }
+
     /**
      * Represents the main or off hand of the player.
      */
