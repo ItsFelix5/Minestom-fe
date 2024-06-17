@@ -202,17 +202,13 @@ implements <a href="block/Block.Getter.html" title="interface in net.minestom.se
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#eventNode()" class="member-name-link">eventNode</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#explode(float,float,float,float)" class="member-name-link">explode</a><wbr>(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#explode(net.minestom.server.coordinate.Point,float)" class="member-name-link">explode</a><wbr>(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates an explosion at the given position with the given strength.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#explode(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)" class="member-name-link">explode</a><wbr>(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#explode(net.minestom.server.coordinate.Point,float,net.kyori.adventure.nbt.CompoundBinaryTag)" class="member-name-link">explode</a><wbr>(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength,
  @Nullable net.kyori.adventure.nbt.CompoundBinaryTag&nbsp;additionalData)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -1499,19 +1495,15 @@ implements <a href="block/Block.Getter.html" title="interface in net.minestom.se
 </section>
 </li>
 <li>
-<section class="detail" id="explode(float,float,float,float)">
+<section class="detail" id="explode(net.minestom.server.coordinate.Point,float)">
 <h3>explode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">explode</span><wbr><span class="parameters">(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">explode</span><wbr><span class="parameters">(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength)</span></div>
 <div class="block">Creates an explosion at the given position with the given strength.
  The algorithm used to compute damages is provided by <a href="#getExplosionSupplier()"><code>getExplosionSupplier()</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>centerX</code> - the center X</dd>
-<dd><code>centerY</code> - the center Y</dd>
-<dd><code>centerZ</code> - the center Z</dd>
+<dd><code>center</code> - the center of the explosion</dd>
 <dd><code>strength</code> - the strength of the explosion</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - If no <a href="ExplosionSupplier.html" title="interface in net.minestom.server.instance"><code>ExplosionSupplier</code></a> was supplied</dd>
@@ -1519,11 +1511,9 @@ implements <a href="block/Block.Getter.html" title="interface in net.minestom.se
 </section>
 </li>
 <li>
-<section class="detail" id="explode(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)">
+<section class="detail" id="explode(net.minestom.server.coordinate.Point,float,net.kyori.adventure.nbt.CompoundBinaryTag)">
 <h3>explode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">explode</span><wbr><span class="parameters">(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">explode</span><wbr><span class="parameters">(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength,
  @Nullable
  @Nullable net.kyori.adventure.nbt.CompoundBinaryTag&nbsp;additionalData)</span></div>
@@ -1531,9 +1521,7 @@ implements <a href="block/Block.Getter.html" title="interface in net.minestom.se
  The algorithm used to compute damages is provided by <a href="#getExplosionSupplier()"><code>getExplosionSupplier()</code></a>.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>centerX</code> - center X of the explosion</dd>
-<dd><code>centerY</code> - center Y of the explosion</dd>
-<dd><code>centerZ</code> - center Z of the explosion</dd>
+<dd><code>center</code> - the center of the explosion</dd>
 <dd><code>strength</code> - the strength of the explosion</dd>
 <dd><code>additionalData</code> - data to pass to the explosion supplier</dd>
 <dt>Throws:</dt>

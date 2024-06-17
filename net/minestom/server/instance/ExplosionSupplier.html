@@ -107,9 +107,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="Explosion.html" title="class in net.minestom.server.instance">Explosion</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createExplosion(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)" class="member-name-link">createExplosion</a><wbr>(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#createExplosion(net.minestom.server.coordinate.Point,float,net.kyori.adventure.nbt.CompoundBinaryTag)" class="member-name-link">createExplosion</a><wbr>(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength,
  net.kyori.adventure.nbt.CompoundBinaryTag&nbsp;additionalData)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
@@ -130,21 +128,17 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createExplosion(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)">
+<section class="detail" id="createExplosion(net.minestom.server.coordinate.Point,float,net.kyori.adventure.nbt.CompoundBinaryTag)">
 <h3>createExplosion</h3>
-<div class="member-signature"><span class="return-type"><a href="Explosion.html" title="class in net.minestom.server.instance">Explosion</a></span>&nbsp;<span class="element-name">createExplosion</span><wbr><span class="parameters">(float&nbsp;centerX,
- float&nbsp;centerY,
- float&nbsp;centerZ,
+<div class="member-signature"><span class="return-type"><a href="Explosion.html" title="class in net.minestom.server.instance">Explosion</a></span>&nbsp;<span class="element-name">createExplosion</span><wbr><span class="parameters">(<a href="../coordinate/Point.html" title="interface in net.minestom.server.coordinate">Point</a>&nbsp;center,
  float&nbsp;strength,
  net.kyori.adventure.nbt.CompoundBinaryTag&nbsp;additionalData)</span></div>
 <div class="block">Creates a new explosion</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>centerX</code> - center X of the explosion</dd>
-<dd><code>centerY</code> - center Y of the explosion</dd>
-<dd><code>centerZ</code> - center Z of the explosion</dd>
+<dd><code>center</code> - center of the explosion</dd>
 <dd><code>strength</code> - strength of the explosion</dd>
-<dd><code>additionalData</code> - data passed via <a href="Instance.html#explode(float,float,float,float,net.kyori.adventure.nbt.CompoundBinaryTag)"><code>Instance.explode(float, float, float, float, CompoundBinaryTag)</code></a> )}. Can be null</dd>
+<dd><code>additionalData</code> - data passed via <a href="Instance.html#explode(net.minestom.server.coordinate.Point,float,net.kyori.adventure.nbt.CompoundBinaryTag)"><code>Instance.explode(Point, float, CompoundBinaryTag)</code></a> )}. Can be null</dd>
 <dt>Returns:</dt>
 <dd>Explosion object representing the algorithm to use</dd>
 </dl>
