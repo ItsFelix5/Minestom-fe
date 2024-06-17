@@ -39,7 +39,13 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
         final Material material = itemStack.material();
 
         final Food food = itemStack.get(ItemComponent.FOOD);
-        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, hand, itemStack, food != null? food.eatDurationTicks() : itemStack.material() == Material.POTION ? PotionContents.POTION_DRINK_TIME : 0);
+        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, hand, itemStack,
+                food != null? food.eatDurationTicks() :
+                        itemStack.material() == Material.POTION ? PotionContents.POTION_DRINK_TIME :
+                        itemStack.material() == Material.BOW || itemStack.material() == Material.CROSSBOW
+                        || itemStack.material() == Material.SHIELD || itemStack.material() == Material.TRIDENT
+                        || itemStack.material() == Material.SPYGLASS || itemStack.material() == Material.GOAT_HORN
+                        || itemStack.material() == Material.BRUSH? -1 : 0);
         EventDispatcher.call(useItemEvent);
 
         player.sendPacket(new AcknowledgeBlockChangePacket(sequence));
@@ -76,7 +82,7 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
             itemUseTime = playerPreEatEvent.getEatingTime();
         } else itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.OTHER;
 
-        if (itemUseTime > 0) {
+        if (itemUseTime != 0) {
             player.refreshItemUse(hand, itemUseTime);
 
             PlayerItemAnimationEvent playerItemAnimationEvent = new PlayerItemAnimationEvent(player, itemAnimationType, hand);
