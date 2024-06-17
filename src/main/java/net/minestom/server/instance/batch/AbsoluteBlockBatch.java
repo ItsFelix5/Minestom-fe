@@ -8,6 +8,7 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -145,11 +146,8 @@ public class AbsoluteBlockBatch implements Batch<Runnable> {
                             ((InstanceContainer) instance).refreshLastBlockChangeTime();
                         }
                         if (callback != null) {
-                            if (safeCallback) {
-                                instance.scheduleNextTick(inst -> callback.run());
-                            } else {
-                                callback.run();
-                            }
+                            if (safeCallback) Scheduler.scheduleNextTick(callback);
+                            else callback.run();
                         }
 
                         Set<Chunk> expanded = new HashSet<>();
@@ -157,19 +155,13 @@ public class AbsoluteBlockBatch implements Batch<Runnable> {
                             for (int i = -1; i <= 1; ++i) {
                                 for (int j = -1; j <= 1; ++j) {
                                     Chunk toAdd = instance.getChunk(chunk.getChunkX() + i, chunk.getChunkZ() + j);
-                                    if (toAdd != null) {
-                                        expanded.add(toAdd);
-                                    }
+                                    if (toAdd != null) expanded.add(toAdd);
                                 }
                             }
                         }
 
                         // Update the chunk's light
-                        for (Chunk chunk : expanded) {
-                            if (chunk instanceof LightingChunk dc) {
-                                dc.sendLighting();
-                            }
-                        }
+                        for (Chunk chunk : expanded) if (chunk instanceof LightingChunk dc) dc.sendLighting();
                     }
                 });
                 if (inverse != null) inverse.chunkBatchesMap.put(chunkIndex, chunkInverse);

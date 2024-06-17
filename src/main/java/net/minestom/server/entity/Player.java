@@ -647,7 +647,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         // One or more chunks need to be loaded
         final Thread runThread = Thread.currentThread();
         CountDownLatch latch = new CountDownLatch(1);
-        Scheduler scheduler = MinecraftServer.getSchedulerManager();
         CompletableFuture<Void> future = new CompletableFuture<>() {
             @Override
             public Void join() {
@@ -658,7 +657,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    scheduler.process();
+                    Scheduler.process();
                     assert isDone();
                 }
                 return super.join();
@@ -667,7 +666,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
         CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
                 .thenRun(() -> {
-                    scheduler.scheduleNextProcess(() -> {
+                    Scheduler.scheduleNextProcess(() -> {
                         runnable.accept(instance);
                         future.complete(null);
                     });

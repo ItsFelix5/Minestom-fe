@@ -2,7 +2,10 @@ package net.minestom.server.network.packet.client.play;
 
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventDispatcher;
-import net.minestom.server.event.player.*;
+import net.minestom.server.event.player.PlayerStartFlyingWithElytraEvent;
+import net.minestom.server.event.player.PlayerStartSneakingEvent;
+import net.minestom.server.event.player.PlayerStopSneakingEvent;
+import net.minestom.server.event.player.PlayerStopSprintingEvent;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.client.ClientPacket;
 import org.jetbrains.annotations.NotNull;

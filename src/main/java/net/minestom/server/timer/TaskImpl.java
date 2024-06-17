@@ -21,25 +21,22 @@ final class TaskImpl implements Task {
     private final int id;
     private final @NotNull Supplier<TaskSchedule> task;
     private final @NotNull ExecutionType executionType;
-    private final @NotNull SchedulerImpl owner;
 
     volatile boolean alive;
     volatile boolean parked;
 
     TaskImpl(int id,
              @NotNull Supplier<TaskSchedule> task,
-             @NotNull ExecutionType executionType,
-             @NotNull SchedulerImpl owner) {
+             @NotNull ExecutionType executionType) {
         this.id = id;
         this.task = task;
         this.executionType = executionType;
-        this.owner = owner;
         this.alive = true;
     }
 
     @Override
     public void unpark() {
-        this.owner.unparkTask(this);
+        Scheduler.unparkTask(this);
     }
 
     boolean tryUnpark() {
@@ -73,10 +70,6 @@ final class TaskImpl implements Task {
         return executionType;
     }
 
-    public @NotNull SchedulerImpl owner() {
-        return owner;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -95,8 +88,7 @@ final class TaskImpl implements Task {
         return "TaskImpl[" +
                 "id=" + id + ", " +
                 "task=" + task + ", " +
-                "executionType=" + executionType + ", " +
-                "owner=" + owner + ']';
+                "executionType=" + executionType + "]";
     }
 
 }

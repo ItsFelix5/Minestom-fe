@@ -174,8 +174,10 @@ public class Explosion {
                     );
 
                     int tps = ServerFlag.SERVER_TICKS_PER_SECOND;
-                    if (entity instanceof Player player && player.getGameMode().canTakeDamage() && !player.isFlying())
+                    if (entity instanceof Player player) {
+                        if(!player.getGameMode().canTakeDamage() || player.isFlying()) continue;
                         playerKnockback.put(player, knockbackVec);
+                    }
                     entity.setVelocity(entity.getVelocity().add(knockbackVec.mul(tps)));
                 }
             }

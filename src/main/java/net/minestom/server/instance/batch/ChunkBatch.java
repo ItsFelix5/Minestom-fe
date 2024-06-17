@@ -8,6 +8,7 @@ import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.callback.OptionalCallback;
 import net.minestom.server.utils.chunk.ChunkCallback;
 import net.minestom.server.utils.chunk.ChunkUtils;
@@ -19,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * A Batch used when all of the block changed are contained inside a single chunk.
+ * A Batch used when all the block changed are contained inside a single chunk.
  * If more than one chunk is needed, use an {@link AbsoluteBlockBatch} instead.
  * <p>
  * The batch can be placed in any chunk in any instance, however it will always remain
@@ -222,22 +223,15 @@ public class ChunkBatch implements Batch<ChunkCallback> {
      */
     private void updateChunk(@NotNull Instance instance, Chunk chunk, IntSet updatedSections, @Nullable ChunkCallback callback, boolean safeCallback) {
         // Refresh chunk for viewers
-        if (options.shouldSendUpdate()) {
-            // TODO update all sections from `updatedSections`
-            chunk.sendChunk();
-        }
+        // TODO update all sections from `updatedSections`
+        if (options.shouldSendUpdate()) chunk.sendChunk();
 
-        if (instance instanceof InstanceContainer) {
-            // FIXME: put method in Instance instead
-            ((InstanceContainer) instance).refreshLastBlockChangeTime();
-        }
+        // FIXME: put method in Instance instead
+        if (instance instanceof InstanceContainer) ((InstanceContainer) instance).refreshLastBlockChangeTime();
 
         if (callback != null) {
-            if (safeCallback) {
-                instance.scheduleNextTick(inst -> callback.accept(chunk));
-            } else {
-                callback.accept(chunk);
-            }
+            if (safeCallback) Scheduler.scheduleNextTick(() -> callback.accept(chunk));
+            else callback.accept(chunk);
         }
     }
 }

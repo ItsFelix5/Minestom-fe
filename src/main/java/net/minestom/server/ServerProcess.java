@@ -6,8 +6,9 @@ import net.minestom.server.command.CommandManager;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.entity.metadata.animal.tameable.WolfMeta;
 import net.minestom.server.entity.metadata.other.PaintingMeta;
+import net.minestom.server.event.Event;
 import net.minestom.server.event.EventDispatcher;
-import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.EventNode;
 import net.minestom.server.event.server.ServerTickMonitorEvent;
 import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.gamedata.tags.TagManager;
@@ -30,7 +31,7 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.thread.Acquirable;
 import net.minestom.server.thread.ThreadDispatcher;
-import net.minestom.server.timer.SchedulerManager;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.PropertyUtils;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
@@ -72,8 +73,7 @@ public final class ServerProcess implements Registries {
     private final BlockManager block;
     private final CommandManager command;
     private final RecipeManager recipe;
-    private final GlobalEventHandler eventHandler;
-    private final SchedulerManager scheduler;
+    private final EventNode<Event> eventHandler;
     private final BenchmarkManager benchmark;
     private final AdvancementManager advancement;
     private final BossBarManager bossBar;
@@ -82,7 +82,6 @@ public final class ServerProcess implements Registries {
     private final Server server;
 
     private final ThreadDispatcher<Chunk> dispatcher;
-    private final Ticker ticker;
 
     private final AtomicBoolean started = new AtomicBoolean();
     private final AtomicBoolean stopped = new AtomicBoolean();
@@ -115,8 +114,7 @@ public final class ServerProcess implements Registries {
         this.block = new BlockManager();
         this.command = new CommandManager();
         this.recipe = new RecipeManager();
-        this.eventHandler = new GlobalEventHandler();
-        this.scheduler = new SchedulerManager();
+        this.eventHandler = EventNode.all("global");
         this.benchmark = new BenchmarkManager();
         this.advancement = new AdvancementManager();
         this.bossBar = new BossBarManager();
@@ -125,7 +123,6 @@ public final class ServerProcess implements Registries {
         this.server = new Server(packetProcessor);
 
         this.dispatcher = ThreadDispatcher.singleThread();
-        this.ticker = new Ticker();
     }
 
     public @NotNull ExceptionManager exception() {
@@ -203,12 +200,8 @@ public final class ServerProcess implements Registries {
         return recipe;
     }
 
-    public @NotNull GlobalEventHandler eventHandler() {
+    public @NotNull EventNode<Event> eventHandler() {
         return eventHandler;
-    }
-
-    public @NotNull SchedulerManager scheduler() {
-        return scheduler;
     }
 
     public @NotNull BenchmarkManager benchmark() {
@@ -251,10 +244,6 @@ public final class ServerProcess implements Registries {
         return dispatcher;
     }
 
-    public @NotNull Ticker ticker() {
-        return ticker;
-    }
-
     public void start(@NotNull SocketAddress socketAddress) {
         if (!started.compareAndSet(false, true)) {
             throw new IllegalStateException("Server already started");
@@ -279,11 +268,47 @@ public final class ServerProcess implements Registries {
         if (SHUTDOWN_ON_SIGNAL) Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
+    public void tick(long nanoTime) {
+        final long msTime = System.currentTimeMillis();
+
+        Scheduler.processTick();
+
+        // Connection tick (let waiting clients in, send keep alives, handle configuration players packets)
+        connection().tick(msTime);
+
+        // Tick all instances
+        for (Instance instance : Instance.getInstances()) {
+            try {
+                instance.tick(msTime);
+            } catch (Exception e) {
+                exception().handleException(e);
+            }
+        }
+        // Tick all chunks (and entities inside)
+        dispatcher().updateAndAwait(msTime);
+
+        // Clear removed entities & update threads
+        dispatcher().refreshThreads(System.currentTimeMillis() - msTime);
+
+        Scheduler.processTickEnd();
+
+        // Flush all waiting packets
+        PacketUtils.flush();
+
+        // Server connection tick
+        server().tick();
+
+        // Monitoring
+        final double acquisitionTimeMs = Acquirable.resetAcquiringTime() / 1e6D;
+        final double tickTimeMs = (System.nanoTime() - nanoTime) / 1e6D;
+        final TickMonitor tickMonitor = new TickMonitor(tickTimeMs, acquisitionTimeMs);
+        EventDispatcher.call(new ServerTickMonitorEvent(tickMonitor));
+    }
+
     public void stop() {
         if (!stopped.compareAndSet(false, true))
             return;
         LOGGER.info("Stopping server...");
-        scheduler.shutdown();
         connection.shutdown();
         server.stop();
         benchmark.disable();
@@ -293,44 +318,5 @@ public final class ServerProcess implements Registries {
 
     public boolean isAlive() {
         return started.get() && !stopped.get();
-    }
-
-    public final class Ticker {
-        public void tick(long nanoTime) {
-            final long msTime = System.currentTimeMillis();
-
-            scheduler().processTick();
-
-            // Connection tick (let waiting clients in, send keep alives, handle configuration players packets)
-            connection().tick(msTime);
-
-            // Tick all instances
-            for (Instance instance : Instance.getInstances()) {
-                try {
-                    instance.tick(msTime);
-                } catch (Exception e) {
-                    exception().handleException(e);
-                }
-            }
-            // Tick all chunks (and entities inside)
-            dispatcher().updateAndAwait(msTime);
-
-            // Clear removed entities & update threads
-            dispatcher().refreshThreads(System.currentTimeMillis() - msTime);
-
-            scheduler().processTickEnd();
-
-            // Flush all waiting packets
-            PacketUtils.flush();
-
-            // Server connection tick
-            server().tick();
-
-            // Monitoring
-            final double acquisitionTimeMs = Acquirable.resetAcquiringTime() / 1e6D;
-            final double tickTimeMs = (System.nanoTime() - nanoTime) / 1e6D;
-            final TickMonitor tickMonitor = new TickMonitor(tickTimeMs, acquisitionTimeMs);
-            EventDispatcher.call(new ServerTickMonitorEvent(tickMonitor));
-        }
     }
 }

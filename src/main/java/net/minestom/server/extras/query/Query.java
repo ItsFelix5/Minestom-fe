@@ -3,10 +3,10 @@ package net.minestom.server.extras.query;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.extras.query.event.BasicQueryEvent;
 import net.minestom.server.extras.query.event.FullQueryEvent;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.timer.Task;
 import net.minestom.server.utils.binary.BinaryWriter;
 import net.minestom.server.utils.binary.Writeable;
@@ -81,7 +81,7 @@ public class Query {
             thread.start();
             started = true;
 
-            task = MinecraftServer.getSchedulerManager()
+            task = Scheduler
                     .buildTask(CHALLENGE_TOKENS::clear)
                     .repeat(30, TimeUnit.SECOND)
                     .schedule();

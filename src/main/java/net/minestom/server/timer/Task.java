@@ -11,8 +11,6 @@ public sealed interface Task permits TaskImpl {
 
     @NotNull ExecutionType executionType();
 
-    @NotNull Scheduler owner();
-
     /**
      * Unpark the tasks to be executed during next processing.
      */
@@ -25,20 +23,17 @@ public sealed interface Task permits TaskImpl {
     boolean isAlive();
 
     final class Builder {
-        private final Scheduler scheduler;
         private final Supplier<TaskSchedule> innerTask;
         private ExecutionType executionType = ExecutionType.TICK_START;
         private TaskSchedule delay = TaskSchedule.immediate();
         private TaskSchedule repeat = TaskSchedule.stop();
         private boolean repeatOverride;
 
-        Builder(Scheduler scheduler, Supplier<TaskSchedule> innerTask) {
-            this.scheduler = scheduler;
+        Builder(Supplier<TaskSchedule> innerTask) {
             this.innerTask = innerTask;
         }
 
-        Builder(Scheduler scheduler, Runnable runnable) {
-            this.scheduler = scheduler;
+        Builder(Runnable runnable) {
             this.innerTask = () -> {
                 runnable.run();
                 return TaskSchedule.stop();
@@ -67,7 +62,7 @@ public sealed interface Task permits TaskImpl {
             var repeat = this.repeat;
             var repeatOverride = this.repeatOverride;
             var executionType = this.executionType;
-            return scheduler.submitTask(new Supplier<>() {
+            return Scheduler.submitTask(new Supplier<>() {
                 boolean first = true;
 
                 @Override

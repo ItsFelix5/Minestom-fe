@@ -32,8 +32,6 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.tag.TagHandler;
 import net.minestom.server.tag.Taggable;
 import net.minestom.server.thread.ThreadDispatcher;
-import net.minestom.server.timer.Schedulable;
-import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.chunk.ChunkCache;
 import net.minestom.server.utils.chunk.ChunkSupplier;
@@ -47,7 +45,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
 
 /**
  * Instances are what are called "worlds" in Minecraft, you can add an entity in it using {@link Entity#setInstance(Instance)}.
@@ -59,7 +56,7 @@ import java.util.function.Consumer;
  * the {@link ThreadDispatcher} of every partition/element changes.
  */
 public abstract class Instance implements Block.Getter, Block.Setter,
-        Tickable, Schedulable, EventHandler<InstanceEvent>, Taggable, PacketGroupingAudience {
+        Tickable, EventHandler<InstanceEvent>, Taggable, PacketGroupingAudience {
     private static final Set<Instance> instances = new CopyOnWriteArraySet<>();
 
     /**
@@ -122,7 +119,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
 
     // instance custom data
     protected TagHandler tagHandler = TagHandler.newHandler();
-    private final Scheduler scheduler = Scheduler.newScheduler();
     private final EventNode<InstanceEvent> eventNode;
 
     // the explosion supplier
@@ -170,15 +166,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
         // Unregister
         registered = false;
         instances.remove(this);
-    }
-
-    /**
-     * Schedules a task to be run during the next instance tick.
-     *
-     * @param callback the task to execute during the next instance tick
-     */
-    public void scheduleNextTick(@NotNull Consumer<Instance> callback) {
-        this.scheduler.scheduleNextTick(() -> callback.accept(this));
     }
 
     @Override
@@ -716,7 +703,7 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     }
 
     /**
-     * Performs a single tick in the instance, including scheduled tasks from {@link #scheduleNextTick(Consumer)}.
+     * Performs a single tick in the instance.
      * <p>
      * Warning: this does not update chunks and entities.
      *
@@ -724,8 +711,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
      */
     @Override
     public void tick(long time) {
-        // Scheduled tasks
-        this.scheduler.processTick();
         // Time
         {
             this.worldAge++;
@@ -757,8 +742,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
             if (worldBorder.diameter() == targetBorderDiameter) remainingWorldBorderTransitionTicks = 0;
             else remainingWorldBorderTransitionTicks--;
         }
-        // End of tick scheduled tasks
-        this.scheduler.processTickEnd();
     }
 
     /**
@@ -812,11 +795,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     @Override
     public @NotNull TagHandler tagHandler() {
         return tagHandler;
-    }
-
-    @Override
-    public @NotNull Scheduler scheduler() {
-        return scheduler;
     }
 
     @Override

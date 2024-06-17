@@ -7,7 +7,8 @@ import net.minestom.server.command.CommandManager;
 import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.entity.metadata.animal.tameable.WolfMeta;
 import net.minestom.server.entity.metadata.other.PaintingMeta;
-import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.Event;
+import net.minestom.server.event.EventNode;
 import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.gamedata.tags.TagManager;
 import net.minestom.server.instance.block.BlockManager;
@@ -24,7 +25,6 @@ import net.minestom.server.network.socket.Server;
 import net.minestom.server.recipe.RecipeManager;
 import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.thread.TickSchedulerThread;
-import net.minestom.server.timer.SchedulerManager;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.biome.Biome;
@@ -61,7 +61,7 @@ public class MinecraftServer {
         return serverProcess;
     }
 
-    public static @NotNull GlobalEventHandler getGlobalEventHandler() {
+    public static @NotNull EventNode<Event> getGlobalEventHandler() {
         return serverProcess.eventHandler();
     }
 
@@ -75,10 +75,6 @@ public class MinecraftServer {
 
     public static @NotNull RecipeManager getRecipeManager() {
         return serverProcess.recipe();
-    }
-
-    public static @NotNull SchedulerManager getSchedulerManager() {
-        return serverProcess.scheduler();
     }
 
     /**

@@ -2,7 +2,6 @@ package net.minestom.server.network.player;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.crypto.PlayerPublicKey;
-import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.server.SendablePacket;
@@ -10,6 +9,7 @@ import net.minestom.server.network.packet.server.common.CookieRequestPacket;
 import net.minestom.server.network.packet.server.common.CookieStorePacket;
 import net.minestom.server.network.packet.server.configuration.SelectKnownPacksPacket;
 import net.minestom.server.network.plugin.LoginPluginMessageProcessor;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.ApiStatus;
@@ -119,9 +119,7 @@ public abstract class PlayerConnection {
         this.online = false;
         MinecraftServer.getConnectionManager().removePlayer(this);
         final Player player = getPlayer();
-        if (player != null && !player.isRemoved()) {
-            player.scheduleNextTick(Entity::remove);
-        }
+        if (player != null && !player.isRemoved()) Scheduler.scheduleNextTick(player::remove);
     }
 
     /**

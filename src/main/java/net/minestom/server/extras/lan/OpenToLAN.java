@@ -3,6 +3,7 @@ package net.minestom.server.extras.lan;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.server.ServerListPingEvent;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.timer.Task;
 import net.minestom.server.utils.time.Cooldown;
 import org.jetbrains.annotations.NotNull;
@@ -68,7 +69,7 @@ public class OpenToLAN {
         }
 
         eventCooldown = new Cooldown(config.delayBetweenEvent);
-        task = MinecraftServer.getSchedulerManager().buildTask(OpenToLAN::ping)
+        task = Scheduler.buildTask(OpenToLAN::ping)
                 .repeat(config.delayBetweenPings)
                 .schedule();
         return true;

@@ -1,8 +1,9 @@
 ## Changelog
 Not a "proper" versioned changelog, just a list of the changes from upstream Minestom.
 
-* Made MinecraftServer static.
+* Made MinecraftServer fully static.
 * Removed Snapshots.
 * Removed support for bungee, shared instances and anvil.
 * Moved some variables to ServerSettings. 
-* Added default explosions
+* Added a default explosion provider.
+* Made the scheduler static.

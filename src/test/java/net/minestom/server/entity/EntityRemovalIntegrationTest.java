@@ -3,12 +3,15 @@ package net.minestom.server.entity;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.event.entity.EntityTickEvent;
 import net.minestom.server.network.packet.server.play.DestroyEntitiesPacket;
+import net.minestom.server.timer.Scheduler;
+import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.utils.time.TimeUnit;
 import net.minestom.testing.Env;
 import net.minestom.testing.EnvTest;
 import org.junit.jupiter.api.Test;
 
 import java.lang.ref.WeakReference;
+import java.time.Duration;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 
@@ -99,7 +102,8 @@ public class EntityRemovalIntegrationTest {
     static final class TestEntity extends Entity {
         public TestEntity(long delay, TemporalUnit unit) {
             super(EntityType.ZOMBIE);
-            scheduleRemove(delay, unit);
+            if (unit == TimeUnit.SERVER_TICK) Scheduler.buildTask(this::remove).delay(TaskSchedule.tick((int) delay)).schedule();
+            else Scheduler.buildTask(this::remove).delay(Duration.of(delay, unit)).schedule();
         }
     }
 }

@@ -8,6 +8,7 @@ import net.minestom.server.entity.pathfinding.Navigator;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.entity.EntityAttackEvent;
 import net.minestom.server.instance.Instance;
+import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.time.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -63,13 +64,9 @@ public class EntityCreature extends LivingEntity implements NavigableEntity, Ent
     public void kill() {
         super.kill();
 
-        if (removalAnimationDelay > 0) {
-            // Needed for proper death animation (wait for it to finish before destroying the entity)
-            scheduleRemove(Duration.of(removalAnimationDelay, TimeUnit.MILLISECOND));
-        } else {
-            // Instant removal without animation playback
-            remove();
-        }
+        // Needed for proper death animation (wait for it to finish before destroying the entity)
+        if (removalAnimationDelay > 0) Scheduler.buildTask(this::remove).delay(Duration.of(removalAnimationDelay, TimeUnit.MILLISECOND)).schedule();
+        else remove();
     }
 
     /**

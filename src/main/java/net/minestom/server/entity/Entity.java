@@ -36,9 +36,6 @@ import net.minestom.server.potion.TimedPotion;
 import net.minestom.server.tag.TagHandler;
 import net.minestom.server.tag.Taggable;
 import net.minestom.server.thread.Acquirable;
-import net.minestom.server.timer.Schedulable;
-import net.minestom.server.timer.Scheduler;
-import net.minestom.server.timer.TaskSchedule;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.block.BlockIterator;
@@ -47,7 +44,6 @@ import net.minestom.server.utils.chunk.ChunkUtils;
 import net.minestom.server.utils.entity.EntityUtils;
 import net.minestom.server.utils.player.PlayerUtils;
 import net.minestom.server.utils.position.PositionUtils;
-import net.minestom.server.utils.time.TimeUnit;
 import net.minestom.server.utils.validate.Check;
 import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.ApiStatus;
@@ -55,8 +51,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-import java.time.Duration;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -71,7 +65,7 @@ import java.util.function.UnaryOperator;
  * <p>
  * To create your own entity you probably want to extend {@link LivingEntity} or {@link EntityCreature} instead.
  */
-public class Entity implements Viewable, Tickable, Schedulable, EventHandler<EntityEvent>, Taggable,
+public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Taggable,
         PermissionHandler, HoverEventSource<ShowEntity>, Sound.Emitter, Shape {
     private static final AtomicInteger LAST_ENTITY_ID = new AtomicInteger();
 
@@ -133,7 +127,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
     protected final EntityView viewEngine = new EntityView(this);
     protected final Set<Player> viewers = viewEngine.set;
     private final TagHandler tagHandler = TagHandler.newHandler();
-    private final Scheduler scheduler = Scheduler.newScheduler();
     private final EventNode<EntityEvent> eventNode;
     private final Set<Permission> permissions = new CopyOnWriteArraySet<>();
 
@@ -189,15 +182,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
 
     public Entity(@NotNull EntityType entityType) {
         this(entityType, UUID.randomUUID());
-    }
-
-    /**
-     * Schedules a task to be run during the next entity tick.
-     *
-     * @param callback the task to execute during the next entity tick
-     */
-    public void scheduleNextTick(@NotNull Consumer<Entity> callback) {
-        this.scheduler.scheduleNextTick(() -> callback.accept(this));
     }
 
     /**
@@ -514,8 +498,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
         if (instance == null || isRemoved() || !ChunkUtils.isLoaded(currentChunk))
             return;
 
-        // scheduled tasks
-        this.scheduler.processTick();
         if (isRemoved()) return;
 
         // Entity tick
@@ -540,8 +522,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
             synchronizePosition();
             sendPacketToViewers(getVelocityPacket());
         }
-        // End of tick scheduled tasks
-        this.scheduler.processTickEnd();
     }
 
     @ApiStatus.Internal
@@ -1454,34 +1434,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
         return removed;
     }
 
-    /**
-     * Triggers {@link #remove()} after the specified time.
-     *
-     * @param delay        the time before removing the entity,
-     *                     0 to cancel the removing
-     * @param temporalUnit the unit of the delay
-     */
-    public void scheduleRemove(long delay, @NotNull TemporalUnit temporalUnit) {
-        if (temporalUnit == TimeUnit.SERVER_TICK) {
-            scheduleRemove(TaskSchedule.tick((int) delay));
-        } else {
-            scheduleRemove(Duration.of(delay, temporalUnit));
-        }
-    }
-
-    /**
-     * Triggers {@link #remove()} after the specified time.
-     *
-     * @param delay the time before removing the entity
-     */
-    public void scheduleRemove(Duration delay) {
-        scheduleRemove(TaskSchedule.duration(delay));
-    }
-
-    private void scheduleRemove(TaskSchedule schedule) {
-        this.scheduler.buildTask(this::remove).delay(schedule).schedule();
-    }
-
     protected @NotNull Vec getVelocityForPacket() {
         return this.velocity.mul(8000f / ServerFlag.SERVER_TICKS_PER_SECOND);
     }
@@ -1557,11 +1509,6 @@ public class Entity implements Viewable, Tickable, Schedulable, EventHandler<Ent
     @Override
     public @NotNull TagHandler tagHandler() {
         return tagHandler;
-    }
-
-    @Override
-    public @NotNull Scheduler scheduler() {
-        return scheduler;
     }
 
     @Override
