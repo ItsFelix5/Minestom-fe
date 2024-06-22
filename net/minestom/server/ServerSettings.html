@@ -123,20 +123,30 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the current server brand name.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="world/Difficulty.html" title="enum class in net.minestom.server.world">Difficulty</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDifficulty()" class="member-name-link">getDifficulty</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="instance/Instance.html" title="class in net.minestom.server.instance">Instance</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDefaultInstance()" class="member-name-link">getDefaultInstance</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Gets the instance players join in.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static @NotNull <a href="world/Difficulty.html" title="enum class in net.minestom.server.world">Difficulty</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDifficulty()" class="member-name-link">getDifficulty</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the server difficulty showed in game option.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isHardcore()" class="member-name-link">isHardcore</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isHardcore()" class="member-name-link">isHardcore</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets if the player has the hardcore health bar.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isReducedDebugScreen()" class="member-name-link">isReducedDebugScreen</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isReducedDebugScreen()" class="member-name-link">isReducedDebugScreen</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets if the player has the reduced debug screen.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#respawnScreenEnabled()" class="member-name-link">respawnScreenEnabled</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Gets if the respawn screen should be displayed.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setBrandName(java.lang.String)" class="member-name-link">setBrandName</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;brandName)</code></div>
@@ -144,19 +154,29 @@ loadScripts(document, 'script');</script>
 <div class="block">Changes the server brand name and send the change to all connected players.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setDifficulty(net.minestom.server.world.Difficulty)" class="member-name-link">setDifficulty</a><wbr>(@NotNull <a href="world/Difficulty.html" title="enum class in net.minestom.server.world">Difficulty</a>&nbsp;difficulty)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setDefaultInstance(net.minestom.server.instance.Instance)" class="member-name-link">setDefaultInstance</a><wbr>(<a href="instance/Instance.html" title="class in net.minestom.server.instance">Instance</a>&nbsp;instance)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Changes the server difficulty and send the appropriate packet to all connected clients.</div>
+<div class="block">Sets the instance players join in.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setHardcore(boolean)" class="member-name-link">setHardcore</a><wbr>(boolean&nbsp;hardcore)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setDifficulty(net.minestom.server.world.Difficulty)" class="member-name-link">setDifficulty</a><wbr>(@NotNull <a href="world/Difficulty.html" title="enum class in net.minestom.server.world">Difficulty</a>&nbsp;difficulty)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Sets if the hardcore health bar should be displayed.</div>
+<div class="block">Changes the server difficulty and send the appropriate packet to all connected clients.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setReducedDebugScreen(boolean)" class="member-name-link">setReducedDebugScreen</a><wbr>(boolean&nbsp;reduced)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setHardcore(boolean)" class="member-name-link">setHardcore</a><wbr>(boolean&nbsp;hardcore)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Sets if the hardcore health bar should be displayed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setReducedDebugScreen(boolean)" class="member-name-link">setReducedDebugScreen</a><wbr>(boolean&nbsp;reduced)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Sets if debug screen info should be reduced and send an update packet.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setRespawnScreenEnabled(boolean)" class="member-name-link">setRespawnScreenEnabled</a><wbr>(boolean&nbsp;respawnScreen)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Sets if the respawn screen should be displayed.</div>
 </div>
 </div>
 </div>
@@ -281,6 +301,50 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>true if the player has the reduced debug screen, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setRespawnScreenEnabled(boolean)">
+<h3>setRespawnScreenEnabled</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setRespawnScreenEnabled</span><wbr><span class="parameters">(boolean&nbsp;respawnScreen)</span></div>
+<div class="block">Sets if the respawn screen should be displayed.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>respawnScreen</code> - if the respawn screen should be displayed</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="respawnScreenEnabled()">
+<h3>respawnScreenEnabled</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">respawnScreenEnabled</span>()</div>
+<div class="block">Gets if the respawn screen should be displayed.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>if the player respawn screen is showed</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setDefaultInstance(net.minestom.server.instance.Instance)">
+<h3>setDefaultInstance</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setDefaultInstance</span><wbr><span class="parameters">(<a href="instance/Instance.html" title="class in net.minestom.server.instance">Instance</a>&nbsp;instance)</span></div>
+<div class="block">Sets the instance players join in.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>instance</code> - the new default instance</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getDefaultInstance()">
+<h3>getDefaultInstance</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="instance/Instance.html" title="class in net.minestom.server.instance">Instance</a></span>&nbsp;<span class="element-name">getDefaultInstance</span>()</div>
+<div class="block">Gets the instance players join in.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the default instance</dd>
 </dl>
 </section>
 </li>
