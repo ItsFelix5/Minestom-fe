@@ -132,7 +132,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private Component displayName;
     private PlayerSkin skin;
 
-    private Instance pendingInstance = null;
+    private Instance pendingInstance = ServerSettings.getDefaultInstance();
     private int dimensionTypeId;
     private GameMode gameMode;
     private WorldPos deathLocation;
@@ -187,7 +187,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private Hand itemUseHand;
 
     // Game state (https://wiki.vg/Protocol#Change_Game_State)
-    private boolean enableRespawnScreen;
     private final ChunkUpdateLimitChecker chunkUpdateLimitChecker = new ChunkUpdateLimitChecker(6);
 
     // Experience orb pickup
@@ -269,6 +268,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     @ApiStatus.Internal
     public CompletableFuture<Void> UNSAFE_init() {
         final Instance spawnInstance = this.pendingInstance;
+        Check.notNull(spawnInstance, "You need to specify a spawning instance");
         this.pendingInstance = null;
 
         this.removed = false;
@@ -277,7 +277,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         final JoinGamePacket joinGamePacket = new JoinGamePacket(
                 getEntityId(), ServerSettings.isHardcore(), List.of(), 0,
                 ServerFlag.CHUNK_VIEW_DISTANCE, ServerFlag.CHUNK_VIEW_DISTANCE,
-                false, true, false, dimensionTypeId, spawnInstance.getDimensionName(),
+                ServerSettings.isReducedDebugScreen(), ServerSettings.respawnScreenEnabled(), false, dimensionTypeId, spawnInstance.getDimensionName(),
                 0, gameMode, null, false, levelFlat, deathLocation, portalCooldown, true);
         sendPacket(joinGamePacket);
 
@@ -313,9 +313,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         for (var player : connectionManager.getOnlinePlayers()) {
             if (player != this) {
                 sendPacket(player.getAddPlayerToList());
-                if (player.displayName != null) {
+                if (player.displayName != null)
                     sendPacket(new PlayerInfoUpdatePacket(PlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, player.infoEntry()));
-                }
             }
         }
 
@@ -1228,25 +1227,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     public @Nullable WorldPos getDeathLocation() {
         return this.deathLocation;
-    }
-
-    /**
-     * Gets if the player has the respawn screen enabled or disabled.
-     *
-     * @return true if the player has the respawn screen, false if he didn't
-     */
-    public boolean isEnableRespawnScreen() {
-        return enableRespawnScreen;
-    }
-
-    /**
-     * Enables or disable the respawn screen.
-     *
-     * @param enableRespawnScreen true to enable the respawn screen, false to disable it
-     */
-    public void setEnableRespawnScreen(boolean enableRespawnScreen) {
-        this.enableRespawnScreen = enableRespawnScreen;
-        sendPacket(new ChangeGameStatePacket(ChangeGameStatePacket.Reason.ENABLE_RESPAWN_SCREEN, enableRespawnScreen ? 0 : 1));
     }
 
     /**

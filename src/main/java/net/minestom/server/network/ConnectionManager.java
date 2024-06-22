@@ -274,7 +274,6 @@ public final class ConnectionManager {
             player.sendPacket(new UpdateEnabledFeaturesPacket(event.getFeatureFlags())); // send player features that were enabled or disabled during async config event
 
             final Instance spawningInstance = event.getSpawningInstance();
-            Check.notNull(spawningInstance, "You need to specify a spawning instance in the AsyncPlayerConfigurationEvent");
 
             if (event.willClearChat()) player.sendPacket(resetChatPacket);
 

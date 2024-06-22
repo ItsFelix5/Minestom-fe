@@ -1,6 +1,8 @@
 package net.minestom.server;
 
+import net.minestom.server.instance.Instance;
 import net.minestom.server.network.packet.server.common.PluginMessagePacket;
+import net.minestom.server.network.packet.server.play.ChangeGameStatePacket;
 import net.minestom.server.network.packet.server.play.ServerDifficultyPacket;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.world.Difficulty;
@@ -9,8 +11,10 @@ import org.jetbrains.annotations.NotNull;
 public class ServerSettings {
     private static String brandName = "Minestom";
     private static Difficulty difficulty = Difficulty.NORMAL;
-    private static boolean reducedDebugScreen;
-    private static boolean hardcore;
+    private static boolean hardcore = false;
+    private static boolean reducedDebugScreen = false;
+    private static boolean respawnScreen = true;
+    private static Instance defaultInstance;
 
     /**
      * Gets the current server brand name.
@@ -79,7 +83,6 @@ public class ServerSettings {
      */
     public static void setReducedDebugScreen(boolean reduced) {
         reducedDebugScreen = reduced;
-
         MinecraftServer.getConnectionManager().getOnlinePlayers().forEach(p->p.triggerStatus((byte) (reduced ? 22 : 23)));
     }
 
@@ -90,5 +93,42 @@ public class ServerSettings {
      */
     public static boolean isReducedDebugScreen() {
         return reducedDebugScreen;
+    }
+
+    /**
+     * Sets if the respawn screen should be displayed.
+     *
+     * @param respawnScreen if the respawn screen should be displayed
+     */
+    public static void setRespawnScreenEnabled(boolean respawnScreen) {
+        ServerSettings.respawnScreen = respawnScreen;
+        PacketUtils.broadcastPlayPacket(new ChangeGameStatePacket(ChangeGameStatePacket.Reason.ENABLE_RESPAWN_SCREEN, respawnScreen ? 0 : 1));
+    }
+
+    /**
+     * Gets if the respawn screen should be displayed.
+     *
+     * @return if the player respawn screen is showed
+     */
+    public static boolean respawnScreenEnabled() {
+        return respawnScreen;
+    }
+
+    /**
+     * Sets the instance players join in.
+     *
+     * @param instance the new default instance
+     */
+    public static void setDefaultInstance(Instance instance) {
+        defaultInstance = instance;
+    }
+
+    /**
+     * Gets the instance players join in.
+     *
+     * @return the default instance
+     */
+    public static Instance getDefaultInstance() {
+        return defaultInstance;
     }
 }
