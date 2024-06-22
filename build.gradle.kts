@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    `maven-publish`
 }
 
 repositories {
@@ -80,4 +81,8 @@ tasks {
     withType<Zip> {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
+}
+
+publishing.publications.create<MavenPublication>("maven") {
+    from(project.components["java"])
 }
