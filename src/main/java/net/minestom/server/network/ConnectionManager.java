@@ -310,7 +310,7 @@ public final class ConnectionManager {
             if (packFuture != null) packFuture.join();
 
             keepAlivePlayers.remove(player);
-            player.setPendingOptions(spawningInstance);
+            player.setPendingInstance(spawningInstance);
             player.sendPacket(new FinishConfigurationPacket());
         });
     }

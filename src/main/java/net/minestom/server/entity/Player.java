@@ -132,7 +132,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private Component displayName;
     private PlayerSkin skin;
 
-    private Instance pendingInstance = ServerSettings.getDefaultInstance();
+    private Instance pendingInstance = null;
     private int dimensionTypeId;
     private GameMode gameMode;
     private WorldPos deathLocation;
@@ -252,7 +252,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     @ApiStatus.Internal
-    public void setPendingOptions(@NotNull Instance pendingInstance) {
+    public void setPendingInstance(@NotNull Instance pendingInstance) {
         // I(mattw) am not a big fan of this function, but somehow we need to store
         // the instance and i didn't like a record in ConnectionManager either.
         this.pendingInstance = pendingInstance;

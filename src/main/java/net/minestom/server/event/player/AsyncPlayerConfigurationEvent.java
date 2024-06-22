@@ -2,6 +2,7 @@ package net.minestom.server.event.player;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import it.unimi.dsi.fastutil.objects.ObjectSets;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.trait.PlayerEvent;
 import net.minestom.server.instance.Instance;
@@ -29,7 +30,7 @@ public class AsyncPlayerConfigurationEvent implements PlayerEvent {
     private final ObjectArraySet<NamespaceID> featureFlags = new ObjectArraySet<>();
     private boolean clearChat;
     private boolean sendRegistryData;
-    private Instance spawningInstance;
+    private Instance spawningInstance = ServerSettings.getDefaultInstance();
 
     public AsyncPlayerConfigurationEvent(@NotNull Player player, boolean isFirstConfig) {
         this.player = player;
@@ -39,7 +40,6 @@ public class AsyncPlayerConfigurationEvent implements PlayerEvent {
 
         this.clearChat = false;
         this.sendRegistryData = isFirstConfig;
-        this.spawningInstance = null;
     }
 
     @Override
