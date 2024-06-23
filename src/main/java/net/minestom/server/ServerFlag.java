@@ -12,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 public final class ServerFlag {
 
     // Server Behavior
+    public static final int DEFAULT_PORT = Integer.getInteger("minestom.default-port", 25565);
+    public static final String DEFAULT_ADDRESS = System.getProperty("minestom.default-address", "0.0.0.0");
     public static final int SERVER_TICKS_PER_SECOND = Integer.getInteger("minestom.tps", 20);
     public static final int SERVER_TICKS_MS = 1000 / SERVER_TICKS_PER_SECOND;
     public static final int SERVER_MAX_TICK_CATCH_UP = Integer.getInteger("minestom.max-tick-catch-up", 5);

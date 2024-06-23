@@ -191,12 +191,28 @@ public class MinecraftServer {
         new TickSchedulerThread(serverProcess).start();
     }
 
+    /**
+     * Starts the server.
+     * <p>
+     * It should be called after {@link #init()} and probably your own initialization code.
+     *
+     * @param address the server address
+     * @throws IllegalStateException if called before {@link #init()} or if the server is already running
+     */
     public static void start(@NotNull String address, int port) {
         start(new InetSocketAddress(address, port));
     }
 
+    /**
+     * Starts the server with the default port and address defined in ServerFlag.
+     * Without any environment variable affecting this it will start at 0.0.0.0:25565
+     * <p>
+     * It should be called after {@link #init()} and probably your own initialization code.
+     *
+     * @throws IllegalStateException if called before {@link #init()} or if the server is already running
+     */
     public static void start() {
-        start("0.0.0.0", 25565);
+        start(ServerFlag.DEFAULT_ADDRESS, ServerFlag.DEFAULT_PORT);
     }
 
     /**
