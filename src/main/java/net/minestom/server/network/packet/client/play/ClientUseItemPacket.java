@@ -38,14 +38,15 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
         final ItemStack itemStack = player.getInventory().getItemInHand(hand);
         final Material material = itemStack.material();
 
+        long itemUseTime = 0;
         final Food food = itemStack.get(ItemComponent.FOOD);
-        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, hand, itemStack,
-                food != null? food.eatDurationTicks() :
-                        itemStack.material() == Material.POTION ? PotionContents.POTION_DRINK_TIME :
-                        itemStack.material() == Material.BOW || itemStack.material() == Material.CROSSBOW
-                        || itemStack.material() == Material.SHIELD || itemStack.material() == Material.TRIDENT
-                        || itemStack.material() == Material.SPYGLASS || itemStack.material() == Material.GOAT_HORN
-                        || itemStack.material() == Material.BRUSH? -1 : 0);
+        if(food != null) itemUseTime = food.eatDurationTicks();
+        else if (material == Material.POTION) itemUseTime = PotionContents.POTION_DRINK_TIME;
+        else if (material == Material.BOW || material == Material.CROSSBOW
+                || material == Material.SHIELD || material == Material.TRIDENT
+                || material == Material.SPYGLASS || material == Material.GOAT_HORN
+                || material == Material.BRUSH) itemUseTime = -1;
+        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, hand, itemStack, itemUseTime);
         EventDispatcher.call(useItemEvent);
 
         player.sendPacket(new AcknowledgeBlockChangePacket(sequence));
@@ -63,7 +64,7 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
             player.setItemInHand(hand, currentlyEquipped);
         }
 
-        long itemUseTime = useItemEvent.getItemUseTime();
+        itemUseTime = useItemEvent.getItemUseTime();
         PlayerItemAnimationEvent.ItemAnimationType itemAnimationType;
 
         if (material == Material.BOW) itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.BOW;
@@ -73,7 +74,7 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
         else if (material == Material.SPYGLASS) itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.SPYGLASS;
         else if (material == Material.GOAT_HORN) itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.HORN;
         else if (material == Material.BRUSH) itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.BRUSH;
-        else if (itemStack.has(ItemComponent.FOOD) || itemStack.material() == Material.POTION) {
+        else if (itemStack.has(ItemComponent.FOOD) || material == Material.MILK_BUCKET || material == Material.POTION) {
             itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.EAT;
 
             PlayerPreEatEvent playerPreEatEvent = new PlayerPreEatEvent(player, itemStack, hand, itemUseTime);
