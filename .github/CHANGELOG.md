@@ -5,6 +5,6 @@ Not a "proper" versioned changelog, just a list of the changes from upstream Min
 * Removed Snapshots.
 * Removed support for bungee, shared instances and anvil.
 * Moved some variables to ServerSettings. 
-* Added a default explosion provider.
+* Added default explosions.
 * Made the scheduler static.
 * Added a world spawn.

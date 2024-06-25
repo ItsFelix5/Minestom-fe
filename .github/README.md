@@ -17,7 +17,7 @@ This is a developer API not meant to be used by end-users. Replacing Bukkit/Forg
 An example of how to use the Minestom-fe library is available [here](https://github.com/ItsFelix5/Minestom-fe-template).
 
 > [!WARNING]
-> `Minestom-fe` is a fork with breaking changes from [`Minestom/Minestom`](https://github.com/Minestom/Minestom). The list of changes can be found [here](./CHANGELOG.md).
+> `Minestom-fe` is a fork with breaking changes from [`Minestom/Minestom`](https://github.com/Minestom/Minestom). The most important changes can be found [here](./CHANGELOG.md).
 
 # Table of contents
 - [Install](#install)
@@ -51,7 +51,8 @@ dependencies {
 
 # What is `Minestom-fe`?
 `Minestom-fe` is a fork of `Minestom/Minestom` with some controversial/breaking changes to suit my own projects better.
-This project was created for improved API simplicity while offering more vanilla features most minigames would use. 
+This project was created for improved API simplicity while offering more vanilla features most minigames would use.
+This allows you to spend less time implementing basic things and more time working on the most important thing: your game. 
 You are free to use and modify this if you want to.
 
 # Why Minestom?
