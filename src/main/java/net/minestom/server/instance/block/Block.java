@@ -6,7 +6,7 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.batch.Batch;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.registry.Registry;
-import net.minestom.server.registry.StaticProtocolObject;
+import net.minestom.server.registry.ProtocolObject;
 import net.minestom.server.tag.Tag;
 import net.minestom.server.tag.TagReadable;
 import net.minestom.server.utils.NamespaceID;
@@ -24,13 +24,13 @@ import java.util.function.BiPredicate;
  * <p>
  * Implementations are expected to be immutable.
  */
-public sealed interface Block extends StaticProtocolObject, TagReadable, Blocks permits BlockImpl {
+public sealed interface Block extends ProtocolObject, TagReadable, Blocks permits BlockImpl {
 
     @NotNull
     NetworkBuffer.Type<Block> NETWORK_TYPE = NetworkBuffer.VAR_INT.map(Block::fromStateId, Block::stateId);
 
     /**
-     * Creates a new block with the the property {@code property} sets to {@code value}.
+     * Creates a new block with the property {@code property} set to {@code value}.
      *
      * @param property the property name
      * @param value    the property value
