@@ -5,7 +5,7 @@ import net.minestom.server.color.Color;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.NetworkBuffer;
-import net.minestom.server.registry.StaticProtocolObject;
+import net.minestom.server.registry.ProtocolObject;
 import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.Contract;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 import static net.minestom.server.network.NetworkBuffer.VAR_INT;
 
-public sealed interface Particle extends StaticProtocolObject, Particles permits Particle.Block, Particle.BlockMarker,
+public sealed interface Particle extends ProtocolObject, Particles permits Particle.Block, Particle.BlockMarker,
         Particle.Dust, Particle.DustColorTransition, Particle.DustPillar, Particle.EntityEffect, Particle.FallingDust,
         Particle.Item, Particle.SculkCharge, Particle.Shriek, Particle.Simple, Particle.Vibration {
 

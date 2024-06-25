@@ -9,10 +9,18 @@ import net.minestom.server.ServerFlag;
 import net.minestom.server.ServerProcess;
 import net.minestom.server.Tickable;
 import net.minestom.server.adventure.audience.PacketGroupingAudience;
+import net.minestom.server.collision.BoundingBox;
+import net.minestom.server.collision.CollisionUtils;
+import net.minestom.server.coordinate.BlockVec;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.coordinate.Vec;
 import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.EntityType;
+import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
+import net.minestom.server.entity.damage.Damage;
+import net.minestom.server.entity.damage.DamageType;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventHandler;
@@ -26,10 +34,7 @@ import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.instance.block.BlockHandler;
 import net.minestom.server.instance.generator.Generator;
 import net.minestom.server.instance.light.Light;
-import net.minestom.server.network.packet.server.play.BlockActionPacket;
-import net.minestom.server.network.packet.server.play.InitializeWorldBorderPacket;
-import net.minestom.server.network.packet.server.play.SpawnPositionPacket;
-import net.minestom.server.network.packet.server.play.TimeUpdatePacket;
+import net.minestom.server.network.packet.server.play.*;
 import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.tag.TagHandler;
 import net.minestom.server.tag.Taggable;
@@ -47,6 +52,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 /**
  * Instances are what are called "worlds" in Minecraft, you can add an entity in it using {@link Entity#setInstance(Instance)}.
@@ -125,9 +132,6 @@ public abstract class Instance implements Block.Getter, Block.Setter,
     // instance custom data
     protected TagHandler tagHandler = TagHandler.newHandler();
     private final EventNode<InstanceEvent> eventNode;
-
-    // the explosion supplier
-    private ExplosionSupplier explosionSupplier = Explosion::new;
 
     // Adventure
     private final Pointers pointers;
@@ -809,11 +813,9 @@ public abstract class Instance implements Block.Getter, Block.Setter,
 
     /**
      * Creates an explosion at the given position with the given strength.
-     * The algorithm used to compute damages is provided by {@link #getExplosionSupplier()}.
      *
      * @param center the center of the explosion
      * @param strength the strength of the explosion
-     * @throws IllegalStateException If no {@link ExplosionSupplier} was supplied
      */
     public void explode(Point center, float strength) {
         explode(center, strength, null);
@@ -821,36 +823,177 @@ public abstract class Instance implements Block.Getter, Block.Setter,
 
     /**
      * Creates an explosion at the given position with the given strength.
-     * The algorithm used to compute damages is provided by {@link #getExplosionSupplier()}.
      *
      * @param center   the center of the explosion
      * @param strength       the strength of the explosion
      * @param additionalData data to pass to the explosion supplier
-     * @throws IllegalStateException If no {@link ExplosionSupplier} was supplied
      */
     public void explode(Point center, float strength, @Nullable CompoundBinaryTag additionalData) {
-        final ExplosionSupplier explosionSupplier = getExplosionSupplier();
-        Check.stateCondition(explosionSupplier == null, "Tried to create an explosion with no explosion supplier");
-        final Explosion explosion = explosionSupplier.createExplosion(center, strength, additionalData);
-        explosion.apply(this);
-    }
+        List<Point> blocks = new ArrayList<>();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
 
-    /**
-     * Gets the registered {@link ExplosionSupplier}, or null if none was provided.
-     *
-     * @return the instance explosion supplier, null if none was provided
-     */
-    public @Nullable ExplosionSupplier getExplosionSupplier() {
-        return explosionSupplier;
-    }
+        if (additionalData == null || !additionalData.keySet().contains("breakBlocks") || additionalData.getByte("breakBlocks") == (byte) 1)
+            for (int x = 0; x < 16; ++x)
+                for (int y = 0; y < 16; ++y)
+                    for (int z = 0; z < 16; ++z)
+                        if (x == 0 || x == 15 || y == 0 || y == 15 || z == 0 || z == 15) {
+                            double xLength = (float) x / 15.0F * 2.0F - 1.0F;
+                            double yLength = (float) y / 15.0F * 2.0F - 1.0F;
+                            double zLength = (float) z / 15.0F * 2.0F - 1.0F;
+                            double length = Math.sqrt(xLength * xLength + yLength * yLength + zLength * zLength);
+                            xLength /= length;
+                            yLength /= length;
+                            zLength /= length;
+                            Point pos = center;
 
-    /**
-     * Registers the {@link ExplosionSupplier} to use in this instance.
-     *
-     * @param supplier the explosion supplier
-     */
-    public void setExplosionSupplier(@Nullable ExplosionSupplier supplier) {
-        this.explosionSupplier = supplier;
+                            float strengthLeft = strength * (0.7F + random.nextFloat() * 0.6F);
+                            for (; strengthLeft > 0.0F; strengthLeft -= 0.225F) {
+                                Block block = getBlock(pos);
+
+                                if (!block.isAir()) {
+                                    strengthLeft -= ((float) block.registry().explosionResistance() + 0.3F) * 0.3F;
+
+                                    if (strengthLeft > 0.0F) {
+                                        Point blockPos = new BlockVec(pos);
+                                        if (!blocks.contains(blockPos)) blocks.add(blockPos);
+                                    }
+                                }
+
+                                pos = pos.add(xLength * 0.30000001192092896D, yLength * 0.30000001192092896D, zLength * 0.30000001192092896D);
+                            }
+                        }
+
+
+
+        strength *= 2.0F;
+        int minX = (int) Math.floor(center.x() - strength - 1.0D);
+        int maxX = (int) Math.floor(center.x() + strength + 1.0D);
+        int minY = (int) Math.floor(center.y() - strength - 1.0D);
+        int maxY = (int) Math.floor(center.y() + strength + 1.0D);
+        int minZ = (int) Math.floor(center.z() - strength - 1.0D);
+        int maxZ = (int) Math.floor(center.z() + strength + 1.0D);
+
+        BoundingBox explosionBox = new BoundingBox(
+                Math.max(minX, maxX) - Math.min(minX, maxX),
+                Math.max(minY, maxY) - Math.min(minY, maxY),
+                Math.max(minZ, maxZ) - Math.min(minZ, maxZ)
+        );
+
+        Point src = center.sub(0, explosionBox.height() / 2, 0);
+
+        Set<Entity> entities = getEntities().stream()
+                .filter(entity -> explosionBox.intersectEntity(src, entity))
+                .collect(Collectors.toSet());
+
+        Damage damageObj;
+        if (additionalData != null && additionalData.getBoolean("anchor")) damageObj = new Damage(DamageType.BAD_RESPAWN_POINT, null, null, null, 0);
+        else {
+            LivingEntity causingEntity = null;
+            if(additionalData != null) {
+                String uuid = additionalData.getString("causingEntity");
+                if(!uuid.isEmpty()) causingEntity = (LivingEntity) getEntities().stream()
+                        .filter(entity -> entity instanceof LivingEntity
+                                && entity.getUuid().equals(UUID.fromString(uuid)))
+                        .findAny().orElse(null);
+            }
+
+            damageObj = new Damage(DamageType.PLAYER_EXPLOSION, causingEntity, causingEntity, null, 0);
+        }
+
+        final Map<Player, Vec> playerKnockback = new HashMap<>();
+        for (Entity entity : entities) {
+            double knockback = entity.getPosition().distance(center) / strength;
+            if (knockback <= 1.0D) {
+                double dx = entity.getPosition().x() - center.x();
+                double dy = (entity.getEntityType() == EntityType.TNT ? entity.getPosition().y() :
+                        entity.getPosition().y() + entity.getEyeHeight()) - center.y();
+                double dz = entity.getPosition().z() - center.z();
+                double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                if (distance != 0.0D) {
+                    dx /= distance;
+                    dy /= distance;
+                    dz /= distance;
+                    BoundingBox box = entity.getBoundingBox();
+                    double xStep = 1 / (box.width() * 2 + 1);
+                    double yStep = 1 / (box.height() * 2 + 1);
+                    double zStep = 1 / (box.depth() * 2 + 1);
+                    double g = (1 - Math.floor(1 / xStep) * xStep) / 2;
+                    double h = (1 - Math.floor(1 / zStep) * zStep) / 2;
+                    if (xStep >= 0 && yStep >= 0 && zStep >= 0) {
+                        int exposedCount = 0;
+                        int rayCount = 0;
+                        double dx1 = 0;
+                        while (dx1 <= 1) {
+                            double dy1 = 0;
+                            while (dy1 <= 1) {
+                                double dz1 = 0;
+                                while (dz1 <= 1) {
+                                    double rayX = box.minX() + dx1 * box.width();
+                                    double rayY = box.minY() + dy1 * box.height();
+                                    double rayZ = box.minZ() + dz1 * box.depth();
+                                    Point point = new Vec(rayX + g, rayY, rayZ + h).add(entity.getPosition());
+                                    if (CollisionUtils.isLineOfSightReachingShape(this, null, point, center, new BoundingBox(1, 1, 1))) exposedCount++;
+                                    rayCount++;
+                                    dz1 += zStep;
+                                }
+                                dy1 += yStep;
+                            }
+                            dx1 += xStep;
+                        }
+                        knockback = (1.0D - knockback) * exposedCount / (double) rayCount;
+                    } else knockback = 0;
+
+                    damageObj.setAmount((float) ((knockback * knockback + knockback)
+                            / 2.0D * 7.0D * strength + 1.0D));
+                    if (entity instanceof LivingEntity living) living.damage(damageObj);
+
+                    Vec knockbackVec = new Vec(
+                            dx * knockback,
+                            dy * knockback,
+                            dz * knockback
+                    );
+
+                    int tps = ServerFlag.SERVER_TICKS_PER_SECOND;
+                    if (entity instanceof Player player) {
+                        if(!player.getGameMode().canTakeDamage() || player.isFlying()) continue;
+                        playerKnockback.put(player, knockbackVec);
+                    }
+                    entity.setVelocity(entity.getVelocity().add(knockbackVec.mul(tps)));
+                }
+            }
+        }
+
+        byte[] records = new byte[3 * blocks.size()];
+        for (int i = 0; i < blocks.size(); i++) {
+            final var pos = blocks.get(i);
+            setBlock(pos, Block.AIR);
+            final byte x = (byte) (pos.x() - center.blockX());
+            final byte y = (byte) (pos.y() - center.blockY());
+            final byte z = (byte) (pos.z() - center.blockZ());
+            records[i * 3] = x;
+            records[i * 3 + 1] = y;
+            records[i * 3 + 2] = z;
+        }
+
+        Chunk chunk = getChunkAt(center.x(), center.z());
+        if (chunk != null) {
+            for (Player player : chunk.getViewers()) {
+                Vec knockbackVec = playerKnockback.getOrDefault(player, Vec.ZERO);
+                player.sendPacket(new ExplosionPacket(center.x(), center.y(), center.z(), strength,
+                        records, (float) knockbackVec.x(), (float) knockbackVec.y(), (float) knockbackVec.z()));
+            }
+        }
+
+        if (additionalData != null && additionalData.getBoolean("fire")) {
+            for (Point point : blocks) {
+                if (random.nextInt(3) != 0
+                        || !getBlock(point).isAir()
+                        || !getBlock(point.sub(0, 1, 0)).isSolid())
+                    continue;
+
+                setBlock(point, Block.FIRE);
+            }
+        }
     }
 
     @Override
