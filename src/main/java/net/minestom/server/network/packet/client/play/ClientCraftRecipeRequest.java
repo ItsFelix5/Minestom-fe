@@ -27,7 +27,7 @@ public record ClientCraftRecipeRequest(byte windowId, String recipe, boolean mak
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.sendPacket(new CraftRecipeResponse(windowId, recipe));
     }
 }

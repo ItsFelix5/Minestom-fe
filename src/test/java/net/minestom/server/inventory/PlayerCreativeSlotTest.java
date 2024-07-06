@@ -36,6 +36,6 @@ public class PlayerCreativeSlotTest {
         var player = connection.connect(instance, new Pos(0, 42, 0)).join();
         player.setGameMode(GameMode.CREATIVE);
 
-        assertDoesNotThrow(() -> new ClientCreativeInventoryActionPacket((short) 76, ItemStack.of(Material.OAK_LOG)).listener(player));
+        assertDoesNotThrow(() -> new ClientCreativeInventoryActionPacket((short) 76, ItemStack.of(Material.OAK_LOG)).handle(player));
     }
 }

@@ -45,7 +45,7 @@ public record ClientLoginStartPacket(@NotNull String username,
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         if(connection instanceof PlayerSocketConnection socketConnection) {
             socketConnection.UNSAFE_setLoginUsername(username);
             if(authHandler != null) {

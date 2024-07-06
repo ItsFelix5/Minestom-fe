@@ -21,7 +21,7 @@ public record ClientHeldItemChangePacket(short slot) implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (!MathUtils.isBetween(slot, 0, 8)) return; // Incorrect packet, ignore
 
         PlayerChangeHeldSlotEvent changeHeldSlotEvent = new PlayerChangeHeldSlotEvent(player, (byte) slot);

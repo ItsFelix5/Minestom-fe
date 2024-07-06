@@ -41,7 +41,7 @@ public record ClientChatMessagePacket(String message, long timestamp,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (!Messenger.canReceiveMessage(player)) {
             Messenger.sendRejectionMessage(player);
             return;

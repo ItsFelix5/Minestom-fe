@@ -17,7 +17,7 @@ public record ClientChunkBatchReceivedPacket(float targetChunksPerTick) implemen
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.onChunkBatchReceived(targetChunksPerTick);
     }
 }

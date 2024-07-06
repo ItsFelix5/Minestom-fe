@@ -18,7 +18,7 @@ public record ClientAnimationPacket(@NotNull Player.Hand hand) implements Client
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         //player.getItemInHand(hand).onLeftClick(player, hand);
         PlayerHandAnimationEvent handAnimationEvent = new PlayerHandAnimationEvent(player, hand);
         EventDispatcher.callCancellable(handAnimationEvent, () -> {

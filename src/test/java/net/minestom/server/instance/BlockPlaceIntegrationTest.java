@@ -34,7 +34,7 @@ public class BlockPlaceIntegrationTest {
         // Should be air, then we place (this is outside the border)
         assertEquals(Block.AIR, instance.getBlock(3, 40, 0));
         var placePacket = new ClientPlayerBlockPlacementPacket(Player.Hand.MAIN, new Pos(3, 39, 0), BlockFace.TOP, 0.5f, 0.5f, 0.5f, false, 1);
-        placePacket.listener(player);
+        placePacket.handle(player);
 
         // Should still be air
         var placedBlock = instance.getBlock(3, 40, 0);
@@ -51,7 +51,7 @@ public class BlockPlaceIntegrationTest {
         // Should be air, then we place
         assertEquals(Block.AIR, instance.getBlock(3, -64, 0));
         var placePacket = new ClientPlayerBlockPlacementPacket(Player.Hand.MAIN, new Pos(3, -64, 0), BlockFace.TOP, 0.5f, 0.5f, 0.5f, false, 1);
-        placePacket.listener(player);
+        placePacket.handle(player);
 
         // Should be stone.
         var placedBlock = instance.getBlock(3, -64, 0);

@@ -17,7 +17,7 @@ public record ClientFinishConfigurationPacket() implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         MinecraftServer.getConnectionManager().transitionConfigToPlay(player);
     }
 }

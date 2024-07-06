@@ -29,7 +29,7 @@ public record ClientEncryptionResponsePacket(byte[] sharedSecret,
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         // Encryption is only support for socket connection
         if (connection instanceof PlayerSocketConnection socketConnection) AsyncUtils.runAsync(() -> MojangAuth.handleEncryption(socketConnection, this));
     }

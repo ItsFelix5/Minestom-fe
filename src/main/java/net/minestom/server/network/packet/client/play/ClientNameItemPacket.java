@@ -28,7 +28,7 @@ public record ClientNameItemPacket(@NotNull String itemName) implements ClientPa
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (!(player.getOpenInventory() instanceof Inventory openInventory))
             return;
         if (openInventory.getInventoryType() != InventoryType.ANVIL)

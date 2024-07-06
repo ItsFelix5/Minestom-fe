@@ -39,7 +39,7 @@ public record ClientSettingsPacket(@NotNull String locale, byte viewDistance,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         // Since viewDistance bounds checking is performed in the refresh function, it is not necessary to check it here
         player.getSettings().refresh(locale, viewDistance, chatMessageType, chatColors, displayedSkinParts, mainHand, enableTextFiltering, allowsListing);
         EventDispatcher.call(new PlayerSettingsChangeEvent(player));

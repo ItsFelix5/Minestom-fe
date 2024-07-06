@@ -47,7 +47,7 @@ public class PacketProcessor {
     public ClientPacket process(@NotNull PlayerConnection connection, int packetId, ByteBuffer body) {
         final ClientPacket packet = create(connection.getConnectionState(), packetId, body);
         if (packet.processImmediately()) {
-            packet.listener(connection);
+            packet.handle(connection);
             return packet;
         }
 

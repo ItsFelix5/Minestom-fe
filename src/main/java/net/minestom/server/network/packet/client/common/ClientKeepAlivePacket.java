@@ -25,7 +25,7 @@ public record ClientKeepAlivePacket(long id) implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (id != player.getLastKeepAlive()) {
             player.kick(Component.text("Bad Keep Alive packet", NamedTextColor.RED));
             return;

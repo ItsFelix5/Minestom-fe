@@ -33,7 +33,7 @@ public record ClientInteractEntityPacket(int targetId, @NotNull Type type, boole
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final Entity entity = player.getInstance().getEntityById(targetId);
         if (entity == null || !entity.isViewer(player) || player.getDistanceSquared(entity) > 6 * 6)
             return;

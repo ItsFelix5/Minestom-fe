@@ -21,7 +21,7 @@ public record ClientPlayerRotationPacket(float yaw, float pitch, boolean onGroun
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.processMovement(player.getPosition().withView(yaw, pitch), onGround);
     }
 }

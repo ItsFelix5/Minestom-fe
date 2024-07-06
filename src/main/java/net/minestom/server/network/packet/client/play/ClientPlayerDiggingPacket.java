@@ -44,7 +44,7 @@ public record ClientPlayerDiggingPacket(@NotNull Status status, @NotNull Point b
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final Instance instance = player.getInstance();
         if (instance == null) return;
 

@@ -25,7 +25,7 @@ public record ClientResourcePackStatusPacket(
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         EventDispatcher.call(new PlayerResourcePackStatusEvent(player, status));
 
         // Run adventure callbacks for the resource pack

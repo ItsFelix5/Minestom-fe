@@ -22,7 +22,7 @@ public record ClientPlayerAbilitiesPacket(byte flags) implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (player.isAllowFlying() || player.getGameMode() == GameMode.CREATIVE) {
             final boolean isFlying = (flags & 0x2) > 0;
 

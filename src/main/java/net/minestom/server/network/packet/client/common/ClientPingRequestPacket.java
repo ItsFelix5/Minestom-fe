@@ -28,7 +28,7 @@ public record ClientPingRequestPacket(long number) implements ClientPacket {
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         if(connection.getConnectionState() == ConnectionState.PLAY) {
             connection.getPlayer().sendPacket(new PingResponsePacket(number));
             return;

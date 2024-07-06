@@ -25,7 +25,7 @@ public record ClientCreativeInventoryActionPacket(short slot, @NotNull ItemStack
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (player.getGameMode() != GameMode.CREATIVE) return;
         if (slot == -1) {
             // Drop item

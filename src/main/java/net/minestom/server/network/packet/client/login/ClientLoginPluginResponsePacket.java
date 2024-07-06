@@ -32,7 +32,7 @@ public record ClientLoginPluginResponsePacket(int messageId, byte @Nullable [] d
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         try {
             LoginPluginMessageProcessor messageProcessor = connection.loginPluginMessageProcessor();
             messageProcessor.handleResponse(messageId, data);

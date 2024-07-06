@@ -18,7 +18,7 @@ public record ClientPlayerPacket(boolean onGround) implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.refreshOnGround(onGround);
     }
 }

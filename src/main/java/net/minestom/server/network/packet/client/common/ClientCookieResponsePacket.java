@@ -39,7 +39,7 @@ public record ClientCookieResponsePacket(
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         connection.receiveCookieResponse(key, value);
     }
 }

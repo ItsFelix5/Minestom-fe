@@ -25,7 +25,7 @@ public record ClientCommandChatPacket(@NotNull String message) implements Client
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (Messenger.canReceiveCommand(player)) MinecraftServer.getCommandManager().execute(player, message);
         else Messenger.sendRejectionMessage(player);
     }

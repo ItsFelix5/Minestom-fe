@@ -28,7 +28,7 @@ public record ClientSpectatePacket(@NotNull UUID target) implements ClientPacket
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         // Ignore if the player is not in spectator mode
         if (player.getGameMode() != GameMode.SPECTATOR) return;
 

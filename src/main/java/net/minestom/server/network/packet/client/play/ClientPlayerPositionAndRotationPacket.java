@@ -26,7 +26,7 @@ public record ClientPlayerPositionAndRotationPacket(@NotNull Pos position,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.processMovement(position, onGround);
     }
 }

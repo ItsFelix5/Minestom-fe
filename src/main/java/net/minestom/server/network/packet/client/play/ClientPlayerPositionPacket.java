@@ -26,7 +26,7 @@ public record ClientPlayerPositionPacket(@NotNull Point position,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.processMovement(player.getPosition().withCoord(position), onGround);
     }
 }

@@ -21,7 +21,7 @@ public record ClientSteerBoatPacket(boolean leftPaddleTurning, boolean rightPadd
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final Entity vehicle = player.getVehicle();
         /* The packet may have been received after already exiting the vehicle. */
         if (vehicle == null) return;

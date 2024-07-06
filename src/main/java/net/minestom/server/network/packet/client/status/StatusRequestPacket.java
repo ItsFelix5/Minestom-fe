@@ -25,7 +25,7 @@ public record StatusRequestPacket() implements ClientPacket {
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         final ServerListPingType pingVersion = ServerListPingType.fromModernProtocolVersion(connection.getProtocolVersion());
         final ServerListPingEvent statusRequestEvent = new ServerListPingEvent(connection, pingVersion);
         EventDispatcher.callCancellable(statusRequestEvent, () ->

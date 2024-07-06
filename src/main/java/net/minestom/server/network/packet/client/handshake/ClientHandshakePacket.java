@@ -50,7 +50,7 @@ public record ClientHandshakePacket(int protocolVersion, @NotNull String serverA
     private static final Component INVALID_VERSION_TEXT = Component.text("Invalid Version, please use " + MinecraftServer.VERSION_NAME, NamedTextColor.RED);
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         switch (intent) {
             case STATUS -> connection.setConnectionState(ConnectionState.STATUS);
             case LOGIN -> {

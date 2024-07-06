@@ -2076,7 +2076,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             return;
         }
         // This method is NOT thread-safe
-        this.packets.drain(packet -> packet.listener(playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
+        this.packets.drain(packet -> packet.handle(playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
     }
 
     /**

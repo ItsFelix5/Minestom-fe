@@ -11,11 +11,11 @@ import org.jetbrains.annotations.ApiStatus;
  * Packets are value-based, and should therefore not be reliant on identity.
  */
 public interface ClientPacket extends NetworkBuffer.Writer {
-    default void listener(PlayerConnection connection){
-        listener(connection.getPlayer());
+    default void handle(PlayerConnection connection){
+        handle(connection.getPlayer());
     }
 
-    default void listener(Player player){}
+    default void handle(Player player){}
 
     /**
      * Determines whether this packet should be processed immediately

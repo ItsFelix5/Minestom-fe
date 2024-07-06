@@ -27,7 +27,7 @@ public record ClientPluginMessagePacket(@NotNull String channel, byte[] data) im
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         EventDispatcher.call(new PlayerPluginMessageEvent(player, channel, data));
     }
 }

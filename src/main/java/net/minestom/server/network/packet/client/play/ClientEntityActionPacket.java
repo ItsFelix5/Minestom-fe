@@ -27,7 +27,7 @@ public record ClientEntityActionPacket(int playerId, @NotNull Action action,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         switch (action) {
             case START_SNEAKING -> {
                 if (!player.isSneaking()) {

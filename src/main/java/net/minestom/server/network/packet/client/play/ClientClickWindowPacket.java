@@ -44,7 +44,7 @@ public record ClientClickWindowPacket(byte windowId, int stateId,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final AbstractInventory inventory = windowId == 0 ? player.getInventory() : player.getOpenInventory();
         if (inventory == null) return; // Invalid packet
 

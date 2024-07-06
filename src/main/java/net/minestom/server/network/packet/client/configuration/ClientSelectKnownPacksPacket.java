@@ -29,7 +29,7 @@ public record ClientSelectKnownPacksPacket(
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.getPlayerConnection().receiveKnownPacksResponse(entries);
     }
 }

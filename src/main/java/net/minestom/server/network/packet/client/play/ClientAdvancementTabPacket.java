@@ -46,7 +46,7 @@ public record ClientAdvancementTabPacket(@NotNull AdvancementAction action,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         if (tabIdentifier != null) EventDispatcher.call(new AdvancementTabEvent(player, action, tabIdentifier));
     }
 }

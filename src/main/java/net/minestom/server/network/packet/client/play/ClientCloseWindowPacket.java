@@ -21,7 +21,7 @@ public record ClientCloseWindowPacket(byte windowId) implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         // if windowId == 0 then it is player's inventory, meaning that they hadn't been any open inventory packet
         InventoryCloseEvent inventoryCloseEvent = new InventoryCloseEvent(player.getOpenInventory(), player);
         EventDispatcher.call(inventoryCloseEvent);

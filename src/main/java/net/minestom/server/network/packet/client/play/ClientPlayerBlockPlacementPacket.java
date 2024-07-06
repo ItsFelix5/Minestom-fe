@@ -59,7 +59,7 @@ public record ClientPlayerBlockPlacementPacket(@NotNull Player.Hand hand, @NotNu
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final PlayerInventory playerInventory = player.getInventory();
 
         final Instance instance = player.getInstance();

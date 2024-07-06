@@ -22,7 +22,7 @@ public record ClientSteerVehiclePacket(float sideways, float forward,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final boolean jump = (flags & 0x1) != 0;
         final boolean unmount = (flags & 0x2) != 0;
         player.refreshVehicleSteer(sideways, forward, jump, unmount);

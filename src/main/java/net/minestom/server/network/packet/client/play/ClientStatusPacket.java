@@ -22,7 +22,7 @@ public record ClientStatusPacket(@NotNull Action action) implements ClientPacket
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         switch (action) {
             case PERFORM_RESPAWN -> player.respawn();
             case REQUEST_STATS -> {

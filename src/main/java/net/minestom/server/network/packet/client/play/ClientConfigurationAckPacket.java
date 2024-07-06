@@ -16,7 +16,7 @@ public record ClientConfigurationAckPacket() implements ClientPacket {
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         MinecraftServer.getConnectionManager().doConfiguration(player, false);
     }
 }

@@ -26,7 +26,7 @@ public record ClientVehicleMovePacket(@NotNull Pos position) implements ClientPa
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final Entity vehicle = player.getVehicle();
         if (vehicle == null)
             return;

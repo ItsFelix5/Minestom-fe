@@ -18,7 +18,7 @@ public record ClientTeleportConfirmPacket(int teleportId) implements ClientPacke
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         player.refreshReceivedTeleportId(teleportId);
     }
 }

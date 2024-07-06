@@ -23,7 +23,7 @@ public record ClientTabCompletePacket(int transactionId, @NotNull String text) i
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         String text = this.text;
         if (text.startsWith("/")) text = text.substring(1);
         // Append a placeholder char if the command ends with a space allowing the parser to find suggestion

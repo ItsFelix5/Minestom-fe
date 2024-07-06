@@ -34,7 +34,7 @@ public record ClientUseItemPacket(@NotNull Player.Hand hand, int sequence, float
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         final ItemStack itemStack = player.getInventory().getItemInHand(hand);
         final Material material = itemStack.material();
 

@@ -24,7 +24,7 @@ public record ClientLoginAcknowledgedPacket() implements ClientPacket {
     }
 
     @Override
-    public void listener(PlayerConnection connection) {
+    public void handle(PlayerConnection connection) {
         MinecraftServer.getConnectionManager().doConfiguration(Objects.requireNonNull(connection.getPlayer()), true);
     }
 }

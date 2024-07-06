@@ -36,7 +36,7 @@ public record ClientEditBookPacket(int slot, @NotNull List<String> pages,
     }
 
     @Override
-    public void listener(Player player) {
+    public void handle(Player player) {
         EventDispatcher.call(new EditBookEvent(player, player.getInventory().getItemStack(PlayerInventoryUtils.convertClientInventorySlot(slot)), pages, title));
     }
 }
