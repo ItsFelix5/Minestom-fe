@@ -302,6 +302,10 @@ public final class NetworkBuffer {
         return oldWriteIndex;
     }
 
+    public void skipRead(int length) {
+        readIndex += length;
+    }
+
     public int readableBytes() {
         return writeIndex - readIndex;
     }

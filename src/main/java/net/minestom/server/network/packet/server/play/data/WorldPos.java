@@ -10,7 +10,7 @@ import static net.minestom.server.network.NetworkBuffer.BLOCK_POSITION;
 import static net.minestom.server.network.NetworkBuffer.STRING;
 
 public record WorldPos(@NotNull String dimension, @NotNull Point blockPosition) implements NetworkBuffer.Writer {
-    public static final NetworkBuffer.Type<WorldPos> NETWORK_TYPE = new NetworkBuffer.Type<WorldPos>() {
+    public static final NetworkBuffer.Type<WorldPos> NETWORK_TYPE = new NetworkBuffer.Type<>() {
         @Override
         public void write(@NotNull NetworkBuffer buffer, WorldPos value) {
             buffer.write(NetworkBuffer.STRING, value.dimension);

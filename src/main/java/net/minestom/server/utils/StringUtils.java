@@ -8,16 +8,11 @@ public class StringUtils {
     public static final char SPACE_CHAR = ' ';
 
     public static int countMatches(@NotNull final CharSequence str, final char ch) {
-        if (str.length() == 0) {
-            return 0;
-        }
+        if (str.isEmpty()) return 0;
         int count = 0;
         // We could also call str.toCharArray() for faster look ups but that would generate more garbage.
-        for (int i = 0; i < str.length(); i++) {
-            if (ch == str.charAt(i)) {
-                count++;
-            }
-        }
+        for (int i = 0; i < str.length(); i++)
+            if (ch == str.charAt(i)) count++;
         return count;
     }
 
@@ -32,13 +27,9 @@ public class StringUtils {
      */
     public static double jaroWinklerScore(final String s1, final String s2) {
         // lowest score on empty strings
-        if (s1 == null || s2 == null || s1.isEmpty() || s2.isEmpty()) {
-            return 0;
-        }
+        if (s1 == null || s2 == null || s1.isEmpty() || s2.isEmpty()) return 0;
         // highest score on equal strings
-        if (s1.equals(s2)) {
-            return 1;
-        }
+        if (s1.equals(s2)) return 1;
         // some score on different strings
         int prefixMatch = 0; // exact prefix matches
         int matches = 0; // matches (including prefix and ones requiring transpostion)

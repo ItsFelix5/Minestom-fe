@@ -125,7 +125,7 @@ public class Tag<T> {
                     if (write.isEmpty())
                         return ListBinaryTag.empty();
                     final List<BinaryTag> list = write.stream().map(writeFunction).toList();
-                    final BinaryTagType<?> type = list.get(0).type();
+                    final BinaryTagType<?> type = list.getFirst().type();
                     return ListBinaryTag.listBinaryTag(type, list);
                 });
         UnaryOperator<List<T>> co = this.copy != null ? ts -> {

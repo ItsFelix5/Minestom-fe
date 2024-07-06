@@ -3,6 +3,7 @@ package net.minestom.server.utils;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.key.KeyPattern;
 import org.intellij.lang.annotations.Pattern;
 import org.jetbrains.annotations.NotNull;
 
@@ -103,6 +104,7 @@ public final class NamespaceID implements CharSequence, Key {
         return this.domain;
     }
 
+    @KeyPattern.Value
     @Override
     public @NotNull String value() {
         return this.path;

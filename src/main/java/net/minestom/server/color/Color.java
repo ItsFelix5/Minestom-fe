@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public record Color(int red, int green, int blue) implements RGBLike {
     private static final int BIT_MASK = 0xff;
 
-    public static final NetworkBuffer.Type<RGBLike> NETWORK_TYPE = new NetworkBuffer.Type<RGBLike>() {
+    public static final NetworkBuffer.Type<RGBLike> NETWORK_TYPE = new NetworkBuffer.Type<>() {
         @Override
         public void write(@NotNull NetworkBuffer buffer, RGBLike value) {
             buffer.write(NetworkBuffer.INT, Color.fromRGBLike(value).asRGB());

@@ -262,7 +262,7 @@ public final class ServerProcess implements Registries {
         // Start server
         server.start();
 
-        LOGGER.info(ServerSettings.getBrandName() + " server started successfully.");
+        LOGGER.info("{} server started successfully.", ServerSettings.getBrandName());
 
         // Stop the server on SIGINT
         if (SHUTDOWN_ON_SIGNAL) Runtime.getRuntime().addShutdownHook(new Thread(this::stop));

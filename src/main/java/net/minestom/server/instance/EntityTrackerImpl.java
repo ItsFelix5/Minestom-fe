@@ -286,19 +286,12 @@ final class EntityTrackerImpl implements EntityTracker {
     }
 
     private final class ChunkView implements Viewable {
-        private final ChunkViewKey key;
-        private final int chunkX, chunkZ;
         private final Point point;
         final Set<Player> set = new SetImpl();
         private int lastReferenceCount;
 
         private ChunkView(ChunkViewKey key) {
-            this.key = key;
-
-            this.chunkX = key.chunkX;
-            this.chunkZ = key.chunkZ;
-
-            this.point = new Vec(CHUNK_SIZE_X * chunkX, 0, CHUNK_SIZE_Z * chunkZ);
+            this.point = new Vec(CHUNK_SIZE_X * key.chunkX, 0, CHUNK_SIZE_Z * key.chunkZ);
         }
 
         @Override

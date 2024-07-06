@@ -249,7 +249,7 @@ public interface BinaryTagSerializer<T> {
         }
     };
 
-    BinaryTagSerializer<Point> BLOCK_POSITION = new BinaryTagSerializer<Point>() {
+    BinaryTagSerializer<Point> BLOCK_POSITION = new BinaryTagSerializer<>() {
         @Override
         public @NotNull BinaryTag write(@NotNull Point value) {
             return IntArrayBinaryTag.intArrayBinaryTag(value.blockX(), value.blockY(), value.blockZ());

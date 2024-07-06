@@ -1,13 +1,14 @@
 package net.minestom.server.sound;
 
+import net.kyori.adventure.key.Key;
 import net.minestom.server.registry.Registry;
-import net.minestom.server.registry.ProtocolObject;
+import net.minestom.server.registry.StaticProtocolObject;
 import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
-record BuiltinSoundEvent(NamespaceID namespace, int id) implements ProtocolObject, SoundEvent {
+record BuiltinSoundEvent(NamespaceID namespace, int id) implements StaticProtocolObject, SoundEvent {
     private static final Registry.Container<BuiltinSoundEvent> CONTAINER = Registry.createStaticContainer(Registry.Resource.SOUNDS,
             (namespace, properties) -> new BuiltinSoundEvent(NamespaceID.from(namespace), properties.getInt("id")));
 
@@ -30,5 +31,15 @@ record BuiltinSoundEvent(NamespaceID namespace, int id) implements ProtocolObjec
     @Override
     public String toString() {
         return name();
+    }
+
+    @Override
+    public @NotNull String name() {
+        return StaticProtocolObject.super.name();
+    }
+
+    @Override
+    public @NotNull Key key() {
+        return StaticProtocolObject.super.key();
     }
 }

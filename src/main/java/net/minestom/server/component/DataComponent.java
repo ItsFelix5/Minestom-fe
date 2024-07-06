@@ -3,7 +3,7 @@ package net.minestom.server.component;
 import net.kyori.adventure.nbt.BinaryTag;
 import net.minestom.server.item.enchant.EffectComponent;
 import net.minestom.server.network.NetworkBuffer;
-import net.minestom.server.registry.ProtocolObject;
+import net.minestom.server.registry.StaticProtocolObject;
 import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
 import org.jetbrains.annotations.ApiStatus;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * @see net.minestom.server.item.ItemComponent
  * @see EffectComponent
  */
-public sealed interface DataComponent<T> extends ProtocolObject permits DataComponentImpl {
+public sealed interface DataComponent<T> extends StaticProtocolObject permits DataComponentImpl {
 
     /**
      * Represents any type which can hold data components. Represents a finalized view of a component, that is to say

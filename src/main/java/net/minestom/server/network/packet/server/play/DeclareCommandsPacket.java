@@ -4,7 +4,7 @@ import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
-import net.minestom.server.registry.ProtocolObject;
+import net.minestom.server.registry.StaticProtocolObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -90,7 +90,7 @@ public record DeclareCommandsPacket(@NotNull List<Node> nodes,
             }
 
             if (isArgument()) {
-                final ProtocolObject object = Argument.CONTAINER.getId(reader.read(VAR_INT));
+                final StaticProtocolObject object = Argument.CONTAINER.getId(reader.read(VAR_INT));
                 parser = object.name();
                 properties = getProperties(reader, parser);
             }

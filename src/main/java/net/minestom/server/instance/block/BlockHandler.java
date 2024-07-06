@@ -196,104 +196,12 @@ public interface BlockHandler {
         }
     }
 
-    final class Interaction {
-        private final Block block;
-        private final Instance instance;
-        private final Point blockPosition;
-        private final Point cursorPosition;
-        private final Player player;
-        private final Player.Hand hand;
+    record Interaction(Block block, Instance instance, Point blockPosition, Point cursorPosition, Player player,
+                       Player.Hand hand) {}
 
-        @ApiStatus.Internal
-        public Interaction(Block block, Instance instance, Point blockPosition, Point cursorPosition, Player player, Player.Hand hand) {
-            this.block = block;
-            this.instance = instance;
-            this.blockPosition = blockPosition;
-            this.cursorPosition = cursorPosition;
-            this.player = player;
-            this.hand = hand;
-        }
+    record Touch(Block block, Instance instance, Point blockPosition, Entity touching) {}
 
-        public @NotNull Block getBlock() {
-            return block;
-        }
-
-        public @NotNull Instance getInstance() {
-            return instance;
-        }
-
-        public @NotNull Point getBlockPosition() {
-            return blockPosition;
-        }
-
-        public @NotNull Point getCursorPosition() {
-            return cursorPosition;
-        }
-
-        public @NotNull Player getPlayer() {
-            return player;
-        }
-
-        public @NotNull Player.Hand getHand() {
-            return hand;
-        }
-    }
-
-    final class Touch {
-        private final Block block;
-        private final Instance instance;
-        private final Point blockPosition;
-        private final Entity touching;
-
-        @ApiStatus.Internal
-        public Touch(Block block, Instance instance, Point blockPosition, Entity touching) {
-            this.block = block;
-            this.instance = instance;
-            this.blockPosition = blockPosition;
-            this.touching = touching;
-        }
-
-        public @NotNull Block getBlock() {
-            return block;
-        }
-
-        public @NotNull Instance getInstance() {
-            return instance;
-        }
-
-        public @NotNull Point getBlockPosition() {
-            return blockPosition;
-        }
-
-        public @NotNull Entity getTouching() {
-            return touching;
-        }
-    }
-
-    final class Tick {
-        private final Block block;
-        private final Instance instance;
-        private final Point blockPosition;
-
-        @ApiStatus.Internal
-        public Tick(Block block, Instance instance, Point blockPosition) {
-            this.block = block;
-            this.instance = instance;
-            this.blockPosition = blockPosition;
-        }
-
-        public @NotNull Block getBlock() {
-            return block;
-        }
-
-        public @NotNull Instance getInstance() {
-            return instance;
-        }
-
-        public @NotNull Point getBlockPosition() {
-            return blockPosition;
-        }
-    }
+    record Tick(Block block, Instance instance, Point blockPosition) {}
 
     /**
      * Handler used for loaded blocks with unknown namespace

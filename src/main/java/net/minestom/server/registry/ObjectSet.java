@@ -40,7 +40,7 @@ public sealed interface ObjectSet<T extends ProtocolObject> permits ObjectSetImp
      * @param object The object to check for.
      * @return True if this set contains the object, false otherwise.
      */
-    default boolean contains(@NotNull ProtocolObject object) {
+    default boolean contains(@NotNull StaticProtocolObject object) {
         return contains(object.namespace());
     }
 

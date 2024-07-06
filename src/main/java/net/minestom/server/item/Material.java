@@ -4,7 +4,7 @@ import net.minestom.server.component.DataComponentMap;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.NetworkBuffer;
 import net.minestom.server.registry.Registry;
-import net.minestom.server.registry.ProtocolObject;
+import net.minestom.server.registry.StaticProtocolObject;
 import net.minestom.server.utils.NamespaceID;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
 import org.jetbrains.annotations.Contract;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.UnknownNullability;
 
 import java.util.Collection;
 
-public sealed interface Material extends ProtocolObject, Materials permits MaterialImpl {
+public sealed interface Material extends StaticProtocolObject, Materials permits MaterialImpl {
 
     NetworkBuffer.Type<Material> NETWORK_TYPE = NetworkBuffer.VAR_INT.map(MaterialImpl::getId, Material::id);
     BinaryTagSerializer<Material> NBT_TYPE = BinaryTagSerializer.STRING.map(MaterialImpl::getSafe, Material::name);

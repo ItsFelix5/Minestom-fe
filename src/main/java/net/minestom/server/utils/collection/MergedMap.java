@@ -1,6 +1,7 @@
 package net.minestom.server.utils.collection;
 
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -20,13 +21,13 @@ public final class MergedMap<K, V> extends AbstractMap<K, V> {
 
     final Set<Entry<K, V>> entrySet = new AbstractSet<>() {
         @Override
-        public Iterator<Map.Entry<K, V>> iterator() {
+        public @NotNull Iterator<Map.Entry<K, V>> iterator() {
             return stream().iterator();
         }
 
         @Override
         public int size() {
-            return (int) stream().count();
+            return (int) (first.entrySet().size() + secondStream().count());
         }
 
         @Override
@@ -51,7 +52,7 @@ public final class MergedMap<K, V> extends AbstractMap<K, V> {
     }
 
     @Override
-    public Set<Map.Entry<K, V>> entrySet() {
+    public @NotNull Set<Map.Entry<K, V>> entrySet() {
         return entrySet;
     }
 

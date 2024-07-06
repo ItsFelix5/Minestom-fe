@@ -11,6 +11,7 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.registry.ProtocolObject;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.Unit;
+import net.minestom.server.utils.Utils;
 import net.minestom.server.utils.nbt.BinaryTagReader;
 import net.minestom.server.utils.nbt.BinaryTagWriter;
 import net.minestom.server.utils.validate.Check;
@@ -185,9 +186,7 @@ interface NetworkBufferTypeImpl<T> extends NetworkBuffer.Type<T> {
             } else if ((value & (0xFFFFFFFF << 21)) == 0) {
                 buffer.ensureSize(3);
                 var nio = buffer.nioBuffer;
-                nio.put(index, (byte) (value & 0x7F | 0x80));
-                nio.put(index + 1, (byte) ((value >>> 7) & 0x7F | 0x80));
-                nio.put(index + 2, (byte) (value >>> 14));
+                Utils.writeVarIntHeader(nio, index, value);
                 buffer.writeIndex += 3;
             } else if ((value & (0xFFFFFFFF << 28)) == 0) {
                 buffer.ensureSize(4);

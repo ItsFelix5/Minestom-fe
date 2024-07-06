@@ -77,7 +77,7 @@ final class GraphConverter {
                 else {
                     redirects.add((graph, root) -> {
                         final List<Argument<?>> args = CommandParser.parser().parse(player, graph, shortcut).args();
-                        final Argument<?> last = args.get(args.size() - 1);
+                        final Argument<?> last = args.getLast();
                         if (last.allowSpace()) node.redirectedNode = argToPacketId.get(args.get(args.size()-2));
                         else node.redirectedNode = argToPacketId.get(last);
                     });

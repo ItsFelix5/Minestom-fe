@@ -65,9 +65,7 @@ public class ArgumentParser {
     public static @NotNull Argument<?>[] generate(@NotNull String format) {
         List<Argument<?>> result = new ArrayList<>();
 
-        // 0 = no state
-        // 1 = inside angle bracket <>
-        int state = 0;
+        boolean inBrackets = false;
         // function to create an argument from its identifier
         // not null during state 1
         Function<String, Argument<?>> argumentFunction = null;
@@ -78,12 +76,19 @@ public class ArgumentParser {
         for (int i = 0; i < format.length(); i++) {
             char c = format.charAt(i);
 
-            // No state
-            if (state == 0) {
+            if (inBrackets) {
+                if (c == '>') {
+                    // TODO argument options
+                    result.add(argumentFunction.apply(builder.toString()));
+
+                    builder = new StringBuilder();
+                    inBrackets = false;
+                } else builder.append(c);
+            } else {
                 if (c == ' ') {
                     // Use literal as the default argument
                     final String argument = builder.toString();
-                    if (argument.length() != 0) {
+                    if (!argument.isEmpty()) {
                         result.add(new ArgumentLiteral(argument));
                         builder = new StringBuilder();
                     }
@@ -91,45 +96,19 @@ public class ArgumentParser {
                     // Retrieve argument type
                     final String argument = builder.toString();
                     argumentFunction = ARGUMENT_FUNCTION_MAP.get(argument.toLowerCase(Locale.ROOT));
-                    if (argumentFunction == null) {
+                    if (argumentFunction == null)
                         throw new IllegalArgumentException("error invalid argument name: " + argument);
-                    }
 
                     builder = new StringBuilder();
-                    state = 1;
-                } else {
-                    // Append to builder
-                    builder.append(c);
-                }
-
-                continue;
+                    inBrackets = true;
+                } else builder.append(c); // Append to builder
             }
-
-            // Inside bracket <>
-            if (state == 1) {
-                if (c == '>') {
-                    final String param = builder.toString();
-                    // TODO argument options
-                    Argument<?> argument = argumentFunction.apply(param);
-                    result.add(argument);
-
-                    builder = new StringBuilder();
-                    state = 0;
-                } else {
-                    builder.append(c);
-                }
-
-                continue;
-            }
-
         }
 
         // Use remaining as literal if present
-        if (state == 0) {
+        if (!inBrackets) {
             final String argument = builder.toString();
-            if (argument.length() != 0) {
-                result.add(new ArgumentLiteral(argument));
-            }
+            if (!argument.isEmpty()) result.add(new ArgumentLiteral(argument));
         }
 
         return result.toArray(Argument[]::new);
@@ -161,7 +140,7 @@ public class ArgumentParser {
                 // Argument is supposed to take the rest of the command input
                 for (int i = inputIndex; i < inputArguments.length; i++) {
                     final String arg = inputArguments[i];
-                    if (builder.length() > 0)
+                    if (!builder.isEmpty())
                         builder.append(StringUtils.SPACE);
                     builder.append(arg);
                 }
@@ -207,7 +186,7 @@ public class ArgumentParser {
                         // rawArg should be the remaining
                         for (int j = i + 1; j < inputArguments.length; j++) {
                             final String arg = inputArguments[j];
-                            if (builder.length() > 0)
+                            if (!builder.isEmpty())
                                 builder.append(StringUtils.SPACE);
                             builder.append(arg);
                         }

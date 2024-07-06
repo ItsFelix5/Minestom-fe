@@ -44,11 +44,11 @@ public sealed interface Biome extends Biomes, ProtocolObject permits BiomeImpl {
     @Nullable Registry.BiomeEntry registry();
 
     enum Precipitation {
-        NONE, RAIN, SNOW;
+        NONE, RAIN, SNOW
     }
 
     enum TemperatureModifier {
-        NONE, FROZEN;
+        NONE, FROZEN
     }
 
     interface Setter {

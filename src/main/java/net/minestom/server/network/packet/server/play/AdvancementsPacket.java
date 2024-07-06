@@ -100,15 +100,15 @@ public record AdvancementsPacket(boolean reset, @NotNull List<AdvancementMapping
     }
 
     public record Advancement(@Nullable String parentIdentifier, @Nullable DisplayData displayData,
-                              @NotNull List<Requirement> requirements,
-                              boolean sendTelemetryData) implements NetworkBuffer.Writer, ComponentHolder<Advancement> {
+                              @NotNull List<Requirement> requirements) implements NetworkBuffer.Writer, ComponentHolder<Advancement> {
         public Advancement {
             requirements = List.copyOf(requirements);
         }
 
         public Advancement(@NotNull NetworkBuffer reader) {
             this(reader.readOptional(STRING), reader.readOptional(DisplayData::new),
-                    reader.readCollection(Requirement::new, MAX_ADVANCEMENTS), reader.read(BOOLEAN));
+                    reader.readCollection(Requirement::new, MAX_ADVANCEMENTS));
+            reader.skipRead(1); // No telemetry
         }
 
         @Override
@@ -116,7 +116,7 @@ public record AdvancementsPacket(boolean reset, @NotNull List<AdvancementMapping
             writer.writeOptional(STRING, parentIdentifier);
             writer.writeOptional(displayData);
             writer.writeCollection(requirements);
-            writer.write(BOOLEAN, sendTelemetryData);
+            writer.write(BOOLEAN, false);
         }
 
         @Override
@@ -126,7 +126,7 @@ public record AdvancementsPacket(boolean reset, @NotNull List<AdvancementMapping
 
         @Override
         public @NotNull Advancement copyWithOperator(@NotNull UnaryOperator<Component> operator) {
-            return this.displayData == null ? this : new Advancement(this.parentIdentifier, this.displayData.copyWithOperator(operator), this.requirements, this.sendTelemetryData);
+            return this.displayData == null ? this : new Advancement(this.parentIdentifier, this.displayData.copyWithOperator(operator), this.requirements);
         }
     }
 
@@ -165,7 +165,7 @@ public record AdvancementsPacket(boolean reset, @NotNull List<AdvancementMapping
             var description = reader.read(COMPONENT);
             var icon = reader.read(ItemStack.NETWORK_TYPE);
             var frameType = FrameType.values()[reader.read(VAR_INT)];
-            var flags = reader.read(INT);
+            int flags = reader.read(INT);
             var backgroundTexture = (flags & 0x1) != 0 ? reader.read(STRING) : null;
             var x = reader.read(FLOAT);
             var y = reader.read(FLOAT);

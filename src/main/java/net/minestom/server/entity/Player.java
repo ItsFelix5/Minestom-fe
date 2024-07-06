@@ -549,11 +549,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     @Override
-    public boolean isOnGround() {
-        return onGround;
-    }
-
-    @Override
     public void remove(boolean permanent) {
         if (isRemoved()) return;
 
@@ -737,7 +732,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             sendPacket(new ChangeGameStatePacket(ChangeGameStatePacket.Reason.LEVEL_CHUNKS_LOAD_START, 0));
         }
 
-        EventDispatcher.call(new PlayerSpawnEvent(this, instance, firstSpawn));
+        EventDispatcher.call(new PlayerSpawnEvent(this, firstSpawn));
     }
 
     @ApiStatus.Internal
@@ -1881,16 +1876,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     /**
-     * The invulnerable field appear in the {@link PlayerAbilitiesPacket} packet.
-     *
-     * @return true if the player is invulnerable, false otherwise
-     */
-    public boolean isInvulnerable() {
-        return super.isInvulnerable();
-    }
-
-    /**
-     * This do update the {@code invulnerable} field in the packet {@link PlayerAbilitiesPacket}
+     * This updates the {@code invulnerable} field in the packet {@link PlayerAbilitiesPacket}
      * and prevent the player from receiving damage.
      *
      * @param invulnerable should the player be invulnerable

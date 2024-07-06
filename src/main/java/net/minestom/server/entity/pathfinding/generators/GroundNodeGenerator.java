@@ -45,7 +45,7 @@ public class GroundNodeGenerator implements NodeGenerator {
                 var nodeWalk = createWalk(instance, floorPoint, boundingBox, cost, current, goal, visited);
                 if (nodeWalk != null && !visited.contains(nodeWalk)) nearby.add(nodeWalk);
 
-                for (int i = 1; i <= 1; ++i) {
+                for (int i = 1; i == 1; ++i) {
                     Point jumpPoint = new Vec(current.blockX() + 0.5 + x, current.blockY() + i, current.blockZ() + 0.5 + z);
                     OptionalDouble jumpPointY = gravitySnap(instance, jumpPoint.x(), jumpPoint.y(), jumpPoint.z(), boundingBox, MAX_FALL_DISTANCE);
                     if (jumpPointY.isEmpty()) continue;

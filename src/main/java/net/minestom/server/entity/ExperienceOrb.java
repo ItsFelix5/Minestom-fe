@@ -62,14 +62,7 @@ public class ExperienceOrb extends Entity {
         // apply slipperiness
 
         setVelocity(getVelocity().mul(new Vec(g, 0.98f, g)));
-        if (isOnGround()) {
-            setVelocity(getVelocity().mul(new Vec(1, -0.9f, 1)));
-        }
-    }
-
-    @Override
-    public void spawn() {
-
+        if (isOnGround()) setVelocity(getVelocity().mul(new Vec(1, -0.9f, 1)));
     }
 
     /**

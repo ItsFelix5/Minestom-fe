@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public class EntityFireExtinguishEvent implements EntityInstanceEvent, CancellableEvent {
 
     private final Entity entity;
-    private boolean natural;
+    private final boolean natural;
 
     private boolean cancelled;
 

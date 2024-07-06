@@ -169,12 +169,9 @@ public class EntityFinder {
                         pos.y(), dy))
                     return false;
 
-                if (dz != null && !MathUtils.isBetweenUnordered(
+                return dz == null || MathUtils.isBetweenUnordered(
                         entityPosition.z(),
-                        pos.z(), dz))
-                    return false;
-
-                return true;
+                        pos.z(), dz);
             }).toList();
         }
 
@@ -274,7 +271,7 @@ public class EntityFinder {
 
     public @Nullable Entity findFirstEntity(@Nullable Instance instance, @Nullable Entity self) {
         final List<Entity> entities = find(instance, self);
-        return entities.isEmpty() ? null : entities.get(0);
+        return entities.isEmpty() ? null : entities.getFirst();
     }
 
     public @Nullable Entity findFirstEntity(@NotNull CommandSender sender) {

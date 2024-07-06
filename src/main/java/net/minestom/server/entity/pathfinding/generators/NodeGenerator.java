@@ -47,10 +47,7 @@ public interface NodeGenerator {
 
     /**
      * Check if we can move directly from one point to another
-     * @param instance
-     * @param start
-     * @param end
-     * @param boundingBox
+     *
      * @return true if we can move directly from start to end
      */
     default boolean canMoveTowards(@NotNull Instance instance, @NotNull Point start, @NotNull Point end, @NotNull BoundingBox boundingBox) {

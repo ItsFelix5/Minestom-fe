@@ -119,7 +119,6 @@ public class EntityProjectile extends Entity {
      * @param posNow position after current tick.
      * @return if an arrow is stuck in block / hit an entity.
      */
-    @SuppressWarnings("ConstantConditions")
     private boolean isStuck(Pos pos, Pos posNow) {
         final Instance instance = getInstance();
         if (pos.samePoint(posNow)) {

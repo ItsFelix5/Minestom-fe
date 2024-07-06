@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -110,7 +111,7 @@ public final class MojangUtils {
         try {
             // Retrieve from the rate-limited Mojang API
             response = URLUtils.getText(url);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             MinecraftServer.getExceptionManager().handleException(e);
             throw new RuntimeException(e);
         }

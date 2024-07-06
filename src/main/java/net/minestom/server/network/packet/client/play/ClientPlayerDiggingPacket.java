@@ -127,7 +127,7 @@ public record ClientPlayerDiggingPacket(@NotNull Status status, @NotNull Point b
                     inventory.setItemInOffHand(swapItemEvent.getOffHandItem());
                 });
             }
-        };
+        }
         // Acknowledge start/cancel/finish digging status
         if (diggingResult != null) {
             player.sendPacket(new AcknowledgeBlockChangePacket(sequence));

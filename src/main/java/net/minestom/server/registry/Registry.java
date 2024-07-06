@@ -41,7 +41,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Handles registry data, used by {@link ProtocolObject} implementations and is strictly internal.
+ * Handles registry data, used by {@link StaticProtocolObject} implementations and is strictly internal.
  * Use at your own risk.
  */
 public final class Registry {
@@ -142,7 +142,7 @@ public final class Registry {
     }
 
     @ApiStatus.Internal
-    public static <T extends ProtocolObject> Container<T> createStaticContainer(Resource resource, Container.Loader<T> loader) {
+    public static <T extends StaticProtocolObject> Container<T> createStaticContainer(Resource resource, Container.Loader<T> loader) {
         var entries = Registry.load(resource);
         Map<String, T> namespaces = new HashMap<>(entries.size());
         ObjectArray<T> ids = ObjectArray.singleThread(entries.size());
@@ -157,7 +157,7 @@ public final class Registry {
     }
 
     @ApiStatus.Internal
-    public record Container<T extends ProtocolObject>(Resource resource,
+    public record Container<T extends StaticProtocolObject>(Resource resource,
                                                             Map<String, T> namespaces,
                                                             ObjectArray<T> ids) {
         public Container {
@@ -655,7 +655,9 @@ public final class Registry {
 
             // Attachments
             Properties attachments = main.section("attachments");
-            //todo if (attachments != null)
+            if (attachments != null) {
+                //todo
+            }
 
             this.custom = custom;
         }

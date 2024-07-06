@@ -2,7 +2,6 @@ package net.minestom.server.event.player;
 
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.trait.PlayerInstanceEvent;
-import net.minestom.server.instance.Instance;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,12 +9,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerSpawnEvent implements PlayerInstanceEvent {
     private final Player player;
-    private final Instance spawnInstance;
     private final boolean firstSpawn;
 
-    public PlayerSpawnEvent(@NotNull Player player, @NotNull Instance spawnInstance, boolean firstSpawn) {
+    public PlayerSpawnEvent(@NotNull Player player, boolean firstSpawn) {
         this.player = player;
-        this.spawnInstance = spawnInstance;
         this.firstSpawn = firstSpawn;
     }
 

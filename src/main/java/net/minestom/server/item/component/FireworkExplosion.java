@@ -77,8 +77,8 @@ public record FireworkExplosion(
                         fadeColors[i] = Color.fromRGBLike(value.fadeColors.get(i)).asRGB();
                     builder.putIntArray("fadeColors", fadeColors);
                 }
-                if (value.hasTrail) builder.putBoolean("hasTrail", value.hasTrail);
-                if (value.hasTwinkle) builder.putBoolean("hasTwinkle", value.hasTwinkle);
+                if (value.hasTrail) builder.putBoolean("hasTrail", true);
+                if (value.hasTwinkle) builder.putBoolean("hasTwinkle", true);
                 return builder.build();
             }
     );

@@ -76,7 +76,7 @@ tasks {
         jvmArgs("-Dminestom.viewable-packet=false")
         jvmArgs("-Dminestom.inside-test=true")
         minHeapSize = "512m"
-        maxHeapSize = "1024m"
+        maxHeapSize = "2048m"
     }
     withType<Zip> {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE

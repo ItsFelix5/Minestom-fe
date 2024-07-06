@@ -18,7 +18,6 @@ public class EntityProjectileDamage extends Damage {
      *
      * @return the projectile
      */
-    @NotNull
     public Entity getProjectile() {
         return getSource();
     }
@@ -31,10 +30,5 @@ public class EntityProjectileDamage extends Damage {
     @Nullable
     public Entity getShooter() {
         return getAttacker();
-    }
-
-    @Override
-    public @NotNull Entity getSource() {
-        return super.getSource();
     }
 }

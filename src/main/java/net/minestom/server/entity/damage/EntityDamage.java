@@ -12,18 +12,8 @@ public class EntityDamage extends Damage {
         super(DamageType.MOB_ATTACK, source, source, null, amount);
     }
 
-    /**
-     * Gets the source of the damage.
-     *
-     * @return the source
-     */
     @Override
-    public @NotNull Entity getSource() {
-        return super.getSource();
-    }
-
-    @Override
-    public @NotNull Entity getAttacker() {
+    public Entity getAttacker() {
         return getSource();
     }
 }

@@ -38,30 +38,22 @@ public class Advancement {
 
     // Packet
     private AdvancementsPacket.Criteria criteria;
-    private boolean sendTelemetryData;
 
     public Advancement(@NotNull Component title, @NotNull Component description,
                        @NotNull Material icon, @NotNull FrameType frameType,
                        float x, float y) {
-        this(title, description, ItemStack.of(icon), frameType, x, y, false);
+        this(title, description, ItemStack.of(icon), frameType, x, y);
     }
 
     public Advancement(@NotNull Component title, Component description,
                        @NotNull ItemStack icon, @NotNull FrameType frameType,
                        float x, float y) {
-        this(title, description, icon, frameType, x, y, false);
-    }
-
-    public Advancement(@NotNull Component title, Component description,
-                       @NotNull ItemStack icon, @NotNull FrameType frameType,
-                       float x, float y, boolean sendTelemetryData) {
         this.title = title;
         this.description = description;
         this.icon = icon;
         this.frameType = frameType;
         this.x = x;
         this.y = y;
-        this.sendTelemetryData = sendTelemetryData;
     }
 
     /**
@@ -308,8 +300,7 @@ public class Advancement {
         final Advancement parent = getParent();
         final String parentIdentifier = parent != null ? parent.getIdentifier() : null;
         AdvancementsPacket.Advancement adv = new AdvancementsPacket.Advancement(parentIdentifier, toDisplayData(),
-                List.of(new AdvancementsPacket.Requirement(List.of(criteria.criterionIdentifier()))),
-                sendTelemetryData);
+                List.of(new AdvancementsPacket.Requirement(List.of(criteria.criterionIdentifier()))));
         return new AdvancementsPacket.AdvancementMapping(getIdentifier(), adv);
     }
 

@@ -14,7 +14,7 @@ import java.nio.channels.WritableByteChannel;
  */
 @ApiStatus.Internal
 public final class BinaryBuffer {
-    private ByteBuffer nioBuffer; // To become a `MemorySegment` once released
+    private final ByteBuffer nioBuffer; // To become a `MemorySegment` once released
 
     private final int capacity;
     private int readerOffset, writerOffset;
