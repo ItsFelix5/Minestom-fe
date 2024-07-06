@@ -95,6 +95,7 @@ net.minestom.server.item.book
 net.minestom.server.item.component
 net.minestom.server.item.crossbow
 net.minestom.server.item.enchant
+net.minestom.server.listener.common
 net.minestom.server.map
 net.minestom.server.map.framebuffers
 net.minestom.server.message
