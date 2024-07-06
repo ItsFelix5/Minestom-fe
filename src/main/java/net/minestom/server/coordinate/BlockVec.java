@@ -21,7 +21,7 @@ public record BlockVec(double x, double y, double z) implements Point {
     }
 
     public BlockVec(int x, int y, int z) {
-        this(x, y, (double) z);
+        this((double) x, (double) y, (double) z);
     }
 
     public BlockVec(@NotNull Point point) {

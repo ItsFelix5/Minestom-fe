@@ -28,6 +28,11 @@ public record ClientHandshakePacket(int protocolVersion, @NotNull String serverA
     }
 
     @Override
+    public boolean processImmediately() {
+        return true;
+    }
+
+    @Override
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(VAR_INT, protocolVersion);
         if (serverAddress.length() > 255) {

@@ -96,29 +96,38 @@ public final class AttributeInstance {
      * Add a modifier to this instance.
      *
      * @param modifier the modifier to add
+     * @return the old modifier, or null if none
      */
-    public void addModifier(@NotNull AttributeModifier modifier) {
-        if (modifiers.putIfAbsent(modifier.id(), modifier) == null) refreshCachedValue();
+    public AttributeModifier addModifier(@NotNull AttributeModifier modifier) {
+        final AttributeModifier old = modifiers.putIfAbsent(modifier.id(), modifier);
+        if (old == null) refreshCachedValue();
+
+        return old;
     }
 
     /**
      * Remove a modifier from this instance.
      *
      * @param modifier the modifier to remove
+     * @return the modifier that was removed, or null if none
      */
-    public void removeModifier(@NotNull AttributeModifier modifier) {
-        removeModifier(modifier.id());
+    public AttributeModifier removeModifier(@NotNull AttributeModifier modifier) {
+        return removeModifier(modifier.id());
     }
 
     /**
      * Remove a modifier from this instance.
      *
      * @param id The namespace id of the modifier to remove
+     * @return the modifier that was removed, or null if none
      */
-    public void removeModifier(@NotNull NamespaceID id) {
-        if (modifiers.remove(id) != null) {
+    public AttributeModifier removeModifier(@NotNull NamespaceID id) {
+        final AttributeModifier removed = modifiers.remove(id);
+        if (removed != null) {
             refreshCachedValue();
         }
+
+        return removed;
     }
 
     /**
@@ -131,11 +140,17 @@ public final class AttributeInstance {
     }
 
     /**
-     * Recalculate the value of this attribute instance using the modifiers.
+     * Gets the value of this instance, calculated assuming the given {@code baseValue}.
+     *
+     * @param baseValue the value to be used as the base for this operation, rather than this instance's normal base
+     *                  value
+     * @return the attribute value
      */
-    private void refreshCachedValue() {
-        double base = getBaseValue();
+    public double applyModifiers(double baseValue) {
+        return computeValue(baseValue);
+    }
 
+    private double computeValue(double base) {
         for (var modifier : unmodifiableModifiers.stream().filter(mod -> mod.operation() == AttributeOperation.ADD_VALUE).toArray(AttributeModifier[]::new))
             base += modifier.amount();
 
@@ -146,7 +161,14 @@ public final class AttributeInstance {
         for (var modifier : unmodifiableModifiers.stream().filter(mod -> mod.operation() == AttributeOperation.MULTIPLY_TOTAL).toArray(AttributeModifier[]::new))
             result *= (1.0f + modifier.amount());
 
-        this.cachedValue = Math.clamp(result, attribute.minValue(), attribute.maxValue());
+        return Math.clamp(result, attribute.minValue(), attribute.maxValue());
+    }
+
+    /**
+     * Recalculate the value of this attribute instance using the modifiers.
+     */
+    private void refreshCachedValue() {
+        this.cachedValue = computeValue(getBaseValue());
 
         // Signal entity
         if (propertyChangeListener != null) propertyChangeListener.accept(this);

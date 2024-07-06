@@ -9,6 +9,7 @@ import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.pointer.Pointers;
 import net.kyori.adventure.resource.ResourcePackCallback;
+import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
 import net.kyori.adventure.resource.ResourcePackStatus;
 import net.kyori.adventure.sound.Sound;
@@ -77,6 +78,7 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.scoreboard.BelowNameTag;
 import net.minestom.server.scoreboard.Team;
 import net.minestom.server.statistic.PlayerStatistic;
+import net.minestom.server.thread.Acquirable;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.MathUtils;
 import net.minestom.server.utils.PacketUtils;
@@ -116,6 +118,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private static final DynamicRegistry<DimensionType> DIMENSION_TYPE_REGISTRY = MinecraftServer.getDimensionTypeRegistry();
 
     private static final Component REMOVE_MESSAGE = Component.text("You have been kicked from the server.", NamedTextColor.RED);
+    private static final Component MISSING_REQUIRED_RESOURCE_PACK = Component.text("Required resource pack was not loaded.", NamedTextColor.RED);
 
     private static final float MIN_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.min-per-tick", 0.01f);
     private static final float MAX_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.max-per-tick", 64.0f);
@@ -128,7 +131,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private Component usernameComponent;
     protected final PlayerConnection playerConnection;
 
-    private int latency;
+    private volatile int latency;
     private Component displayName;
     private PlayerSkin skin;
 
@@ -214,7 +217,10 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     private final Pointers pointers;
 
     // Resource packs
-    private final Map<UUID, ResourcePackCallback> resourcePackCallbacks = new HashMap<>();
+    record PendingResourcePack(boolean required, @NotNull ResourcePackCallback callback) {
+    }
+
+    private final Map<UUID, PendingResourcePack> pendingResourcePacks = new HashMap<>();
     // The future is non-null when a resource pack is in-flight, and completed when all statuses have been received.
     private CompletableFuture<Void> resourcePackFuture = null;
 
@@ -413,7 +419,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
         // Eating animation
         if (isUsingItem()) {
-            if (instance.getWorldAge() - startItemUseTime >= itemUseTime && itemUseTime > 0) {
+            if (itemUseTime > 0 && getCurrentItemUseTime() >= itemUseTime) {
                 triggerStatus((byte) 9); // Mark item use as finished
                 ItemUpdateStateEvent itemUpdateStateEvent = callItemUpdateStateEvent(itemUseHand);
 
@@ -716,7 +722,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             sendPendingChunks(); // Send available first chunk immediately to prevent falling through the floor
         }
 
-        synchronizePositionAfterTeleport(spawnPosition, 0); // So the player doesn't get stuck
+        synchronizePositionAfterTeleport(spawnPosition, 0, true); // So the player doesn't get stuck
 
         if (dimensionChange) {
             sendPacket(new SpawnPositionPacket(spawnPosition, 0));
@@ -792,7 +798,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             // In the vanilla server they have an anticheat which teleports the client back if they enter the floor,
             // but since Minestom does not have an anticheat this provides a similar effect.
             if (needsChunkPositionSync) {
-                synchronizePositionAfterTeleport(getPosition(), RelativeFlags.NONE);
+                synchronizePositionAfterTeleport(getPosition(), RelativeFlags.NONE, true);
                 needsChunkPositionSync = false;
             }
         } finally {
@@ -1130,6 +1136,16 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         return itemUseHand;
     }
 
+    /**
+     * Gets the amount of ticks which have passed since the player started using an item.
+     *
+     * @return the amount of ticks which have passed, or zero if the player is not using an item
+     */
+    public long getCurrentItemUseTime() {
+        if (!isUsingItem()) return 0;
+        return getAliveTicks() - startItemUseTime;
+    }
+
     @Override
     public double getEyeHeight() {
         return switch (getPose()) {
@@ -1274,9 +1290,9 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     public void sendResourcePacks(@NotNull ResourcePackRequest request) {
         if (request.replace()) clearResourcePacks();
 
-        for (var pack : request.packs()) {
+        for (final ResourcePackInfo pack : request.packs()) {
             sendPacket(new ResourcePackPushPacket(pack, request.required(), request.prompt()));
-            resourcePackCallbacks.put(pack.id(), request.callback());
+            pendingResourcePacks.put(pack.id(), new PendingResourcePack(request.required(), request.callback()));
             if (resourcePackFuture == null) {
                 resourcePackFuture = new CompletableFuture<>();
             }
@@ -1307,15 +1323,20 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     @ApiStatus.Internal
     public void onResourcePackStatus(@NotNull UUID id, @NotNull ResourcePackStatus status) {
-        var callback = resourcePackCallbacks.get(id);
-        if (callback == null) return;
+        var pendingPack = pendingResourcePacks.get(id);
+        if (pendingPack == null) return;
 
-        callback.packEventReceived(id, status, this);
+        pendingPack.callback().packEventReceived(id, status, this);
         if (!status.intermediate()) {
             // Remove the callback and finish the future if relevant
-            resourcePackCallbacks.remove(id);
+            pendingResourcePacks.remove(id);
 
-            if (resourcePackCallbacks.isEmpty() && resourcePackFuture != null) {
+            // If the resource pack is required and failed to load, bye bye!
+            if (pendingPack.required() && status != ResourcePackStatus.SUCCESSFULLY_LOADED) {
+                kick(MISSING_REQUIRED_RESOURCE_PACK);
+            }
+
+            if (pendingResourcePacks.isEmpty() && resourcePackFuture != null) {
                 resourcePackFuture.complete(null);
                 resourcePackFuture = null;
             }
@@ -1795,6 +1816,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     }
 
     public void refreshReceivedTeleportId(int receivedTeleportId) {
+        if (receivedTeleportId < 0) return;
         this.receivedTeleportId = receivedTeleportId;
     }
 
@@ -1805,10 +1827,12 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      * @param position the position used by {@link PlayerPositionAndLookPacket}
      *                 this may not be the same as the {@link Entity#position}
      * @param relativeFlags byte flags used by {@link PlayerPositionAndLookPacket}
+     * @param shouldConfirm if false, the teleportation will be done without confirmation
      */
     @ApiStatus.Internal
-    void synchronizePositionAfterTeleport(@NotNull Pos position, int relativeFlags) {
-        sendPacket(new PlayerPositionAndLookPacket(position, (byte) relativeFlags, getNextTeleportId()));
+    void synchronizePositionAfterTeleport(@NotNull Pos position, int relativeFlags, boolean shouldConfirm) {
+        int teleportId = shouldConfirm ? getNextTeleportId() : -1;
+        sendPacket(new PlayerPositionAndLookPacket(position, (byte) relativeFlags, teleportId));
         super.synchronizePosition();
     }
 
@@ -2113,7 +2137,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     public void refreshItemUse(@Nullable Hand itemUseHand, long itemUseTimeTicks) {
         this.itemUseHand = itemUseHand;
         if (itemUseHand != null) {
-            this.startItemUseTime = instance.getWorldAge();
+            this.startItemUseTime = getAliveTicks();
             this.itemUseTime = itemUseTimeTicks;
         } else {
             this.startItemUseTime = 0;
@@ -2460,4 +2484,10 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         return Integer.compare(chunkDistanceA, chunkDistanceB);
     }
 
+    @SuppressWarnings("unchecked")
+    @ApiStatus.Experimental
+    @Override
+    public @NotNull Acquirable<? extends Player> acquirable() {
+        return (Acquirable<? extends Player>) super.acquirable();
+    }
 }

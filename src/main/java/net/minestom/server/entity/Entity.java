@@ -36,6 +36,7 @@ import net.minestom.server.potion.TimedPotion;
 import net.minestom.server.tag.TagHandler;
 import net.minestom.server.tag.Taggable;
 import net.minestom.server.thread.Acquirable;
+import net.minestom.server.thread.AcquirableSource;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.block.BlockIterator;
@@ -66,7 +67,7 @@ import java.util.function.UnaryOperator;
  * To create your own entity you probably want to extend {@link LivingEntity} or {@link EntityCreature} instead.
  */
 public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Taggable,
-        PermissionHandler, HoverEventSource<ShowEntity>, Sound.Emitter, Shape {
+        PermissionHandler, HoverEventSource<ShowEntity>, Sound.Emitter, Shape, AcquirableSource<Entity> {
     private static final AtomicInteger LAST_ENTITY_ID = new AtomicInteger();
 
     // Certain entities should only have their position packets sent during synchronization
@@ -257,17 +258,19 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
      *                 can be null or empty to only load the chunk at {@code position}
      * @param flags    flags used to teleport the entity relatively rather than absolutely
      *                 use {@link RelativeFlags} to see available flags
+     * @param shouldConfirm if false, the teleportation will be done without confirmation
      * @throws IllegalStateException if you try to teleport an entity before settings its instance
      */
     public @NotNull CompletableFuture<Void> teleport(@NotNull Pos position, long @Nullable [] chunks,
-                                                     @MagicConstant(flagsFromClass = RelativeFlags.class) int flags) {
+                                                     @MagicConstant(flagsFromClass = RelativeFlags.class) int flags,
+                                                     boolean shouldConfirm) {
         Check.stateCondition(instance == null, "You need to use Entity#setInstance before teleporting an entity!");
         final Pos globalPosition = PositionUtils.getPositionWithRelativeFlags(this.position, position, flags);
         final Runnable endCallback = () -> {
             this.previousPosition = this.position;
             this.position = globalPosition;
             refreshCoordinate(globalPosition);
-            if (this instanceof Player player) player.synchronizePositionAfterTeleport(position, flags);
+            if (this instanceof Player player) player.synchronizePositionAfterTeleport(position, flags, shouldConfirm);
             else synchronizePosition();
         };
 
@@ -284,6 +287,11 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
             endCallback.run();
             return AsyncUtils.empty();
         }
+    }
+
+    public @NotNull CompletableFuture<Void> teleport(@NotNull Pos position, long @Nullable [] chunks,
+                                                     @MagicConstant(flagsFromClass = RelativeFlags.class) int flags) {
+        return teleport(position, chunks, flags, true);
     }
 
     public @NotNull CompletableFuture<Void> teleport(@NotNull Pos position) {
@@ -1645,6 +1653,11 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
 
     public boolean hasCollision() {
         return hasCollision;
+    }
+
+    @Override
+    public @NotNull Acquirable<? extends Entity> acquirable() {
+        return acquirable;
     }
 
     public enum Pose {

@@ -15,6 +15,11 @@ public record ClientKeepAlivePacket(long id) implements ClientPacket {
     }
 
     @Override
+    public boolean processImmediately() {
+        return true;
+    }
+
+    @Override
     public void write(@NotNull NetworkBuffer writer) {
         writer.write(LONG, id);
     }
