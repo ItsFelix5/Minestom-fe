@@ -2,8 +2,8 @@ package net.minestom.server.event.player;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import it.unimi.dsi.fastutil.objects.ObjectSets;
-import net.minestom.server.ServerSettings;
 import net.minestom.server.FeatureFlag;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.trait.PlayerEvent;
 import net.minestom.server.instance.Instance;
@@ -22,6 +22,8 @@ import java.util.Set;
  * <p>The spawning instance <b>must</b> be set for the player to join.</p>
  *
  * <p>The event is called off the tick threads, so it is safe to block here</p>
+ *
+ * <p>It is valid to kick a player using {@link Player#kick(net.kyori.adventure.text.Component)} during this event.</p>
  */
 public class AsyncPlayerConfigurationEvent implements PlayerEvent {
     private final Player player;

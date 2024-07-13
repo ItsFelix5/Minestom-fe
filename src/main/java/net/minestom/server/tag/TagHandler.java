@@ -2,9 +2,6 @@ package net.minestom.server.tag;
 
 import net.kyori.adventure.nbt.CompoundBinaryTag;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.UnknownNullability;
-
-import java.util.function.UnaryOperator;
 
 /**
  * Represents an element which can read and write {@link Tag tags}.
@@ -46,15 +43,6 @@ public interface TagHandler extends TagReadable, TagWritable {
      * @return a nbt compound representation of this handler
      */
     @NotNull CompoundBinaryTag asCompound();
-
-    <T> void updateTag(@NotNull Tag<T> tag,
-                       @NotNull UnaryOperator<@UnknownNullability T> value);
-
-    <T> @UnknownNullability T updateAndGetTag(@NotNull Tag<T> tag,
-                                              @NotNull UnaryOperator<@UnknownNullability T> value);
-
-    <T> @UnknownNullability T getAndUpdateTag(@NotNull Tag<T> tag,
-                                              @NotNull UnaryOperator<@UnknownNullability T> value);
 
     static @NotNull TagHandler newHandler() {
         return new TagHandlerImpl();

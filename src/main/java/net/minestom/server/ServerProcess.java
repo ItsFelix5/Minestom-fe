@@ -33,7 +33,6 @@ import net.minestom.server.thread.Acquirable;
 import net.minestom.server.thread.ThreadDispatcher;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.PacketUtils;
-import net.minestom.server.utils.PropertyUtils;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.biome.Biome;
@@ -47,7 +46,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ServerProcess implements Registries {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerProcess.class);
-    private static final Boolean SHUTDOWN_ON_SIGNAL = PropertyUtils.getBoolean("minestom.shutdown-on-signal", true);
 
     private final ExceptionManager exception;
 
@@ -265,7 +263,7 @@ public final class ServerProcess implements Registries {
         LOGGER.info("{} server started successfully.", ServerSettings.getBrandName());
 
         // Stop the server on SIGINT
-        if (SHUTDOWN_ON_SIGNAL) Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
+        if (ServerFlag.SHUTDOWN_ON_SIGNAL) Runtime.getRuntime().addShutdownHook(new Thread(this::stop));
     }
 
     public void tick(long nanoTime) {

@@ -82,7 +82,6 @@ import net.minestom.server.thread.Acquirable;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.MathUtils;
 import net.minestom.server.utils.PacketUtils;
-import net.minestom.server.utils.PropertyUtils;
 import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.chunk.ChunkUpdateLimitChecker;
 import net.minestom.server.utils.chunk.ChunkUtils;
@@ -119,10 +118,6 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     private static final Component REMOVE_MESSAGE = Component.text("You have been kicked from the server.", NamedTextColor.RED);
     private static final Component MISSING_REQUIRED_RESOURCE_PACK = Component.text("Required resource pack was not loaded.", NamedTextColor.RED);
-
-    private static final float MIN_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.min-per-tick", 0.01f);
-    private static final float MAX_CHUNKS_PER_TICK = PropertyUtils.getFloat("minestom.chunk-queue.max-per-tick", 64.0f);
-    private static final float CHUNKS_PER_TICK_MULTIPLIER = PropertyUtils.getFloat("minestom.chunk-queue.multiplier", 1f);
 
     private long lastKeepAlive;
     private boolean answerKeepAlive;
@@ -744,8 +739,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
     @ApiStatus.Internal
     public void onChunkBatchReceived(float newTargetChunksPerTick) {
         chunkBatchLead -= 1;
-        targetChunksPerTick = Float.isNaN(newTargetChunksPerTick) ? MIN_CHUNKS_PER_TICK : MathUtils.clamp(
-                newTargetChunksPerTick * CHUNKS_PER_TICK_MULTIPLIER, MIN_CHUNKS_PER_TICK, MAX_CHUNKS_PER_TICK);
+        targetChunksPerTick = Float.isNaN(newTargetChunksPerTick) ? ServerFlag.MIN_CHUNKS_PER_TICK : MathUtils.clamp(
+                newTargetChunksPerTick * ServerFlag.CHUNKS_PER_TICK_MULTIPLIER, ServerFlag.MIN_CHUNKS_PER_TICK, ServerFlag.MAX_CHUNKS_PER_TICK);
 
         // Beyond the first batch we can preemptively send up to 10 (matching mojang server)
         if (maxChunkBatchLead == 1) maxChunkBatchLead = 10;
@@ -771,7 +766,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         if (chunkQueue.isEmpty() || chunkBatchLead >= maxChunkBatchLead) return;
 
         // Increment the pending chunk count by the target chunks per tick
-        pendingChunkCount = Math.min(pendingChunkCount + targetChunksPerTick, MAX_CHUNKS_PER_TICK);
+        pendingChunkCount = Math.min(pendingChunkCount + targetChunksPerTick, ServerFlag.MAX_CHUNKS_PER_TICK);
         if (pendingChunkCount < 1) return; // Cant send anything
 
         chunkQueueLock.lock();
@@ -1824,8 +1819,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      * Used to synchronize player position with viewers on spawn or after {@link Entity#teleport(Pos, long[], int)}
      * in properties where a {@link PlayerPositionAndLookPacket} is required
      *
-     * @param position the position used by {@link PlayerPositionAndLookPacket}
-     *                 this may not be the same as the {@link Entity#position}
+     * @param position      the position used by {@link PlayerPositionAndLookPacket}
+     *                      this may not be the same as the {@link Entity#position}
      * @param relativeFlags byte flags used by {@link PlayerPositionAndLookPacket}
      * @param shouldConfirm if false, the teleportation will be done without confirmation
      */
@@ -2129,8 +2124,10 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      * @param slot the new held slot
      */
     public void refreshHeldSlot(byte slot) {
+        byte oldHeldSlot = this.heldSlot;
         this.heldSlot = slot;
         syncEquipment(EquipmentSlot.MAIN_HAND);
+        updateEquipmentAttributes(inventory.getItemStack(oldHeldSlot), inventory.getItemStack(this.heldSlot), EquipmentSlot.MAIN_HAND);
         clearItemUse();
     }
 

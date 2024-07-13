@@ -531,17 +531,19 @@ public class InstanceContainer extends Instance {
      *
      * @return the {@link IChunkLoader} of this instance
      */
-    public IChunkLoader getChunkLoader() {
+    public @NotNull IChunkLoader getChunkLoader() {
         return chunkLoader;
     }
 
     /**
      * Changes the {@link IChunkLoader} of this instance (to change how chunks are retrieved when not already loaded).
      *
+     * <p>{@link IChunkLoader#noop()} can be used to do nothing.</p>
+     *
      * @param chunkLoader the new {@link IChunkLoader}
      */
-    public void setChunkLoader(IChunkLoader chunkLoader) {
-        this.chunkLoader = chunkLoader;
+    public void setChunkLoader(@NotNull IChunkLoader chunkLoader) {
+        this.chunkLoader = Objects.requireNonNull(chunkLoader, "Chunk loader cannot be null");
     }
 
     @Override
