@@ -31,6 +31,7 @@ import net.minestom.server.registry.DynamicRegistry;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.thread.Acquirable;
 import net.minestom.server.thread.ThreadDispatcher;
+import net.minestom.server.thread.ThreadProvider;
 import net.minestom.server.timer.Scheduler;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.nbt.BinaryTagSerializer;
@@ -120,9 +121,13 @@ public final class ServerProcess implements Registries {
 
         this.server = new Server(packetProcessor);
 
-        this.dispatcher = ThreadDispatcher.singleThread();
+
+        this.dispatcher = ThreadDispatcher.of(ThreadProvider.counter(), ServerFlag.DISPATCHER_THREADS);
     }
 
+    /**
+     * Handles incoming connections/players.
+     */
     public @NotNull ExceptionManager exception() {
         return exception;
     }

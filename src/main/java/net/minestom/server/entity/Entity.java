@@ -163,7 +163,7 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
         this.previousPosition = Pos.ZERO;
         this.lastSyncedPosition = Pos.ZERO;
 
-        this.entityMeta = EntityTypeImpl.createMeta(entityType, this, this.metadata);
+        this.entityMeta = MetadataHolder.createMeta(entityType, this, this.metadata);
 
         setBoundingBox(entityType.registry().boundingBox());
 
@@ -478,7 +478,7 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
     public synchronized void switchEntityType(@NotNull EntityType entityType) {
         this.entityType = entityType;
         this.metadata = new MetadataHolder(this);
-        this.entityMeta = EntityTypeImpl.createMeta(entityType, this, this.metadata);
+        this.entityMeta = MetadataHolder.createMeta(entityType, this, this.metadata);
         EntitySpawnType type = entityType.registry().spawnType();
         this.aerodynamics = aerodynamics.withAirResistance(type == EntitySpawnType.LIVING ||
                 type == EntitySpawnType.PLAYER ? 0.91 : 0.98, 1 - entityType.registry().drag());
@@ -737,6 +737,7 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
         this.isActive = true;
         this.position = spawnPosition;
         this.previousPosition = spawnPosition;
+        this.lastSyncedPosition = spawnPosition;
         this.previousPhysicsResult = null;
         this.instance = instance;
         return instance.loadOptionalChunk(spawnPosition).thenAccept(chunk -> {
@@ -1632,7 +1633,7 @@ public class Entity implements Viewable, Tickable, EventHandler<EntityEvent>, Ta
 
     @Override
     public boolean intersectBox(@NotNull Point positionRelative, @NotNull BoundingBox boundingBox) {
-        return boundingBox.intersectBox(positionRelative, boundingBox);
+        return this.boundingBox.intersectBox(positionRelative, boundingBox);
     }
 
     @Override

@@ -27,6 +27,7 @@ public record ClientResourcePackStatusPacket(
     @Override
     public void handle(Player player) {
         EventDispatcher.call(new PlayerResourcePackStatusEvent(player, status));
+        if (!player.isOnline()) return;
 
         // Run adventure callbacks for the resource pack
         player.onResourcePackStatus(id, status);

@@ -10,6 +10,7 @@ import net.minestom.server.entity.attribute.AttributeModifier;
 import net.minestom.server.entity.attribute.AttributeOperation;
 import net.minestom.server.entity.damage.Damage;
 import net.minestom.server.entity.damage.DamageType;
+import net.minestom.server.entity.metadata.EntityMeta;
 import net.minestom.server.entity.metadata.LivingEntityMeta;
 import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.entity.EntityDamageEvent;
@@ -38,17 +39,21 @@ import net.minestom.server.utils.time.TimeUnit;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.time.Duration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LivingEntity extends Entity implements EquipmentHandler {
 
     private static final AttributeModifier SPRINTING_SPEED_MODIFIER = new AttributeModifier(NamespaceID.from("minecraft:sprinting"), 0.3, AttributeOperation.MULTIPLY_TOTAL);
+
+    /**
+     * IDs of modifiers that are protected from removal by methods like {@link AttributeInstance#clearModifiers()}.
+     */
+    @ApiStatus.Internal
+    public static final Set<NamespaceID> PROTECTED_MODIFIERS = Set.of(SPRINTING_SPEED_MODIFIER.id());
 
     // ItemStack pickup
     protected boolean canPickupItem;
@@ -62,6 +67,8 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     protected BoundingBox expandedBoundingBox;
 
     private final Map<String, AttributeInstance> attributeModifiers = new ConcurrentHashMap<>();
+    private final Collection<AttributeInstance> unmodifiableModifiers =
+            Collections.unmodifiableCollection(attributeModifiers.values());
 
     // Abilities
     protected boolean invulnerable;
@@ -77,34 +84,24 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     private float health = 1F;
 
     // Equipments
-    private ItemStack mainHandItem;
-    private ItemStack offHandItem;
+    private ItemStack mainHandItem = ItemStack.AIR;
+    private ItemStack offHandItem = ItemStack.AIR;
 
-    private ItemStack helmet;
-    private ItemStack chestplate;
-    private ItemStack leggings;
-    private ItemStack boots;
+    private ItemStack helmet = ItemStack.AIR;
+    private ItemStack chestplate = ItemStack.AIR;
+    private ItemStack leggings = ItemStack.AIR;
+    private ItemStack boots = ItemStack.AIR;
+    private ItemStack bodyEquipment = ItemStack.AIR;
 
     /**
      * Constructor which allows to specify an UUID. Only use if you know what you are doing!
      */
     public LivingEntity(@NotNull EntityType entityType, @NotNull UUID uuid) {
         super(entityType, uuid);
-        initEquipments();
     }
 
     public LivingEntity(@NotNull EntityType entityType) {
         this(entityType, UUID.randomUUID());
-    }
-
-    private void initEquipments() {
-        this.mainHandItem = ItemStack.AIR;
-        this.offHandItem = ItemStack.AIR;
-
-        this.helmet = ItemStack.AIR;
-        this.chestplate = ItemStack.AIR;
-        this.leggings = ItemStack.AIR;
-        this.boots = ItemStack.AIR;
     }
 
     @Override
@@ -119,91 +116,39 @@ public class LivingEntity extends Entity implements EquipmentHandler {
         else speed.removeModifier(SPRINTING_SPEED_MODIFIER);
     }
 
-    @NotNull
     @Override
-    public ItemStack getItemInMainHand() {
-        return mainHandItem;
+    public @NotNull ItemStack getEquipment(@NotNull EquipmentSlot slot) {
+        return switch (slot) {
+            case MAIN_HAND -> mainHandItem;
+            case OFF_HAND -> offHandItem;
+            case BOOTS -> boots;
+            case LEGGINGS -> leggings;
+            case CHESTPLATE -> chestplate;
+            case HELMET -> helmet;
+            case BODY -> bodyEquipment;
+        };
     }
 
     @Override
-    public void setItemInMainHand(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.mainHandItem;
-        this.mainHandItem = getEquipmentItem(itemStack, EquipmentSlot.MAIN_HAND);
-        syncEquipment(EquipmentSlot.MAIN_HAND);
-        updateEquipmentAttributes(oldItem, this.mainHandItem, EquipmentSlot.MAIN_HAND);
+    public void setEquipment(@NotNull EquipmentSlot slot, @NotNull ItemStack itemStack) {
+        ItemStack oldItem = getEquipment(slot);
+        ItemStack newItem = slotChangeEvent(itemStack, slot);
+
+        switch (slot) {
+            case MAIN_HAND -> mainHandItem = newItem;
+            case OFF_HAND -> offHandItem = newItem;
+            case BOOTS -> boots = newItem;
+            case LEGGINGS -> leggings = newItem;
+            case CHESTPLATE -> chestplate = newItem;
+            case HELMET -> helmet = newItem;
+            case BODY -> bodyEquipment = newItem;
+        }
+
+        syncEquipment(slot);
+        updateEquipmentAttributes(oldItem, newItem, slot);
     }
 
-    @NotNull
-    @Override
-    public ItemStack getItemInOffHand() {
-        return offHandItem;
-    }
-
-    @Override
-    public void setItemInOffHand(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.offHandItem;
-        this.offHandItem = getEquipmentItem(itemStack, EquipmentSlot.OFF_HAND);
-        syncEquipment(EquipmentSlot.OFF_HAND);
-        updateEquipmentAttributes(oldItem, this.offHandItem, EquipmentSlot.OFF_HAND);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getHelmet() {
-        return helmet;
-    }
-
-    @Override
-    public void setHelmet(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.helmet;
-        this.helmet = getEquipmentItem(itemStack, EquipmentSlot.HELMET);
-        syncEquipment(EquipmentSlot.HELMET);
-        updateEquipmentAttributes(oldItem, this.helmet, EquipmentSlot.HELMET);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getChestplate() {
-        return chestplate;
-    }
-
-    @Override
-    public void setChestplate(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.chestplate;
-        this.chestplate = getEquipmentItem(itemStack, EquipmentSlot.CHESTPLATE);
-        syncEquipment(EquipmentSlot.CHESTPLATE);
-        updateEquipmentAttributes(oldItem, this.chestplate, EquipmentSlot.CHESTPLATE);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getLeggings() {
-        return leggings;
-    }
-
-    @Override
-    public void setLeggings(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.leggings;
-        this.leggings = getEquipmentItem(itemStack, EquipmentSlot.LEGGINGS);
-        syncEquipment(EquipmentSlot.LEGGINGS);
-        updateEquipmentAttributes(oldItem, this.leggings, EquipmentSlot.LEGGINGS);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getBoots() {
-        return boots;
-    }
-
-    @Override
-    public void setBoots(@NotNull ItemStack itemStack) {
-        ItemStack oldItem = this.boots;
-        this.boots = getEquipmentItem(itemStack, EquipmentSlot.BOOTS);
-        syncEquipment(EquipmentSlot.BOOTS);
-        updateEquipmentAttributes(oldItem, this.boots, EquipmentSlot.BOOTS);
-    }
-
-    private ItemStack getEquipmentItem(@NotNull ItemStack itemStack, @NotNull EquipmentSlot slot) {
+    private ItemStack slotChangeEvent(@NotNull ItemStack itemStack, @NotNull EquipmentSlot slot) {
         EntityEquipEvent entityEquipEvent = new EntityEquipEvent(this, itemStack, slot);
         EventDispatcher.call(entityEquipEvent);
         return entityEquipEvent.getEquippedItem();
@@ -212,9 +157,10 @@ public class LivingEntity extends Entity implements EquipmentHandler {
 
     /**
      * Updates the current attributes of the living entity based on
+     *
      * @param oldItemStack The ItemStack that has been removed, modifiers on this stack will be removed from the entity
      * @param newItemStack The ItemStack that has been added, modifiers on this stack will be added to the entity
-     * @param slot The slot that changed, this will determine what modifiers are actually changed
+     * @param slot         The slot that changed, this will determine what modifiers are actually changed
      */
     @ApiStatus.Internal
     public void updateEquipmentAttributes(@NotNull ItemStack oldItemStack, @NotNull ItemStack newItemStack, @NotNull EquipmentSlot slot) {
@@ -374,7 +320,7 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     /**
      * Damages the entity by a value, the type of the damage also has to be specified.
      *
-     * @param damage  the damage to be applied
+     * @param damage the damage to be applied
      * @return true if damage has been applied, false if it didn't
      */
     public boolean damage(@NotNull Damage damage) {
@@ -496,6 +442,15 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     }
 
     /**
+     * Retrieves all {@link AttributeInstance}s on this entity.
+     *
+     * @return a collection of all attribute instances on this entity
+     */
+    public @NotNull @UnmodifiableView Collection<AttributeInstance> getAttributes() {
+        return unmodifiableModifiers;
+    }
+
+    /**
      * Callback used when an attribute instance has been modified.
      *
      * @param attributeInstance the modified attribute instance
@@ -507,7 +462,12 @@ public class LivingEntity extends Entity implements EquipmentHandler {
             // connection null during Player initialization (due to #super call)
             self = playerConnection != null && playerConnection.getConnectionState() == ConnectionState.PLAY;
         }
-        EntityAttributesPacket propertiesPacket = new EntityAttributesPacket(getEntityId(), List.of(attributeInstance));
+        EntityAttributesPacket propertiesPacket = new EntityAttributesPacket(getEntityId(), List.of(
+                new EntityAttributesPacket.Property(
+                        attributeInstance.attribute(),
+                        attributeInstance.getBaseValue(),
+                        attributeInstance.getModifiers())
+        ));
         if (self) {
             sendPacketToViewersAndSelf(propertiesPacket);
         } else {
@@ -650,7 +610,11 @@ public class LivingEntity extends Entity implements EquipmentHandler {
      * @return an {@link EntityAttributesPacket} linked to this entity
      */
     protected @NotNull EntityAttributesPacket getPropertiesPacket() {
-        return new EntityAttributesPacket(getEntityId(), List.copyOf(attributeModifiers.values()));
+        List<EntityAttributesPacket.Property> properties = new ArrayList<>();
+        for (AttributeInstance instance : attributeModifiers.values()) {
+            properties.add(new EntityAttributesPacket.Property(instance.attribute(), instance.getBaseValue(), instance.getModifiers()));
+        }
+        return new EntityAttributesPacket(getEntityId(), properties);
     }
 
     /**
@@ -695,7 +659,7 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     }
 
     /**
-     * Gets {@link net.minestom.server.entity.metadata.EntityMeta} of this entity casted to {@link LivingEntityMeta}.
+     * Gets {@link EntityMeta} of this entity casted to {@link LivingEntityMeta}.
      *
      * @return null if meta of this entity does not inherit {@link LivingEntityMeta}, casted value otherwise.
      */

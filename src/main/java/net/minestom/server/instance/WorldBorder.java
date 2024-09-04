@@ -1,5 +1,6 @@
 package net.minestom.server.instance;
 
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.ServerFlag;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.entity.Entity;
@@ -31,6 +32,8 @@ public record WorldBorder(double diameter, double centerX, double centerZ, int w
      */
     public WorldBorder {
         Check.argCondition(diameter < 0, "Diameter should be >= 0");
+        // Doubles close to max size can cause overflow, or simply have precision issues
+        Check.argCondition(diameter > ServerFlag.WORLD_BORDER_SIZE * 2, "Worldborder is too big");
     }
 
     public WorldBorder(double diameter, double centerX, double centerZ, int warningDistance, int warningTime) {

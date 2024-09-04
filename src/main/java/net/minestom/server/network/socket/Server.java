@@ -19,10 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Server {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
-
-    public static final boolean NO_DELAY = true;
 
     private volatile boolean stop;
 
