@@ -15,7 +15,7 @@ public interface CommandExecutor {
      * Executes the command callback once the syntax has been called (or the default executor).
      *
      * @param sender  the sender of the command
-     * @param context the command context, used to retrieve the arguments and various other things
+     * @param ctx the command context, used to retrieve the arguments and various other things
      */
-    void apply(@NotNull CommandSender sender, @NotNull CommandContext context);
+    void apply(@NotNull CommandSender sender, @NotNull CommandContext ctx);
 }

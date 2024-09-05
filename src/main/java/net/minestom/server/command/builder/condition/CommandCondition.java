@@ -23,9 +23,9 @@ public interface CommandCondition {
      * You should in this case warn the sender (eg by sending a message) if the condition is unsuccessful.
      *
      * @param sender        the sender of the command
-     * @param commandString the raw command string,
+     * @param cmd the raw command string,
      *                      null if this is an access request
      * @return true if the sender has the right to use the command, false otherwise
      */
-    boolean canUse(@NotNull CommandSender sender, @Nullable String commandString);
+    boolean canUse(@NotNull CommandSender sender, @Nullable String cmd);
 }

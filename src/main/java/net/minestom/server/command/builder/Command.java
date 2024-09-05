@@ -2,12 +2,15 @@ package net.minestom.server.command.builder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.command.builder.arguments.ArgumentLiteral;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.arguments.ArgumentWord;
 import net.minestom.server.command.builder.condition.CommandCondition;
+import net.minestom.server.permission.Permission;
 import net.minestom.server.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,14 +22,13 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * Represents a command which has suggestion/auto-completion.
  * <p>
  * The command works using a list of valid syntaxes.
- * For instance we could build the command
- * "/health set Notch 50" into multiple argument types "/health [set/add/remove] [username] [integer]"
+ * For instance, we could build the command "/health set Notch 50"
+ * into multiple argument types "/health [set/add/remove] [username] [integer]"
  * <p>
  * All the default argument types can be found in {@link ArgumentType}
  * and the syntax be created/registered using {@link #addSyntax(CommandExecutor, Argument[])}.
@@ -49,7 +51,7 @@ public class Command {
     private final String[] aliases;
     private final String[] names;
 
-    private CommandExecutor defaultExecutor;
+    private CommandExecutor defaultExecutor = (sender, ctx) -> sender.sendMessage(Component.text("Incorrect syntax", NamedTextColor.RED));
     private CommandCondition condition;
 
     private final List<Command> subcommands;
@@ -58,27 +60,16 @@ public class Command {
     /**
      * Creates a {@link Command} with a name and one or multiple aliases.
      *
-     * @param name    the name of the command
-     * @param aliases the command aliases
-     * @see #Command(String)
+     * @param names    the name and aliases of the command
      */
-    public Command(@NotNull String name, @Nullable String... aliases) {
-        this.name = name;
-        this.aliases = aliases;
-        this.names = Stream.concat(Arrays.stream(aliases), Stream.of(name)).toArray(String[]::new);
+    public Command(String... names) {
+        this.name = names[0];
+        aliases = new String[names.length - 1];
+        System.arraycopy(names, 1, aliases, 0, names.length - 1);
+        this.names = names;
 
         this.subcommands = new ArrayList<>();
         this.syntaxes = new ArrayList<>();
-    }
-
-    /**
-     * Creates a {@link Command} with a name and no alias.
-     *
-     * @param name the name of the command
-     * @see #Command(String, String...)
-     */
-    public Command(@NotNull String name) {
-        this(name, new String[0]);
     }
 
     /**
@@ -104,6 +95,16 @@ public class Command {
      */
     public void setCondition(@Nullable CommandCondition commandCondition) {
         this.condition = commandCondition;
+    }
+
+    /**
+     * Sets the {@link CommandCondition} to a permission.
+     *
+     * @param permission the required permission
+     * @see #setPermission(Permission)
+     */
+    public void setPermission(Permission permission) {
+        this.condition = ((sender, cmd) -> sender.hasPermission(permission));
     }
 
     /**
