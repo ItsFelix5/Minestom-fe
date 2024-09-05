@@ -88,18 +88,14 @@ loadScripts(document, 'script');</script>
 <div class="inheritance">net.minestom.server.command.builder.Command</div>
 </div>
 <section class="class-description" id="class-description">
-<dl class="notes">
-<dt>Direct Known Subclasses:</dt>
-<dd><code><a href="SimpleCommand.html" title="class in net.minestom.server.command.builder">SimpleCommand</a></code></dd>
-</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Command</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Represents a command which has suggestion/auto-completion.
  <p>
  The command works using a list of valid syntaxes.
- For instance we could build the command
- "/health set Notch 50" into multiple argument types "/health [set/add/remove] [username] [integer]"
+ For instance, we could build the command "/health set Notch 50"
+ into multiple argument types "/health [set/add/remove] [username] [integer]"
  <p>
  All the default argument types can be found in <a href="arguments/ArgumentType.html" title="class in net.minestom.server.command.builder.arguments"><code>ArgumentType</code></a>
  and the syntax be created/registered using <a href="#addSyntax(net.minestom.server.command.builder.CommandExecutor,net.minestom.server.command.builder.arguments.Argument...)"><code>addSyntax(CommandExecutor, Argument[])</code></a>.
@@ -124,13 +120,8 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">Command</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String...)" class="member-name-link">Command</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;names)</code></div>
 <div class="col-last even-row-color">
-<div class="block">Creates a <a href="Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> with a name and no alias.</div>
-</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.lang.String...)" class="member-name-link">Command</a><wbr>(@NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
- @Nullable <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;aliases)</code></div>
-<div class="col-last odd-row-color">
 <div class="block">Creates a <a href="Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> with a name and one or multiple aliases.</div>
 </div>
 </div>
@@ -236,6 +227,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the default <a href="CommandExecutor.html" title="interface in net.minestom.server.command.builder"><code>CommandExecutor</code></a>.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setPermission(net.minestom.server.permission.Permission)" class="member-name-link">setPermission</a><wbr>(<a href="../../permission/Permission.html" title="class in net.minestom.server.permission">Permission</a>&nbsp;permission)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the <a href="condition/CommandCondition.html" title="interface in net.minestom.server.command.builder.condition"><code>CommandCondition</code></a> to a permission.</div>
+</div>
 </div>
 </div>
 </div>
@@ -254,41 +250,13 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.String...)">
+<section class="detail" id="&lt;init&gt;(java.lang.String...)">
 <h3>Command</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Command</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
- @Nullable
- @Nullable <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;aliases)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Command</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;names)</span></div>
 <div class="block">Creates a <a href="Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> with a name and one or multiple aliases.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>name</code> - the name of the command</dd>
-<dd><code>aliases</code> - the command aliases</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list">
-<li><a href="#%3Cinit%3E(java.lang.String)"><code>Command(String)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="&lt;init&gt;(java.lang.String)">
-<h3>Command</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Command</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</span></div>
-<div class="block">Creates a <a href="Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> with a name and no alias.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>name</code> - the name of the command</dd>
-<dt>See Also:</dt>
-<dd>
-<ul class="tag-list-long">
-<li><a href="#%3Cinit%3E(java.lang.String,java.lang.String...)"><code>Command(String, String...)</code></a></li>
-</ul>
-</dd>
+<dd><code>names</code> - the name and aliases of the command</dd>
 </dl>
 </section>
 </li>
@@ -330,6 +298,23 @@ loadScripts(document, 'script');</script>
 <dd>
 <ul class="tag-list">
 <li><a href="#getCondition()"><code>getCondition()</code></a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="setPermission(net.minestom.server.permission.Permission)">
+<h3>setPermission</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPermission</span><wbr><span class="parameters">(<a href="../../permission/Permission.html" title="class in net.minestom.server.permission">Permission</a>&nbsp;permission)</span></div>
+<div class="block">Sets the <a href="condition/CommandCondition.html" title="interface in net.minestom.server.command.builder.condition"><code>CommandCondition</code></a> to a permission.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>permission</code> - the required permission</dd>
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><a href="#setPermission(net.minestom.server.permission.Permission)"><code>setPermission(Permission)</code></a></li>
 </ul>
 </dd>
 </dl>
