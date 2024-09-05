@@ -2064,9 +2064,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
             kick(Component.text("Too Many Packets", NamedTextColor.RED));
             return;
         }
-        final PacketListenerManager manager = MinecraftServer.getPacketListenerManager();
         // This method is NOT thread-safe
-        this.packets.drain(packet -> manager.processClientPacket(packet, playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
+        this.packets.drain(packet -> packet.handle(playerConnection), ServerFlag.PLAYER_PACKET_PER_TICK);
     }
 
     /**

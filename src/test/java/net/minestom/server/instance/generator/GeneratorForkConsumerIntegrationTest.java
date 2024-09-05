@@ -1,8 +1,8 @@
 package net.minestom.server.instance.generator;
 
 import net.minestom.server.coordinate.Point;
+import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.block.Block;
-import net.minestom.testing.Env;
 import net.minestom.testing.EnvTest;
 import org.junit.jupiter.api.Test;
 
