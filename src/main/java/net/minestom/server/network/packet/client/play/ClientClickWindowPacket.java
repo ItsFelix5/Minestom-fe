@@ -3,7 +3,6 @@ package net.minestom.server.network.packet.client.play;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.inventory.AbstractInventory;
-import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.PlayerInventory;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.NetworkBuffer;
@@ -66,7 +65,7 @@ public record ClientClickWindowPacket(byte windowId, int stateId,
             successful = player.getGameMode() == GameMode.CREATIVE;
             if (successful) {
                 if (inventory instanceof PlayerInventory playerInventory) playerInventory.setCursorItem(clickedItem);
-                else ((Inventory) inventory).setCursorItem(player, clickedItem);
+                else player.getInventory().getCursorItem();
             }
         } else if (clickType == ClickType.THROW) successful = inventory.drop(player, false, slot, button);
         else if (clickType == ClickType.QUICK_CRAFT) successful = inventory.dragging(player, slot, button);
@@ -74,14 +73,14 @@ public record ClientClickWindowPacket(byte windowId, int stateId,
 
         // Prevent ghost item when the click is cancelled
         if (!successful) {
-            player.getInventory().update();
-            if (inventory instanceof Inventory) ((Inventory) inventory).update(player);
+            ItemStack cursorItem = player.getInventory().getCursorItem();
+            player.sendPacket(SetSlotPacket.createCursorPacket(cursorItem));
         }
 
         // Prevent the player from picking a ghost item in cursor
         ItemStack cursorItem;
         if (inventory instanceof PlayerInventory playerInventory) cursorItem = playerInventory.getCursorItem();
-        else cursorItem = ((Inventory) inventory).getCursorItem(player);
+        else cursorItem = player.getInventory().getCursorItem();
 
         player.sendPacket(SetSlotPacket.createCursorPacket(cursorItem));
 

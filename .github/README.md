@@ -14,8 +14,6 @@ However, we have a complete API which is designed to allow you to make anything 
 
 This is a developer API not meant to be used by end-users. Replacing Bukkit/Forge/Sponge with this **will not work** since we do not implement any of their APIs.
 
-An example of how to use the Minestom-fe library is available [here](https://github.com/ItsFelix5/Minestom-fe-template).
-
 > [!WARNING]
 > `Minestom-fe` is a fork with breaking changes from [`Minestom/Minestom`](https://github.com/Minestom/Minestom). The most important changes can be found [here](./CHANGELOG.md).
 
