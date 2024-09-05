@@ -141,6 +141,11 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="col-first odd-row-color"><code>protected <a href="damage/Damage.html" title="class in net.minestom.server.entity.damage">Damage</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#lastDamage" class="member-name-link">lastDamage</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a><wbr>&lt;<a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#PROTECTED_MODIFIERS" class="member-name-link">PROTECTED_MODIFIERS</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">IDs of modifiers that are protected from removal by methods like <a href="attribute/AttributeInstance.html#clearModifiers()"><code>AttributeInstance.clearModifiers()</code></a>.</div>
+</div>
 </div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-net.minestom.server.entity.Entity">Fields inherited from class&nbsp;net.minestom.server.entity.<a href="Entity.html" title="class in net.minestom.server.entity">Entity</a></h3>
@@ -179,7 +184,7 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../thread/Acquirable.html" title="interface in net.minestom.server.thread">Acquirable</a><wbr>&lt;? extends <a href="LivingEntity.html" title="class in net.minestom.server.entity">LivingEntity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#acquirable()" class="member-name-link">acquirable</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Obtains an <a href="../thread/Acquirable.html" title="interface in net.minestom.server.thread"><code>Acquirable</code></a>.</div>
+<div class="block">Acquires this entity.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#canPickupItem()" class="member-name-link">canPickupItem</a>()</code></div>
@@ -205,20 +210,20 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves the attribute instance and its modifiers.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAttributeValue(net.minestom.server.entity.attribute.Attribute)" class="member-name-link">getAttributeValue</a><wbr>(@NotNull <a href="attribute/Attribute.html" title="interface in net.minestom.server.entity.attribute">Attribute</a>&nbsp;attribute)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull @UnmodifiableView <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a><wbr>&lt;<a href="attribute/AttributeInstance.html" title="class in net.minestom.server.entity.attribute">AttributeInstance</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAttributes()" class="member-name-link">getAttributes</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves all <a href="attribute/AttributeInstance.html" title="class in net.minestom.server.entity.attribute"><code>AttributeInstance</code></a>s on this entity.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAttributeValue(net.minestom.server.entity.attribute.Attribute)" class="member-name-link">getAttributeValue</a><wbr>(@NotNull <a href="attribute/Attribute.html" title="interface in net.minestom.server.entity.attribute">Attribute</a>&nbsp;attribute)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves the attribute value.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBoots()" class="member-name-link">getBoots</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the boots.</div>
-</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getChestplate()" class="member-name-link">getChestplate</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getEquipment(net.minestom.server.entity.EquipmentSlot)" class="member-name-link">getEquipment</a><wbr>(@NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the chestplate.</div>
+<div class="block">Gets the equipment in a specific slot.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFireTicks()" class="member-name-link">getFireTicks</a>()</code></div>
@@ -230,30 +235,10 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the entity health.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHelmet()" class="member-name-link">getHelmet</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="damage/Damage.html" title="class in net.minestom.server.entity.damage">Damage</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLastDamageSource()" class="member-name-link">getLastDamageSource</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the helmet.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemInMainHand()" class="member-name-link">getItemInMainHand</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a> in main hand.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getItemInOffHand()" class="member-name-link">getItemInOffHand</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a> in off hand.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="damage/Damage.html" title="class in net.minestom.server.entity.damage">Damage</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLastDamageSource()" class="member-name-link">getLastDamageSource</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the last damage source which damaged of this entity.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeggings()" class="member-name-link">getLeggings</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Gets the leggings.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>@Nullable <a href="metadata/LivingEntityMeta.html" title="class in net.minestom.server.entity.metadata">LivingEntityMeta</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLivingEntityMeta()" class="member-name-link">getLivingEntityMeta</a>()</code></div>
@@ -324,42 +309,31 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="block">Changes the amount of arrow stuck in the entity.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBoots(net.minestom.server.item.ItemStack)" class="member-name-link">setBoots</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBoundingBox(net.minestom.server.collision.BoundingBox)" class="member-name-link">setBoundingBox</a><wbr>(<a href="../collision/BoundingBox.html" title="class in net.minestom.server.collision">BoundingBox</a>&nbsp;boundingBox)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the boots.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBoundingBox(net.minestom.server.collision.BoundingBox)" class="member-name-link">setBoundingBox</a><wbr>(<a href="../collision/BoundingBox.html" title="class in net.minestom.server.collision">BoundingBox</a>&nbsp;boundingBox)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Changes the internal entity standing bounding box.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCanPickupItem(boolean)" class="member-name-link">setCanPickupItem</a><wbr>(boolean&nbsp;canPickupItem)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setCanPickupItem(boolean)" class="member-name-link">setCanPickupItem</a><wbr>(boolean&nbsp;canPickupItem)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">When set to false, the entity will not be able to pick <a href="ItemEntity.html" title="class in net.minestom.server.entity"><code>ItemEntity</code></a> on the ground.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setChestplate(net.minestom.server.item.ItemStack)" class="member-name-link">setChestplate</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the chestplate.</div>
-</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFireTicks(int)" class="member-name-link">setFireTicks</a><wbr>(int&nbsp;ticks)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setEquipment(net.minestom.server.entity.EquipmentSlot,net.minestom.server.item.ItemStack)" class="member-name-link">setEquipment</a><wbr>(@NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot,
+ @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFireTicks(int)" class="member-name-link">setFireTicks</a><wbr>(int&nbsp;ticks)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets this entity on fire for the given ticks.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFlyingWithElytra(boolean)" class="member-name-link">setFlyingWithElytra</a><wbr>(boolean&nbsp;isFlying)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHealth(float)" class="member-name-link">setHealth</a><wbr>(float&nbsp;health)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the entity health, kill it if <code>health</code> is &lt;= 0 and is not dead yet.</div>
-</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setFlyingWithElytra(boolean)" class="member-name-link">setFlyingWithElytra</a><wbr>(boolean&nbsp;isFlying)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHelmet(net.minestom.server.item.ItemStack)" class="member-name-link">setHelmet</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHealth(float)" class="member-name-link">setHealth</a><wbr>(float&nbsp;health)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the helmet.</div>
+<div class="block">Changes the entity health, kill it if <code>health</code> is &lt;= 0 and is not dead yet.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setInvulnerable(boolean)" class="member-name-link">setInvulnerable</a><wbr>(boolean&nbsp;invulnerable)</code></div>
@@ -367,65 +341,57 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="block">Makes the entity vulnerable or invulnerable.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setItemInMainHand(net.minestom.server.item.ItemStack)" class="member-name-link">setItemInMainHand</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSprinting(boolean)" class="member-name-link">setSprinting</a><wbr>(boolean&nbsp;sprinting)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the main hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a>.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setItemInOffHand(net.minestom.server.item.ItemStack)" class="member-name-link">setItemInOffHand</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the off hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a>.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setLeggings(net.minestom.server.item.ItemStack)" class="member-name-link">setLeggings</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Changes the leggings.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setSprinting(boolean)" class="member-name-link">setSprinting</a><wbr>(boolean&nbsp;sprinting)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Makes the entity sprint.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTeam(net.minestom.server.scoreboard.Team)" class="member-name-link">setTeam</a><wbr>(@Nullable <a href="../scoreboard/Team.html" title="class in net.minestom.server.scoreboard">Team</a>&nbsp;team)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setTeam(net.minestom.server.scoreboard.Team)" class="member-name-link">setTeam</a><wbr>(@Nullable <a href="../scoreboard/Team.html" title="class in net.minestom.server.scoreboard">Team</a>&nbsp;team)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Changes the <a href="../scoreboard/Team.html" title="class in net.minestom.server.scoreboard"><code>Team</code></a> for the entity.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingMainHand()" class="member-name-link">swingMainHand</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the main hand
- (can be used for attack animation).</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingMainHand(boolean)" class="member-name-link">swingMainHand</a><wbr>(boolean&nbsp;fromClient)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingMainHand()" class="member-name-link">swingMainHand</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the main hand
  (can be used for attack animation).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingOffHand()" class="member-name-link">swingOffHand</a>()</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingMainHand(boolean)" class="member-name-link">swingMainHand</a><wbr>(boolean&nbsp;fromClient)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the off hand
+<div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the main hand
  (can be used for attack animation).</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingOffHand(boolean)" class="member-name-link">swingOffHand</a><wbr>(boolean&nbsp;fromClient)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingOffHand()" class="member-name-link">swingOffHand</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the off hand
  (can be used for attack animation).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeKnockback(float,double,double)" class="member-name-link">takeKnockback</a><wbr>(float&nbsp;strength,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#swingOffHand(boolean)" class="member-name-link">swingOffHand</a><wbr>(boolean&nbsp;fromClient)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sends a <a href="../network/packet/server/play/EntityAnimationPacket.html" title="class in net.minestom.server.network.packet.server.play"><code>EntityAnimationPacket</code></a> to swing the off hand
+ (can be used for attack animation).</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeKnockback(float,double,double)" class="member-name-link">takeKnockback</a><wbr>(float&nbsp;strength,
  double&nbsp;x,
  double&nbsp;z)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Applies knockback</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(long)" class="member-name-link">update</a><wbr>(long&nbsp;time)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(long)" class="member-name-link">update</a><wbr>(long&nbsp;time)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Called each tick.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateEquipmentAttributes(net.minestom.server.item.ItemStack,net.minestom.server.item.ItemStack,net.minestom.server.entity.EquipmentSlot)" class="member-name-link">updateEquipmentAttributes</a><wbr>(@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;oldItemStack,
+ @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;newItemStack,
+ @NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates the current attributes of the living entity based on</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateNewViewer(net.minestom.server.entity.Player)" class="member-name-link">updateNewViewer</a><wbr>(@NotNull <a href="Player.html" title="class in net.minestom.server.entity">Player</a>&nbsp;player)</code></div>
@@ -443,7 +409,7 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minestom.server.inventory.EquipmentHandler">Methods inherited from interface&nbsp;net.minestom.server.inventory.<a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></h3>
-<code><a href="../inventory/EquipmentHandler.html#getEquipment(net.minestom.server.entity.EquipmentSlot)">getEquipment</a>, <a href="../inventory/EquipmentHandler.html#getEquipmentsPacket()">getEquipmentsPacket</a>, <a href="../inventory/EquipmentHandler.html#getItemInHand(net.minestom.server.entity.Player.Hand)">getItemInHand</a>, <a href="../inventory/EquipmentHandler.html#hasEquipment(net.minestom.server.entity.EquipmentSlot)">hasEquipment</a>, <a href="../inventory/EquipmentHandler.html#setEquipment(net.minestom.server.entity.EquipmentSlot,net.minestom.server.item.ItemStack)">setEquipment</a>, <a href="../inventory/EquipmentHandler.html#setItemInHand(net.minestom.server.entity.Player.Hand,net.minestom.server.item.ItemStack)">setItemInHand</a>, <a href="../inventory/EquipmentHandler.html#syncEquipment(net.minestom.server.entity.EquipmentSlot)">syncEquipment</a></code></div>
+<code><a href="../inventory/EquipmentHandler.html#getBodyEquipment()">getBodyEquipment</a>, <a href="../inventory/EquipmentHandler.html#getBoots()">getBoots</a>, <a href="../inventory/EquipmentHandler.html#getChestplate()">getChestplate</a>, <a href="../inventory/EquipmentHandler.html#getEquipmentsPacket()">getEquipmentsPacket</a>, <a href="../inventory/EquipmentHandler.html#getHelmet()">getHelmet</a>, <a href="../inventory/EquipmentHandler.html#getItemInHand(net.minestom.server.entity.Player.Hand)">getItemInHand</a>, <a href="../inventory/EquipmentHandler.html#getItemInMainHand()">getItemInMainHand</a>, <a href="../inventory/EquipmentHandler.html#getItemInOffHand()">getItemInOffHand</a>, <a href="../inventory/EquipmentHandler.html#getLeggings()">getLeggings</a>, <a href="../inventory/EquipmentHandler.html#hasEquipment(net.minestom.server.entity.EquipmentSlot)">hasEquipment</a>, <a href="../inventory/EquipmentHandler.html#setBodyEquipment(net.minestom.server.item.ItemStack)">setBodyEquipment</a>, <a href="../inventory/EquipmentHandler.html#setBoots(net.minestom.server.item.ItemStack)">setBoots</a>, <a href="../inventory/EquipmentHandler.html#setChestplate(net.minestom.server.item.ItemStack)">setChestplate</a>, <a href="../inventory/EquipmentHandler.html#setHelmet(net.minestom.server.item.ItemStack)">setHelmet</a>, <a href="../inventory/EquipmentHandler.html#setItemInHand(net.minestom.server.entity.Player.Hand,net.minestom.server.item.ItemStack)">setItemInHand</a>, <a href="../inventory/EquipmentHandler.html#setItemInMainHand(net.minestom.server.item.ItemStack)">setItemInMainHand</a>, <a href="../inventory/EquipmentHandler.html#setItemInOffHand(net.minestom.server.item.ItemStack)">setItemInOffHand</a>, <a href="../inventory/EquipmentHandler.html#setLeggings(net.minestom.server.item.ItemStack)">setLeggings</a>, <a href="../inventory/EquipmentHandler.html#syncEquipment(net.minestom.server.entity.EquipmentSlot)">syncEquipment</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.kyori.adventure.text.event.HoverEventSource">Methods inherited from interface&nbsp;net.kyori.adventure.text.event.<a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/event/HoverEventSource.html" title="class or interface in net.kyori.adventure.text.event" class="external-link">HoverEventSource</a></h3>
 <code><a href="https://jd.advntr.dev/api/4.17.0/net/kyori/adventure/text/event/HoverEventSource.html#asHoverEvent()" title="class or interface in net.kyori.adventure.text.event" class="external-link">asHoverEvent</a></code></div>
@@ -455,7 +421,7 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <code><a href="../collision/Shape.html#intersectEntity(net.minestom.server.coordinate.Point,net.minestom.server.entity.Entity)">intersectEntity</a>, <a href="../collision/Shape.html#isFaceFull(net.minestom.server.instance.block.BlockFace)">isFaceFull</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minestom.server.tag.Taggable">Methods inherited from interface&nbsp;net.minestom.server.tag.<a href="../tag/Taggable.html" title="interface in net.minestom.server.tag">Taggable</a></h3>
-<code><a href="../tag/Taggable.html#getTag(net.minestom.server.tag.Tag)">getTag</a>, <a href="../tag/Taggable.html#hasTag(net.minestom.server.tag.Tag)">hasTag</a>, <a href="../tag/Taggable.html#removeTag(net.minestom.server.tag.Tag)">removeTag</a>, <a href="../tag/Taggable.html#setTag(net.minestom.server.tag.Tag,T)">setTag</a></code></div>
+<code><a href="../tag/Taggable.html#getAndSetTag(net.minestom.server.tag.Tag,T)">getAndSetTag</a>, <a href="../tag/Taggable.html#getAndUpdateTag(net.minestom.server.tag.Tag,java.util.function.UnaryOperator)">getAndUpdateTag</a>, <a href="../tag/Taggable.html#getTag(net.minestom.server.tag.Tag)">getTag</a>, <a href="../tag/Taggable.html#hasTag(net.minestom.server.tag.Tag)">hasTag</a>, <a href="../tag/Taggable.html#removeTag(net.minestom.server.tag.Tag)">removeTag</a>, <a href="../tag/Taggable.html#setTag(net.minestom.server.tag.Tag,T)">setTag</a>, <a href="../tag/Taggable.html#updateAndGetTag(net.minestom.server.tag.Tag,java.util.function.UnaryOperator)">updateAndGetTag</a>, <a href="../tag/Taggable.html#updateTag(net.minestom.server.tag.Tag,java.util.function.UnaryOperator)">updateTag</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-net.minestom.server.Viewable">Methods inherited from interface&nbsp;net.minestom.server.<a href="../Viewable.html" title="interface in net.minestom.server">Viewable</a></h3>
 <code><a href="../Viewable.html#getViewersAsAudience()">getViewersAsAudience</a>, <a href="../Viewable.html#getViewersAsAudiences()">getViewersAsAudiences</a>, <a href="../Viewable.html#isViewer(net.minestom.server.entity.Player)">isViewer</a>, <a href="../Viewable.html#sendPacketsToViewers(java.util.Collection)">sendPacketsToViewers</a>, <a href="../Viewable.html#sendPacketsToViewers(net.minestom.server.network.packet.server.SendablePacket...)">sendPacketsToViewers</a>, <a href="../Viewable.html#sendPacketToViewers(net.minestom.server.network.packet.server.SendablePacket)">sendPacketToViewers</a>, <a href="../Viewable.html#sendPacketToViewersAndSelf(net.minestom.server.network.packet.server.SendablePacket)">sendPacketToViewersAndSelf</a></code></div>
@@ -470,6 +436,14 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <section class="field-details" id="field-detail">
 <h2>Field Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="PROTECTED_MODIFIERS">
+<h3>PROTECTED_MODIFIERS</h3>
+<div class="member-signature"><span class="annotations">@Internal
+</span><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../utils/NamespaceID.html" title="class in net.minestom.server.utils">NamespaceID</a>&gt;</span>&nbsp;<span class="element-name">PROTECTED_MODIFIERS</span></div>
+<div class="block">IDs of modifiers that are protected from removal by methods like <a href="attribute/AttributeInstance.html#clearModifiers()"><code>AttributeInstance.clearModifiers()</code></a>.</div>
+</section>
+</li>
 <li>
 <section class="detail" id="canPickupItem">
 <h3>canPickupItem</h3>
@@ -556,182 +530,52 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 </section>
 </li>
 <li>
-<section class="detail" id="getItemInMainHand()">
-<h3>getItemInMainHand</h3>
+<section class="detail" id="getEquipment(net.minestom.server.entity.EquipmentSlot)">
+<h3>getEquipment</h3>
 <div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getItemInMainHand</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getItemInMainHand()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a> in main hand.</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getEquipment</span><wbr><span class="parameters">(@NotNull
+ @NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getEquipment(net.minestom.server.entity.EquipmentSlot)">EquipmentHandler</a></code></span></div>
+<div class="block">Gets the equipment in a specific slot.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getItemInMainHand()">getItemInMainHand</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Returns:</dt>
-<dd>the <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a> in main hand</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setItemInMainHand(net.minestom.server.item.ItemStack)">
-<h3>setItemInMainHand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setItemInMainHand</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setItemInMainHand(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the main hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a>.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setItemInMainHand(net.minestom.server.item.ItemStack)">setItemInMainHand</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
+<dd><code><a href="../inventory/EquipmentHandler.html#getEquipment(net.minestom.server.entity.EquipmentSlot)">getEquipment</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>itemStack</code> - the main hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getItemInOffHand()">
-<h3>getItemInOffHand</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getItemInOffHand</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getItemInOffHand()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a> in off hand.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getItemInOffHand()">getItemInOffHand</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
+<dd><code>slot</code> - the equipment to get the item from</dd>
 <dt>Returns:</dt>
-<dd>the item in off hand</dd>
+<dd>the equipment <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="setItemInOffHand(net.minestom.server.item.ItemStack)">
-<h3>setItemInOffHand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setItemInOffHand</span><wbr><span class="parameters">(@NotNull
+<section class="detail" id="setEquipment(net.minestom.server.entity.EquipmentSlot,net.minestom.server.item.ItemStack)">
+<h3>setEquipment</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEquipment</span><wbr><span class="parameters">(@NotNull
+ @NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot,
+ @NotNull
  @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setItemInOffHand(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the off hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a>.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setItemInOffHand(net.minestom.server.item.ItemStack)">setItemInOffHand</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
+<dd><code><a href="../inventory/EquipmentHandler.html#setEquipment(net.minestom.server.entity.EquipmentSlot,net.minestom.server.item.ItemStack)">setEquipment</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateEquipmentAttributes(net.minestom.server.item.ItemStack,net.minestom.server.item.ItemStack,net.minestom.server.entity.EquipmentSlot)">
+<h3>updateEquipmentAttributes</h3>
+<div class="member-signature"><span class="annotations">@Internal
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">updateEquipmentAttributes</span><wbr><span class="parameters">(@NotNull
+ @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;oldItemStack,
+ @NotNull
+ @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;newItemStack,
+ @NotNull
+ @NotNull <a href="EquipmentSlot.html" title="enum class in net.minestom.server.entity">EquipmentSlot</a>&nbsp;slot)</span></div>
+<div class="block">Updates the current attributes of the living entity based on</div>
+<dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>itemStack</code> - the off hand <a href="../item/ItemStack.html" title="interface in net.minestom.server.item"><code>ItemStack</code></a></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getHelmet()">
-<h3>getHelmet</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getHelmet</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getHelmet()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the helmet.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getHelmet()">getHelmet</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Returns:</dt>
-<dd>the helmet</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setHelmet(net.minestom.server.item.ItemStack)">
-<h3>setHelmet</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setHelmet</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setHelmet(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the helmet.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setHelmet(net.minestom.server.item.ItemStack)">setHelmet</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>itemStack</code> - the helmet</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getChestplate()">
-<h3>getChestplate</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getChestplate</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getChestplate()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the chestplate.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getChestplate()">getChestplate</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Returns:</dt>
-<dd>the chestplate</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setChestplate(net.minestom.server.item.ItemStack)">
-<h3>setChestplate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setChestplate</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setChestplate(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the chestplate.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setChestplate(net.minestom.server.item.ItemStack)">setChestplate</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>itemStack</code> - the chestplate</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getLeggings()">
-<h3>getLeggings</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getLeggings</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getLeggings()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the leggings.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getLeggings()">getLeggings</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Returns:</dt>
-<dd>the leggings</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setLeggings(net.minestom.server.item.ItemStack)">
-<h3>setLeggings</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setLeggings</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setLeggings(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the leggings.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setLeggings(net.minestom.server.item.ItemStack)">setLeggings</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>itemStack</code> - the leggings</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getBoots()">
-<h3>getBoots</h3>
-<div class="member-signature"><span class="annotations">@NotNull
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a></span>&nbsp;<span class="element-name">getBoots</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#getBoots()">EquipmentHandler</a></code></span></div>
-<div class="block">Gets the boots.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#getBoots()">getBoots</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Returns:</dt>
-<dd>the boots</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="setBoots(net.minestom.server.item.ItemStack)">
-<h3>setBoots</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBoots</span><wbr><span class="parameters">(@NotNull
- @NotNull <a href="../item/ItemStack.html" title="interface in net.minestom.server.item">ItemStack</a>&nbsp;itemStack)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../inventory/EquipmentHandler.html#setBoots(net.minestom.server.item.ItemStack)">EquipmentHandler</a></code></span></div>
-<div class="block">Changes the boots.</div>
-<dl class="notes">
-<dt>Specified by:</dt>
-<dd><code><a href="../inventory/EquipmentHandler.html#setBoots(net.minestom.server.item.ItemStack)">setBoots</a></code>&nbsp;in interface&nbsp;<code><a href="../inventory/EquipmentHandler.html" title="interface in net.minestom.server.inventory">EquipmentHandler</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>itemStack</code> - the boots</dd>
+<dd><code>oldItemStack</code> - The ItemStack that has been removed, modifiers on this stack will be removed from the entity</dd>
+<dd><code>newItemStack</code> - The ItemStack that has been added, modifiers on this stack will be added to the entity</dd>
+<dd><code>slot</code> - The slot that changed, this will determine what modifiers are actually changed</dd>
 </dl>
 </section>
 </li>
@@ -913,6 +757,18 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <dd><code>attribute</code> - the attribute instance to get</dd>
 <dt>Returns:</dt>
 <dd>the attribute instance</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getAttributes()">
+<h3>getAttributes</h3>
+<div class="member-signature"><span class="annotations">@NotNull
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull @UnmodifiableView <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="attribute/AttributeInstance.html" title="class in net.minestom.server.entity.attribute">AttributeInstance</a>&gt;</span>&nbsp;<span class="element-name">getAttributes</span>()</div>
+<div class="block">Retrieves all <a href="attribute/AttributeInstance.html" title="class in net.minestom.server.entity.attribute"><code>AttributeInstance</code></a>s on this entity.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a collection of all attribute instances on this entity</dd>
 </dl>
 </section>
 </li>
@@ -1168,17 +1024,15 @@ implements <a href="../inventory/EquipmentHandler.html" title="interface in net.
 <div class="member-signature"><span class="annotations">@Experimental
 @NotNull
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">@NotNull <a href="../thread/Acquirable.html" title="interface in net.minestom.server.thread">Acquirable</a>&lt;? extends <a href="LivingEntity.html" title="class in net.minestom.server.entity">LivingEntity</a>&gt;</span>&nbsp;<span class="element-name">acquirable</span>()</div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="../thread/AcquirableSource.html#acquirable()">AcquirableSource</a></code></span></div>
-<div class="block">Obtains an <a href="../thread/Acquirable.html" title="interface in net.minestom.server.thread"><code>Acquirable</code></a>. To safely perform operations on this object, the user must call
- <a href="../thread/Acquirable.html#sync(java.util.function.Consumer)"><code>Acquirable.sync(Consumer)</code></a>, <a href="../thread/Acquirable.html#async(java.util.function.Consumer)"><code>Acquirable.async(Consumer)</code></a>, or <a href="../thread/Acquirable.html#lock()"><code>Acquirable.lock()</code></a> (followed by
- a subsequent unlock) on the Acquirable instance.</div>
+<div class="block"><span class="description-from-type-label">Description copied from class:&nbsp;<code><a href="Entity.html#acquirable()">Entity</a></code></span></div>
+<div class="block">Acquires this entity.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../thread/AcquirableSource.html#acquirable()">acquirable</a></code>&nbsp;in interface&nbsp;<code><a href="../thread/AcquirableSource.html" title="interface in net.minestom.server.thread">AcquirableSource</a>&lt;<a href="Entity.html" title="class in net.minestom.server.entity">Entity</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="Entity.html#acquirable()">acquirable</a></code>&nbsp;in class&nbsp;<code><a href="Entity.html" title="class in net.minestom.server.entity">Entity</a></code></dd>
 <dt>Returns:</dt>
-<dd>an Acquirable which can be used to synchronize access to this object</dd>
+<dd>the acquirable for this entity</dd>
 </dl>
 </section>
 </li>

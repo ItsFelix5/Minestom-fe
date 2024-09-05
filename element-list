@@ -90,12 +90,10 @@ net.minestom.server.inventory.condition
 net.minestom.server.inventory.type
 net.minestom.server.item
 net.minestom.server.item.armor
-net.minestom.server.item.attribute
 net.minestom.server.item.book
 net.minestom.server.item.component
 net.minestom.server.item.crossbow
 net.minestom.server.item.enchant
-net.minestom.server.listener.common
 net.minestom.server.map
 net.minestom.server.map.framebuffers
 net.minestom.server.message
@@ -138,7 +136,6 @@ net.minestom.server.utils.callback
 net.minestom.server.utils.chunk
 net.minestom.server.utils.collection
 net.minestom.server.utils.crypto
-net.minestom.server.utils.debug
 net.minestom.server.utils.entity
 net.minestom.server.utils.function
 net.minestom.server.utils.identity
@@ -147,7 +144,6 @@ net.minestom.server.utils.location
 net.minestom.server.utils.math
 net.minestom.server.utils.mojang
 net.minestom.server.utils.nbt
-net.minestom.server.utils.player
 net.minestom.server.utils.position
 net.minestom.server.utils.time
 net.minestom.server.utils.url
