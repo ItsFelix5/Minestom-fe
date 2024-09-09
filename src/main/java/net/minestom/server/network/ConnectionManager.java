@@ -312,6 +312,7 @@ public final class ConnectionManager {
             keepAlivePlayers.remove(player);
             player.setPendingInstance(spawningInstance);
             player.sendPacket(new FinishConfigurationPacket());
+            MinecraftServer.LOGGER.debug("{} joined the server.", player.getUsername());
         });
     }
 

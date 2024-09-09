@@ -232,7 +232,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         // Allow the server to send the next keep alive packet
         refreshAnswerKeepAlive(true);
 
-        this.gameMode = GameMode.SURVIVAL;
+        this.gameMode = ServerSettings.getDefaultGamemode();
         this.dimensionTypeId = DIMENSION_TYPE_REGISTRY.getId(DimensionType.OVERWORLD); // Default dimension
         this.levelFlat = true;
         getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.1);
@@ -1585,32 +1585,27 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
                 this.allowFlying = true;
                 this.instantBreak = true;
                 this.invulnerable = true;
+                this.canPickupItem = true;
             }
             case SPECTATOR -> {
                 this.allowFlying = true;
                 this.instantBreak = false;
                 this.invulnerable = true;
-                if (isActive()) {
-                    refreshFlying(true);
-                } else {
-                    this.flying = true;
-                }
+                if (isActive()) refreshFlying(true);
+                else this.flying = true;
+                this.canPickupItem = false;
             }
             default -> {
                 this.allowFlying = false;
                 this.instantBreak = false;
                 this.invulnerable = false;
-                if (isActive()) {
-                    refreshFlying(false);
-                } else {
-                    this.flying = false;
-                }
+                if (isActive()) refreshFlying(false);
+                else this.flying = false;
+                this.canPickupItem = true;
             }
         }
         // Make sure that the player is in the PLAY state and synchronize their flight speed.
-        if (isActive()) {
-            refreshAbilities();
-        }
+        if (isActive()) refreshAbilities();
 
         return true;
     }

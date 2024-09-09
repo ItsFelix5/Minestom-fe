@@ -1,5 +1,9 @@
 package net.minestom.server;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.minestom.server.entity.GameMode;
+import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.network.packet.server.common.PluginMessagePacket;
 import net.minestom.server.network.packet.server.play.ChangeGameStatePacket;
@@ -8,13 +12,26 @@ import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.world.Difficulty;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Function;
+
 public class ServerSettings {
     private static String brandName = "Minestom";
     private static Difficulty difficulty = Difficulty.NORMAL;
+    private static GameMode defaultGamemode = GameMode.SURVIVAL;
     private static boolean hardcore = false;
     private static boolean reducedDebugScreen = false;
     private static boolean respawnScreen = true;
     private static Instance defaultInstance;
+    private static Function<PlayerChatEvent, Component> chatFormat = (e) -> {
+        final String username = e.getPlayer().getUsername();
+        return Component.translatable("chat.type.text")
+                .arguments(Component.text(username)
+                                .insertion(username)
+                                .clickEvent(ClickEvent.suggestCommand("/msg " + username + " "))
+                                .hoverEvent(e.getPlayer()),
+                        Component.text(e.getMessage())
+                );
+    };
 
     /**
      * Gets the current server brand name.
@@ -38,7 +55,7 @@ public class ServerSettings {
     }
 
     /**
-     * Gets the server difficulty showed in game option.
+     * Gets the server difficulty showed in game options.
      *
      * @return the server difficulty
      */
@@ -55,6 +72,25 @@ public class ServerSettings {
     public static void setDifficulty(@NotNull Difficulty difficulty) {
         ServerSettings.difficulty = difficulty;
         PacketUtils.broadcastPlayPacket(new ServerDifficultyPacket(difficulty, true));
+    }
+
+    /**
+     * Gets the default gamemode.
+     *
+     * @return the default gamemode
+     */
+    @NotNull
+    public static GameMode getDefaultGamemode() {
+        return defaultGamemode;
+    }
+
+    /**
+     * Changes the default gamemode.
+     *
+     * @param defaultGamemode the new default gamemode
+     */
+    public static void setDefaultGamemode(@NotNull GameMode defaultGamemode) {
+        ServerSettings.defaultGamemode = defaultGamemode;
     }
 
     /**
@@ -130,5 +166,24 @@ public class ServerSettings {
      */
     public static Instance getDefaultInstance() {
         return defaultInstance;
+    }
+
+    /**
+     * Gets the chat format.
+     *
+     * @return the chat format
+     */
+    @NotNull
+    public static Function<PlayerChatEvent, Component> getChatFormat() {
+        return chatFormat;
+    }
+
+    /**
+     * Changes the format in witch chat messages are displayed.
+     *
+     * @param chatFormat the new chat format
+     */
+    public static void setChatFormat(@NotNull Function<PlayerChatEvent, Component> chatFormat) {
+        ServerSettings.chatFormat = chatFormat;
     }
 }

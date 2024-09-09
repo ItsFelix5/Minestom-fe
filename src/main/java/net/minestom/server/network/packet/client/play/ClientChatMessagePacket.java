@@ -1,7 +1,6 @@
 package net.minestom.server.network.packet.client.play;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.ClickEvent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventDispatcher;
@@ -48,16 +47,7 @@ public record ClientChatMessagePacket(String message, long timestamp,
         }
 
         final Collection<Player> players = MinecraftServer.getConnectionManager().getOnlinePlayers();
-        PlayerChatEvent playerChatEvent = new PlayerChatEvent(player, players, (e) -> {
-            final String username = e.getPlayer().getUsername();
-            return Component.translatable("chat.type.text")
-                    .arguments(Component.text(username)
-                                    .insertion(username)
-                                    .clickEvent(ClickEvent.suggestCommand("/msg " + username + " "))
-                                    .hoverEvent(e.getPlayer()),
-                            Component.text(e.getMessage())
-                    );
-        }, message);
+        PlayerChatEvent playerChatEvent = new PlayerChatEvent(player, players, message);
 
         // Call the event
         EventDispatcher.callCancellable(playerChatEvent, () -> {
@@ -68,6 +58,7 @@ public record ClientChatMessagePacket(String message, long timestamp,
             if (!recipients.isEmpty()) {
                 // delegate to the messenger to avoid sending messages we shouldn't be
                 Messenger.sendMessage(recipients, textObject, ChatPosition.CHAT, player.getUuid());
+                MinecraftServer.LOGGER.debug("<{}> {}", player.getUsername(), player);
             }
         });
     }

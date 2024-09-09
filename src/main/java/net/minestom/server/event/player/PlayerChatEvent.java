@@ -1,6 +1,7 @@
 package net.minestom.server.event.player;
 
 import net.kyori.adventure.text.Component;
+import net.minestom.server.ServerSettings;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.trait.CancellableEvent;
 import net.minestom.server.event.trait.PlayerInstanceEvent;
@@ -24,11 +25,10 @@ public class PlayerChatEvent implements PlayerInstanceEvent, CancellableEvent {
     private boolean cancelled;
 
     public PlayerChatEvent(@NotNull Player player, @NotNull Collection<Player> recipients,
-                           @NotNull Function<PlayerChatEvent, Component> defaultChatFormat,
                            @NotNull String message) {
         this.player = player;
         this.recipients = new ArrayList<>(recipients);
-        this.chatFormat = defaultChatFormat;
+        this.chatFormat = ServerSettings.getChatFormat();
         this.message = message;
     }
 

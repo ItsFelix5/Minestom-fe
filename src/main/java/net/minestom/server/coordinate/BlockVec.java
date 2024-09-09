@@ -8,12 +8,10 @@ import java.util.function.DoubleUnaryOperator;
 
 /**
  * Represents an immutable block position.
- * <p>
- * Usage note: If you accept a block position as an argument to a method,
- * it's usually better to accept a Point rather than a BlockVec to avoid
- * callers continually having to convert.
  */
 public record BlockVec(double x, double y, double z) implements Point {
+    public static final BlockVec ZERO = new BlockVec(0, 0, 0);
+
     public BlockVec {
         x = Math.floor(x);
         y = Math.floor(y);

@@ -119,7 +119,9 @@ public abstract class PlayerConnection {
         this.online = false;
         MinecraftServer.getConnectionManager().removePlayer(this);
         final Player player = getPlayer();
-        if (player != null && !player.isRemoved()) Scheduler.scheduleNextTick(player::remove);
+        if (player == null || player.isRemoved()) return;
+        MinecraftServer.LOGGER.debug("{} left the server.", player.getUsername());
+        Scheduler.scheduleNextTick(player::remove);
     }
 
     /**
