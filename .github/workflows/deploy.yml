@@ -1,4 +1,4 @@
-name: Build and deploy Minestom-fe and Javadocs
+name: Build, test and deploy Minestom-fe and Javadocs
 
 on:
   push:
@@ -21,6 +21,8 @@ jobs:
         run: chmod +x gradlew
       - name: Build javadoc
         run: ./gradlew javadoc
+      - name: Run tests
+        run: ./gradlew test
 
       - name: Deploy javadoc to its assigned branch
         uses: s0/git-publish-subdir-action@develop
